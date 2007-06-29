@@ -86,8 +86,6 @@
  * 17-May-2007 : Set datasetIndex and seriesIndex in getLegendItem() (DG);
  * 18-May-2007 : Set dataset and seriesKey for LegendItem (DG);
  * 15-Jun-2007 : Changed default for drawBarOutline to false (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 27-Jun-2007 : Updated drawItem() to use addEntity() (DG);
  *
  */
 
@@ -109,27 +107,29 @@ import java.io.Serializable;
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
+import org.jfree.chart.entity.XYItemEntity;
 import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.labels.ItemLabelAnchor;
 import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.labels.XYItemLabelGenerator;
 import org.jfree.chart.labels.XYSeriesLabelGenerator;
+import org.jfree.chart.labels.XYToolTipGenerator;
 import org.jfree.chart.plot.CrosshairState;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.text.TextUtilities;
-import org.jfree.chart.util.GradientPaintTransformer;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.ShapeUtilities;
-import org.jfree.chart.util.StandardGradientPaintTransformer;
 import org.jfree.data.Range;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.text.TextUtilities;
+import org.jfree.ui.GradientPaintTransformer;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.StandardGradientPaintTransformer;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
+import org.jfree.util.ShapeUtilities;
 
 /**
  * A renderer that draws bars on an {@link XYPlot} (requires an 
@@ -692,9 +692,24 @@ public class XYBarRenderer extends AbstractXYItemRenderer
         updateCrosshairValues(crosshairState, x1, y1, domainAxisIndex, 
                 rangeAxisIndex, transX1, transY1, plot.getOrientation());
 
-        EntityCollection entities = state.getEntityCollection();
-        if (entities != null) {
-            addEntity(entities, bar, dataset, series, item, 0.0, 0.0);
+        // add an entity for the item...
+        if (info != null) {
+            EntityCollection entities = info.getOwner().getEntityCollection();
+            if (entities != null) {
+                String tip = null;
+                XYToolTipGenerator generator = getToolTipGenerator(series, 
+                        item);
+                if (generator != null) {
+                    tip = generator.generateToolTip(dataset, series, item);
+                }
+                String url = null;
+                if (getURLGenerator() != null) {
+                    url = getURLGenerator().generateURL(dataset, series, item);
+                }
+                XYItemEntity entity = new XYItemEntity(bar, dataset, series, 
+                        item, tip, url);
+                entities.add(entity);
+            }
         }
 
     }

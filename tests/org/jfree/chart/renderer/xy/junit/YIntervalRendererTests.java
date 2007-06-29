@@ -65,9 +65,9 @@ import org.jfree.chart.labels.StandardXYToolTipGenerator;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.YIntervalRenderer;
 import org.jfree.chart.urls.StandardXYURLGenerator;
-import org.jfree.chart.util.Layer;
 import org.jfree.data.xy.YIntervalSeries;
 import org.jfree.data.xy.YIntervalSeriesCollection;
+import org.jfree.ui.Layer;
 
 /**
  * Tests for the {@link YIntervalRenderer} class.
@@ -101,6 +101,11 @@ public class YIntervalRendererTests extends TestCase {
         assertEquals(r1, r2);
         
         // the following fields are inherited from the AbstractXYItemRenderer
+        r1.setItemLabelGenerator(new StandardXYItemLabelGenerator());
+        assertFalse(r1.equals(r2));
+        r2.setItemLabelGenerator(new StandardXYItemLabelGenerator());
+        assertTrue(r1.equals(r2));
+        
         r1.setSeriesItemLabelGenerator(0, new StandardXYItemLabelGenerator());
         assertFalse(r1.equals(r2));
         r2.setSeriesItemLabelGenerator(0, new StandardXYItemLabelGenerator());
@@ -109,6 +114,11 @@ public class YIntervalRendererTests extends TestCase {
         r1.setBaseItemLabelGenerator(new StandardXYItemLabelGenerator());
         assertFalse(r1.equals(r2));
         r2.setBaseItemLabelGenerator(new StandardXYItemLabelGenerator());
+        assertTrue(r1.equals(r2));
+        
+        r1.setToolTipGenerator(new StandardXYToolTipGenerator());
+        assertFalse(r1.equals(r2));
+        r2.setToolTipGenerator(new StandardXYToolTipGenerator());
         assertTrue(r1.equals(r2));
         
         r1.setSeriesToolTipGenerator(0, new StandardXYToolTipGenerator());
@@ -121,14 +131,9 @@ public class YIntervalRendererTests extends TestCase {
         r2.setBaseToolTipGenerator(new StandardXYToolTipGenerator());
         assertTrue(r1.equals(r2));
         
-        r1.setSeriesURLGenerator(0, new StandardXYURLGenerator());
+        r1.setURLGenerator(new StandardXYURLGenerator());
         assertFalse(r1.equals(r2));
-        r2.setSeriesURLGenerator(0, new StandardXYURLGenerator());
-        assertTrue(r1.equals(r2));
-        
-        r1.setBaseURLGenerator(new StandardXYURLGenerator());
-        assertFalse(r1.equals(r2));
-        r2.setBaseURLGenerator(new StandardXYURLGenerator());
+        r2.setURLGenerator(new StandardXYURLGenerator());
         assertTrue(r1.equals(r2));
         
         r1.addAnnotation(new XYTextAnnotation("X", 1.0, 2.0), Layer.FOREGROUND);

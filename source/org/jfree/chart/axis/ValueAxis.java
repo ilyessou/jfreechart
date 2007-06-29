@@ -97,7 +97,6 @@
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 10-Oct-2006 : Source reformatting (DG);
  * 22-Mar-2007 : Added new defaultAutoRange attribute (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -121,13 +120,13 @@ import java.util.List;
 
 import org.jfree.chart.event.AxisChangeEvent;
 import org.jfree.chart.plot.Plot;
-import org.jfree.chart.text.TextUtilities;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.Range;
+import org.jfree.io.SerialUtilities;
+import org.jfree.text.TextUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * The base class for axes that display value data, where values are measured 
@@ -158,6 +157,22 @@ public abstract class ValueAxis extends Axis
 
     /** The default value for the upper margin (0.05 = 5%). */
     public static final double DEFAULT_UPPER_MARGIN = 0.05;
+
+    /** 
+     * The default lower bound for the axis.
+     * 
+     * @deprecated From 1.0.5 onwards, the axis defines a defaultRange 
+     *     attribute (see {@link #getDefaultAutoRange()}).
+     */
+    public static final double DEFAULT_LOWER_BOUND = 0.0;
+
+    /** 
+     * The default upper bound for the axis. 
+     * 
+     * @deprecated From 1.0.5 onwards, the axis defines a defaultRange 
+     *     attribute (see {@link #getDefaultAutoRange()}).
+     */
+    public static final double DEFAULT_UPPER_BOUND = 1.0;
 
     /** The default auto-tick-unit-selection value. */
     public static final boolean DEFAULT_AUTO_TICK_UNIT_SELECTION = true;
@@ -1019,7 +1034,6 @@ public abstract class ValueAxis extends Axis
      * @return The default auto range (never <code>null</code>).
      * 
      * @see #setDefaultAutoRange(Range)
-     * 
      * @since 1.0.5
      */
     public Range getDefaultAutoRange() {

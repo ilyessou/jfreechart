@@ -62,7 +62,6 @@
  * 18-May-2007 : Set dataset and seriesKey for LegendItem (DG);
  * 08-Jun-2007 : Fix for bug 1731912 where entities are created even for data
  *               items that are not displayed (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -88,13 +87,14 @@ import org.jfree.chart.plot.CrosshairState;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.util.BooleanList;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.ShapeUtilities;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.BooleanList;
+import org.jfree.util.BooleanUtilities;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
+import org.jfree.util.ShapeUtilities;
 
 /**
  * A renderer that connects data points with lines and/or draws shapes at each
@@ -307,7 +307,8 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @see #getLinesVisible()
      */
     public void setLinesVisible(boolean visible) {
-        setLinesVisible(Boolean.valueOf(visible));
+        // we use BooleanUtilities here to preserve JRE 1.3.1 compatibility
+        setLinesVisible(BooleanUtilities.valueOf(visible));
     }
 
     /**
@@ -348,7 +349,7 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @see #getSeriesLinesVisible(int)
      */
     public void setSeriesLinesVisible(int series, boolean visible) {
-        setSeriesLinesVisible(series, Boolean.valueOf(visible));
+        setSeriesLinesVisible(series, BooleanUtilities.valueOf(visible));
     }
     
     /**
@@ -464,7 +465,7 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @see #getShapesVisible()
      */
     public void setShapesVisible(boolean visible) {
-        setShapesVisible(Boolean.valueOf(visible));
+        setShapesVisible(BooleanUtilities.valueOf(visible));
     }
 
     /**
@@ -491,7 +492,7 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @see #getSeriesShapesVisible(int)
      */
     public void setSeriesShapesVisible(int series, boolean visible) {
-        setSeriesShapesVisible(series, Boolean.valueOf(visible));
+        setSeriesShapesVisible(series, BooleanUtilities.valueOf(visible));
     }
     
     /**
@@ -569,7 +570,7 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @param filled  the flag.
      */
     public void setShapesFilled(boolean filled) {
-        setShapesFilled(Boolean.valueOf(filled));
+        setShapesFilled(BooleanUtilities.valueOf(filled));
     }
 
     /**
@@ -607,7 +608,7 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @see #getSeriesShapesFilled(int)
      */
     public void setSeriesShapesFilled(int series, boolean flag) {
-        setSeriesShapesFilled(series, Boolean.valueOf(flag));
+        setSeriesShapesFilled(series, BooleanUtilities.valueOf(flag));
     }
 
     /**

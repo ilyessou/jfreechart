@@ -44,7 +44,6 @@
  * 05-Feb-2007 : Added testAddDomainMarker() and testAddRangeMarker() (DG);
  * 07-Feb-2007 : Added test1654215() (DG);
  * 24-May-2007 : Added testDrawSeriesWithZeroItems() (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -76,8 +75,10 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.LegendItemCollection;
 import org.jfree.chart.annotations.XYTextAnnotation;
 import org.jfree.chart.axis.AxisLocation;
+import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.event.MarkerChangeListener;
+import org.jfree.chart.labels.StandardXYToolTipGenerator;
 import org.jfree.chart.plot.IntervalMarker;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.PlotOrientation;
@@ -88,10 +89,7 @@ import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.util.Layer;
-import org.jfree.chart.util.RectangleInsets;
 import org.jfree.data.time.Day;
-import org.jfree.data.time.MonthConstants;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.DefaultXYDataset;
@@ -99,6 +97,9 @@ import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.date.MonthConstants;
+import org.jfree.ui.Layer;
+import org.jfree.ui.RectangleInsets;
 
 /**
  * Tests for the {@link XYPlot} class.
@@ -518,6 +519,16 @@ public class XYPlotTests extends TestCase {
         assertFalse(p1.equals(p2));
         p2.mapDatasetToRangeAxis(2, 1);
         assertTrue(p1.equals(p2));
+
+        p1.getRenderer().setOutlinePaint(Color.cyan);
+        assertFalse(p1.equals(p2));
+        p2.getRenderer().setOutlinePaint(Color.cyan);
+        assertTrue(p1.equals(p2));
+        
+        p1.getRenderer(1).setOutlinePaint(Color.red);
+        assertFalse(p1.equals(p2));
+        p2.getRenderer(1).setOutlinePaint(Color.red);
+        assertTrue(p1.equals(p2));
         
     }
     
@@ -548,6 +559,39 @@ public class XYPlotTests extends TestCase {
         NumberAxis rangeAxis = new NumberAxis("Range");
         StandardXYItemRenderer renderer = new StandardXYItemRenderer();
         XYPlot p1 = new XYPlot(data, domainAxis, rangeAxis, renderer);
+        XYPlot p2 = null;
+
+        try {
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            ObjectOutput out = new ObjectOutputStream(buffer);
+            out.writeObject(p1);
+            out.close();
+
+            ObjectInput in = new ObjectInputStream(
+                new ByteArrayInputStream(buffer.toByteArray())
+            );
+            p2 = (XYPlot) in.readObject();
+            in.close();
+        }
+        catch (Exception e) {
+            fail(e.toString());
+        }
+        assertEquals(p1, p2);
+
+    }
+
+    /**
+     * Serialize an instance, restore it, and check for equality.  This test 
+     * uses a {@link DateAxis} and a {@link StandardXYToolTipGenerator}.
+     */
+    public void testSerialization2() {
+
+        IntervalXYDataset data1 = createDataset1();
+        XYItemRenderer renderer1 = new XYBarRenderer(0.20);
+        renderer1.setToolTipGenerator(
+            StandardXYToolTipGenerator.getTimeSeriesInstance()
+        );
+        XYPlot p1 = new XYPlot(data1, new DateAxis("Date"), null, renderer1);
         XYPlot p2 = null;
 
         try {

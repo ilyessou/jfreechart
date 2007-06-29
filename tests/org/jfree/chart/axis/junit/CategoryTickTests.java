@@ -2,7 +2,7 @@
  * JFreeChart : a free chart library for the Java(tm) platform
  * ===========================================================
  *
- * (C) Copyright 2000-2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2000-2005, by Object Refinery Limited and Contributors.
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
@@ -27,7 +27,7 @@
  * ----------------------
  * CategoryTickTests.java
  * ----------------------
- * (C) Copyright 2004-2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2004, 2005, by Object Refinery Limited and Contributors.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   -;
@@ -38,7 +38,6 @@
  * -------
  * 13-May-2004 : Version 1 (DG);
  * 07-Jan-2005 : Added test for hashCode() (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -56,10 +55,10 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.jfree.chart.axis.CategoryTick;
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.text.TextBlock;
-import org.jfree.chart.text.TextBlockAnchor;
-import org.jfree.chart.text.TextLine;
+import org.jfree.text.TextBlock;
+import org.jfree.text.TextBlockAnchor;
+import org.jfree.text.TextLine;
+import org.jfree.ui.TextAnchor;
 
 /**
  * Tests for the {@link CategoryTick} class.

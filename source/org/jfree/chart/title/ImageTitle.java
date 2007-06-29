@@ -52,7 +52,6 @@
  * 20-Apr-2005 : Added new draw() method (DG);   
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 02-Feb-2007 : Removed author tags all over JFreeChart sources (DG);
- * 20-Jun-2007 : Removed JCommon dependency (DG);
  * 
  */
 
@@ -63,11 +62,11 @@ import java.awt.Image;
 import java.awt.geom.Rectangle2D;
 
 import org.jfree.chart.event.TitleChangeEvent;
-import org.jfree.chart.util.HorizontalAlignment;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.Size2D;
-import org.jfree.chart.util.VerticalAlignment;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.Size2D;
+import org.jfree.ui.VerticalAlignment;
 
 /**
  * A chart title that displays an image.  This is useful, for example, if you

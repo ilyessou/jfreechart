@@ -50,6 +50,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.jfree.data.DomainOrder;
 import org.jfree.data.KeyToGroupMap;
 import org.jfree.data.Range;
 import org.jfree.data.category.CategoryDataset;
@@ -58,6 +59,7 @@ import org.jfree.data.general.DatasetUtilities;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.data.xy.DefaultTableXYDataset;
+import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.TableXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;

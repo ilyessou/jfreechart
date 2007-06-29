@@ -2,7 +2,7 @@
  * JFreeChart : a free chart library for the Java(tm) platform
  * ===========================================================
  *
- * (C) Copyright 2000-2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2000-2006, by Object Refinery Limited and Contributors.
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
@@ -27,7 +27,7 @@
  * --------------------------------------
  * AbstractCategoryItemRendererTests.java
  * --------------------------------------
- * (C) Copyright 2004-2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2004, 2006, by Object Refinery Limited and Contributors.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   -;
@@ -39,8 +39,7 @@
  * 12-Feb-2004 : Version 1 (DG);
  * 24-Nov-2006 : New cloning tests (DG);
  * 07-Dec-2006 : Added testEquals() method (DG);
- * 26-Jun-2007 : Added testGetSeriesItemLabelGenerator() and 
- *               testGetSeriesURLGenerator() (DG);
+ * 
  */
 
 package org.jfree.chart.renderer.category.junit;
@@ -57,7 +56,6 @@ import org.jfree.chart.labels.StandardCategorySeriesLabelGenerator;
 import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
 import org.jfree.chart.renderer.category.AbstractCategoryItemRenderer;
 import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.urls.StandardCategoryURLGenerator;
 
 /**
@@ -84,6 +82,12 @@ public class AbstractCategoryItemRendererTests extends TestCase {
         
         // the plot field is NOT tested
         
+        // toolTipGenerator
+        r1.setToolTipGenerator(new StandardCategoryToolTipGenerator());
+        assertFalse(r1.equals(r2));
+        r2.setToolTipGenerator(new StandardCategoryToolTipGenerator());
+        assertTrue(r1.equals(r2));
+        
         // toolTipGeneratorList
         r1.setSeriesToolTipGenerator(1, new StandardCategoryToolTipGenerator());
         assertFalse(r1.equals(r2));
@@ -96,6 +100,12 @@ public class AbstractCategoryItemRendererTests extends TestCase {
         assertFalse(r1.equals(r2));
         r2.setBaseToolTipGenerator(new StandardCategoryToolTipGenerator("{2}", 
                 NumberFormat.getInstance()));
+        assertTrue(r1.equals(r2));
+
+        // itemLabelGenerator
+        r1.setItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+        assertFalse(r1.equals(r2));
+        r2.setItemLabelGenerator(new StandardCategoryItemLabelGenerator());
         assertTrue(r1.equals(r2));
         
         // itemLabelGeneratorList
@@ -113,18 +123,24 @@ public class AbstractCategoryItemRendererTests extends TestCase {
         r2.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator(
                 "{2}", NumberFormat.getInstance()));
         assertTrue(r1.equals(r2));
+    
+        // urlGenerator
+        r1.setItemURLGenerator(new StandardCategoryURLGenerator());
+        assertFalse(r1.equals(r2));
+        r2.setItemURLGenerator(new StandardCategoryURLGenerator());
+        assertTrue(r1.equals(r2));
         
         // urlGeneratorList
-        r1.setSeriesURLGenerator(1, new StandardCategoryURLGenerator());
+        r1.setSeriesItemURLGenerator(1, new StandardCategoryURLGenerator());
         assertFalse(r1.equals(r2));
-        r2.setSeriesURLGenerator(1, new StandardCategoryURLGenerator());
+        r2.setSeriesItemURLGenerator(1, new StandardCategoryURLGenerator());
         assertTrue(r1.equals(r2));
         
         // baseItemURLGenerator
-        r1.setBaseURLGenerator(new StandardCategoryURLGenerator(
+        r1.setBaseItemURLGenerator(new StandardCategoryURLGenerator(
                 "abc.html"));
         assertFalse(r1.equals(r2));
-        r2.setBaseURLGenerator(new StandardCategoryURLGenerator(
+        r2.setBaseItemURLGenerator(new StandardCategoryURLGenerator(
                 "abc.html"));
         assertTrue(r1.equals(r2));
         
@@ -158,7 +174,7 @@ public class AbstractCategoryItemRendererTests extends TestCase {
      */
     public void testCloning1() {
         AbstractCategoryItemRenderer r1 = new BarRenderer();
-        r1.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+        r1.setItemLabelGenerator(new StandardCategoryItemLabelGenerator());
         AbstractCategoryItemRenderer r2 = null;
         try {
             r2 = (BarRenderer) r1.clone();
@@ -183,6 +199,19 @@ public class AbstractCategoryItemRendererTests extends TestCase {
         assertTrue(r1 != r2);
         assertTrue(r1.getClass() == r2.getClass());
         assertTrue(r1.equals(r2));
+        
+        r1 = new BarRenderer();
+        r1.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+        r2 = null;
+        try {
+            r2 = (BarRenderer) r1.clone();
+        }
+        catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        assertTrue(r1 != r2);
+        assertTrue(r1.getClass() == r2.getClass());
+        assertTrue(r1.equals(r2));
     }
     
     /**
@@ -190,7 +219,7 @@ public class AbstractCategoryItemRendererTests extends TestCase {
      */
     public void testCloning2() {
         BarRenderer r1 = new BarRenderer();
-        r1.setBaseItemLabelGenerator(new IntervalCategoryItemLabelGenerator());
+        r1.setItemLabelGenerator(new IntervalCategoryItemLabelGenerator());
         BarRenderer r2 = null;
         try {
             r2 = (BarRenderer) r1.clone();
@@ -205,6 +234,19 @@ public class AbstractCategoryItemRendererTests extends TestCase {
         r1 = new BarRenderer();
         r1.setSeriesItemLabelGenerator(0, 
                 new IntervalCategoryItemLabelGenerator());
+        r2 = null;
+        try {
+            r2 = (BarRenderer) r1.clone();
+        }
+        catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        assertTrue(r1 != r2);
+        assertTrue(r1.getClass() == r2.getClass());
+        assertTrue(r1.equals(r2));
+        
+        r1 = new BarRenderer();
+        r1.setBaseItemLabelGenerator(new IntervalCategoryItemLabelGenerator());
         r2 = null;
         try {
             r2 = (BarRenderer) r1.clone();
@@ -288,35 +330,6 @@ public class AbstractCategoryItemRendererTests extends TestCase {
         assertTrue(r1.getLegendItemURLGenerator() 
                 != r2.getLegendItemURLGenerator());
     }
-    
-    /**
-     * Check that the getSeriesItemLabelGenerator() method behaves as 
-     * expected.
-     */
-    public void testGetSeriesItemLabelGenerator() {
-        CategoryItemRenderer r = new BarRenderer();
-        assertNull(r.getSeriesItemLabelGenerator(2));
-        r.setSeriesItemLabelGenerator(2, 
-                new StandardCategoryItemLabelGenerator());
-        assertNotNull(r.getSeriesItemLabelGenerator(2));
-        r.setSeriesItemLabelGenerator(2, null);
-        assertNull(r.getSeriesItemLabelGenerator(2));
-        r.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
-        assertNull(r.getSeriesItemLabelGenerator(2));
-    }
 
-    /**
-     * Check that the getSeriesURLGenerator() method behaves as expected.
-     */
-    public void testGetSeriesURLGenerator() {
-        CategoryItemRenderer r = new BarRenderer();
-        assertNull(r.getSeriesURLGenerator(2));
-        r.setSeriesURLGenerator(2, new StandardCategoryURLGenerator());
-        assertNotNull(r.getSeriesURLGenerator(2));
-        r.setSeriesURLGenerator(2, null);
-        assertNull(r.getSeriesURLGenerator(2));
-        r.setBaseURLGenerator(new StandardCategoryURLGenerator());
-        assertNull(r.getSeriesURLGenerator(2));
-    }
 }
     

@@ -42,7 +42,6 @@
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 27-Nov-2006 : Added clone() override (DG);
  * 02-Feb-2007 : Removed author tags all over JFreeChart sources (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
  
@@ -51,7 +50,7 @@ package org.jfree.data.xy;
 import java.io.Serializable;
 import java.util.List;
 
-import org.jfree.chart.util.ObjectUtilities;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * Represents a collection of {@link MatrixSeries} that can be used as a 

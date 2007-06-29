@@ -78,8 +78,6 @@
  * 04-May-2007 : Override getDomainOrder() to indicate that items are sorted
  *               by x-value (ascending) (DG);
  * 08-May-2007 : Added indexOf(TimeSeries) method (DG);
- * 20-Jun-2007 : Removed deprecated code (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -93,7 +91,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
 
-import org.jfree.chart.util.ObjectUtilities;
 import org.jfree.data.DomainInfo;
 import org.jfree.data.DomainOrder;
 import org.jfree.data.Range;
@@ -101,6 +98,7 @@ import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.xy.AbstractIntervalXYDataset;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A collection of time series objects.  This class implements the 
@@ -129,6 +127,15 @@ public class TimeSeriesCollection extends AbstractIntervalXYDataset
      * be the start, middle or end of the time period.   
      */
     private TimePeriodAnchor xPosition;
+
+    /**
+     * A flag that indicates that the domain is 'points in time'.  If this
+     * flag is true, only the x-value is used to determine the range of values
+     * in the domain, the start and end x-values are ignored.
+     * 
+     * @deprecated No longer used (as of 1.0.1).
+     */
+    private boolean domainIsPointsInTime;
 
     /**
      * Constructs an empty dataset, tied to the default timezone.
@@ -178,7 +185,38 @@ public class TimeSeriesCollection extends AbstractIntervalXYDataset
             series.addChangeListener(this);
         }
         this.xPosition = TimePeriodAnchor.START;
+        this.domainIsPointsInTime = true;
 
+    }
+    
+    /**
+     * Returns a flag that controls whether the domain is treated as 'points in
+     * time'.  This flag is used when determining the max and min values for 
+     * the domain.  If <code>true</code>, then only the x-values are considered
+     * for the max and min values.  If <code>false</code>, then the start and
+     * end x-values will also be taken into consideration.
+     *
+     * @return The flag.
+     * 
+     * @deprecated This flag is no longer used (as of 1.0.1).
+     */
+    public boolean getDomainIsPointsInTime() {
+        return this.domainIsPointsInTime;
+    }
+
+    /**
+     * Sets a flag that controls whether the domain is treated as 'points in 
+     * time', or time periods.
+     *
+     * @param flag  the flag.
+     * 
+     * @deprecated This flag is no longer used, as of 1.0.1.  The 
+     *             <code>includeInterval</code> flag in methods such as 
+     *             {@link #getDomainBounds(boolean)} makes this unnecessary.
+     */
+    public void setDomainIsPointsInTime(boolean flag) {
+        this.domainIsPointsInTime = flag;
+        notifyListeners(new DatasetChangeEvent(this, this));    
     }
     
     /**
@@ -604,6 +642,9 @@ public class TimeSeriesCollection extends AbstractIntervalXYDataset
         if (this.xPosition != that.xPosition) {
             return false;
         }
+        if (this.domainIsPointsInTime != that.domainIsPointsInTime) {
+            return false;
+        }
         if (!ObjectUtilities.equal(this.data, that.data)) {
             return false;
         }
@@ -622,6 +663,7 @@ public class TimeSeriesCollection extends AbstractIntervalXYDataset
                 ? this.workingCalendar.hashCode() : 0);
         result = 29 * result + (this.xPosition != null 
                 ? this.xPosition.hashCode() : 0);
+        result = 29 * result + (this.domainIsPointsInTime ? 1 : 0);
         return result;
     }
     

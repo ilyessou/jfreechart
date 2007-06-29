@@ -51,19 +51,15 @@
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 02-Feb-2007 : Removed author tags from all over JFreeChart sources (DG);
  * 17-Apr-2007 : Use new URLUtilities class to encode URLs (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 26-Jun-2007 : Removed URLUtilities dependency (DG);
  *
  */
 
 package org.jfree.chart.urls;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
-import org.jfree.chart.util.ObjectUtilities;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A URL generator that can be assigned to a 
@@ -151,23 +147,10 @@ public class StandardCategoryURLGenerator implements CategoryURLGenerator,
         Comparable categoryKey = dataset.getColumnKey(category);
         boolean firstParameter = url.indexOf("?") == -1;
         url += firstParameter ? "?" : "&amp;";
-        url += this.seriesParameterName + "=";
-        String seriesKeyStr = null;
-        try {
-            seriesKeyStr = URLEncoder.encode(seriesKey.toString(), "UTF-8");
-        }
-        catch (UnsupportedEncodingException e) {
-            seriesKeyStr = seriesKey.toString();
-        }
-        String categoryKeyStr = null;
-        try {
-            categoryKeyStr = URLEncoder.encode(categoryKey.toString(), "UTF-8");
-        }
-        catch (UnsupportedEncodingException e) {
-            categoryKeyStr = categoryKey.toString();
-        }
-        url += seriesKeyStr + "&amp;" + this.categoryParameterName + "=" 
-                + categoryKeyStr;
+        url += this.seriesParameterName + "=" + URLUtilities.encode(
+                seriesKey.toString(), "UTF-8");
+        url += "&amp;" + this.categoryParameterName + "=" 
+                + URLUtilities.encode(categoryKey.toString(), "UTF-8");
         return url;
     }
 

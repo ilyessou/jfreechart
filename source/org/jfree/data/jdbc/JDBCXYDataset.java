@@ -2,7 +2,7 @@
  * JFreeChart : a free chart library for the Java(tm) platform
  * ===========================================================
  *
- * (C) Copyright 2000-2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2000-2006, by Object Refinery Limited and Contributors.
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
@@ -27,7 +27,7 @@
  * ------------------
  * JDBCXYDataset.java
  * ------------------
- * (C) Copyright 2002-2007, by Bryan Scott and Contributors.
+ * (C) Copyright 2002-2006, by Bryan Scott and Contributors.
  *
  * Original Author:  Bryan Scott;
  * Contributor(s):   David Gilbert (for Object Refinery Limited);
@@ -66,7 +66,6 @@
  *               release (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 17-Oct-2006 : Deprecated unused methods - see bug 1578293 (DG);
- * 20-Jun-2007 : Removed deprecated code (DG);
  * 
  */
 
@@ -88,6 +87,7 @@ import org.jfree.data.general.Dataset;
 import org.jfree.data.xy.AbstractXYDataset;
 import org.jfree.data.xy.TableXYDataset;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.util.Log;
 
 /**
  * This class provides an {@link XYDataset} implementation over a database 
@@ -268,6 +268,12 @@ public class JDBCXYDataset extends AbstractXYDataset
                             columnTypes[column] = type;
                             break;
                         default:
+                            Log.warn(
+                                "Unable to load column "
+                                + column + " (" + type + ","
+                                + metaData.getColumnClassName(column + 1) 
+                                + ")"
+                            );
                             columnTypes[column] = Types.NULL;
                             break;
                     }
@@ -500,6 +506,32 @@ public class JDBCXYDataset extends AbstractXYDataset
             return "";
         }
 
+    }
+
+    /**
+     * Returns the number of items that should be displayed in the legend.
+     *
+     * @return The legendItemCount value
+     *
+     * @deprecated This method is not used in JFreeChart 1.0.x (it was left in
+     *     the API by mistake and is officially deprecated from version 1.0.3
+     *     onwards).
+     */
+    public int getLegendItemCount() {
+        return getSeriesCount();
+    }
+
+    /**
+     * Returns the legend item labels.
+     *
+     * @return The legend item labels.
+     *
+     * @deprecated This method is not used in JFreeChart 1.0.x (it was left in
+     *     the API by mistake and is officially deprecated from version 1.0.3
+     *     onwards).
+     */
+    public String[] getLegendItemLabels() {
+        return this.columnNames;
     }
 
     /**

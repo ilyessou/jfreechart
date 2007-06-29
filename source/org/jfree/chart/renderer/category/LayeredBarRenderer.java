@@ -2,7 +2,7 @@
  * JFreeChart : a free chart library for the Java(tm) platform
  * ===========================================================
  *
- * (C) Copyright 2000-2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2000-2006, by Object Refinery Limited and Contributors.
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
@@ -47,8 +47,6 @@
  * 18-Aug-2006 : Fixed the bar width calculation to respect the maximum bar 
  *               width setting (thanks to Zoheb Borbora) (DG);
  * 02-Feb-2007 : Removed author tags all over JFreeChart sources (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 29-Jun-2007 : Simplified entity generation by calling addEntity() (DG);
  *
  */
 
@@ -63,14 +61,16 @@ import java.io.Serializable;
 
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.entity.CategoryItemEntity;
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.labels.CategoryItemLabelGenerator;
+import org.jfree.chart.labels.CategoryToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.util.GradientPaintTransformer;
-import org.jfree.chart.util.ObjectList;
-import org.jfree.chart.util.RectangleEdge;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.ui.GradientPaintTransformer;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.ObjectList;
 
 /**
  * A {@link CategoryItemRenderer} that represents data using bars which are 
@@ -214,7 +214,7 @@ public class LayeredBarRenderer extends BarRenderer
      * @param plot  the plot.
      * @param domainAxis  the domain axis.
      * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
+     * @param data  the data.
      * @param row  the row index (zero-based).
      * @param column  the column index (zero-based).
      */
@@ -224,12 +224,12 @@ public class LayeredBarRenderer extends BarRenderer
                                       CategoryPlot plot,
                                       CategoryAxis domainAxis,
                                       ValueAxis rangeAxis,
-                                      CategoryDataset dataset,
+                                      CategoryDataset data,
                                       int row,
                                       int column) {
 
         // nothing is drawn for null values...
-        Number dataValue = dataset.getValue(row, column);
+        Number dataValue = data.getValue(row, column);
         if (dataValue == null) {
             return;
         }
@@ -321,16 +321,31 @@ public class LayeredBarRenderer extends BarRenderer
         CategoryItemLabelGenerator generator 
             = getItemLabelGenerator(row, column);
         if (generator != null && isItemLabelVisible(row, column)) {
-            drawItemLabel(g2, dataset, row, column, plot, generator, bar, 
+            drawItemLabel(g2, data, row, column, plot, generator, bar, 
                     (transX1 > transX2));
         }        
 
         // collect entity and tool tip information...
-        EntityCollection entities = state.getEntityCollection();
-        if (entities != null) {
-            addItemEntity(entities, dataset, row, column, bar);
+        if (state.getInfo() != null) {
+            EntityCollection entities = state.getEntityCollection();
+            if (entities != null) {
+                String tip = null;
+                CategoryToolTipGenerator tipster 
+                    = getToolTipGenerator(row, column);
+                if (tipster != null) {
+                    tip = tipster.generateToolTip(data, row, column);
+                }
+                String url = null;
+                if (getItemURLGenerator(row, column) != null) {
+                    url = getItemURLGenerator(row, column).generateURL(data, 
+                            row, column);
+                }
+                CategoryItemEntity entity = new CategoryItemEntity(bar, tip, 
+                        url, data, data.getRowKey(row), 
+                        data.getColumnKey(column));
+                entities.add(entity);
+            }
         }
-
     }
 
     /**
@@ -342,7 +357,7 @@ public class LayeredBarRenderer extends BarRenderer
      * @param plot  the plot.
      * @param domainAxis  the domain axis.
      * @param rangeAxis  the range axis.
-     * @param dataset  the dataset.
+     * @param data  the data.
      * @param row  the row index (zero-based).
      * @param column  the column index (zero-based).
      */
@@ -352,12 +367,12 @@ public class LayeredBarRenderer extends BarRenderer
                                     CategoryPlot plot,
                                     CategoryAxis domainAxis,
                                     ValueAxis rangeAxis,
-                                    CategoryDataset dataset,
+                                    CategoryDataset data,
                                     int row,
                                     int column) {
 
         // nothing is drawn for null values...
-        Number dataValue = dataset.getValue(row, column);
+        Number dataValue = data.getValue(row, column);
         if (dataValue == null) {
             return;
         }
@@ -456,14 +471,30 @@ public class LayeredBarRenderer extends BarRenderer
         CategoryItemLabelGenerator generator 
             = getItemLabelGenerator(row, column);
         if (generator != null && isItemLabelVisible(row, column)) {
-            drawItemLabel(g2, dataset, row, column, plot, generator, bar, 
+            drawItemLabel(g2, data, row, column, plot, generator, bar, 
                     (transX1 > transX2));
         }        
 
         // collect entity and tool tip information...
-        EntityCollection entities = state.getEntityCollection();
-        if (entities != null) {
-            addItemEntity(entities, dataset, row, column, bar);
+        if (state.getInfo() != null) {
+            EntityCollection entities = state.getEntityCollection();
+            if (entities != null) {
+                String tip = null;
+                CategoryToolTipGenerator tipster 
+                    = getToolTipGenerator(row, column);
+                if (tipster != null) {
+                    tip = tipster.generateToolTip(data, row, column);
+                }
+                String url = null;
+                if (getItemURLGenerator(row, column) != null) {
+                    url = getItemURLGenerator(row, column).generateURL(
+                        data, row, column);
+                }
+                CategoryItemEntity entity = new CategoryItemEntity(bar, tip, 
+                        url, data, data.getRowKey(row), 
+                        data.getColumnKey(column));
+                entities.add(entity);
+            }
         }
     }
 

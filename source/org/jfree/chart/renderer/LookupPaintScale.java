@@ -40,7 +40,6 @@
  * 31-Jan-2007 : Fixed serialization support (DG);
  * 09-Mar-2007 : Fixed cloning (DG);
  * 14-Jun-2007 : Use double primitive in PaintItem (DG);
- * 20-Jun-2007 : Removed deprecated code and JCommon dependencies (DG);
  * 
  */
 
@@ -55,9 +54,9 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.SerialUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A paint scale that uses a lookup table to associate paint instances
@@ -229,6 +228,20 @@ public class LookupPaintScale
      */
     public double getUpperBound() {
         return this.upperBound;
+    }
+
+    /**
+     * Adds an entry to the lookup table.  Any values from <code>n</code> up
+     * to but not including the next value in the table take on the specified
+     * <code>paint</code>.
+     * 
+     * @param value  the data value (<code>null</code> not permitted).
+     * @param paint  the paint.
+     * 
+     * @deprecated Use {@link #add(double, Paint)}.
+     */
+    public void add(Number value, Paint paint) {
+        add(value.doubleValue(), paint);
     }
     
     /**

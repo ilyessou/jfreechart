@@ -2,7 +2,7 @@
  * JFreeChart : a free chart library for the Java(tm) platform
  * ===========================================================
  *
- * (C) Copyright 2000-2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2000-2005, by Object Refinery Limited and Contributors.
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
@@ -27,7 +27,7 @@
  * ---------------------------
  * ColumnArrangementTests.java
  * ---------------------------
- * (C) Copyright 2005, 2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2005, by Object Refinery Limited and Contributors.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   -;
@@ -37,7 +37,6 @@
  * Changes
  * -------
  * 04-Feb-2005 : Version 1 (DG);
- * 20-Jun-2007 : Removed JCommon dependency (DG);
  *
  */
 
@@ -56,8 +55,8 @@ import junit.framework.TestSuite;
 
 import org.jfree.chart.block.ColumnArrangement;
 import org.jfree.chart.block.FlowArrangement;
-import org.jfree.chart.util.HorizontalAlignment;
-import org.jfree.chart.util.VerticalAlignment;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.VerticalAlignment;
 
 /**
  * Tests for the {@link ColumnArrangement} class.  
@@ -86,40 +85,51 @@ public class ColumnArrangementTests extends TestCase {
      * Confirm that the equals() method can distinguish all the required fields.
      */
     public void testEquals() {
-        ColumnArrangement c1 = new ColumnArrangement(HorizontalAlignment.LEFT, 
-                VerticalAlignment.TOP, 1.0, 2.0);
-        ColumnArrangement c2 = new ColumnArrangement(HorizontalAlignment.LEFT, 
-                VerticalAlignment.TOP, 1.0, 2.0);
+        ColumnArrangement c1 = new ColumnArrangement(
+            HorizontalAlignment.LEFT, VerticalAlignment.TOP, 1.0, 2.0
+        );
+        ColumnArrangement c2 = new ColumnArrangement(
+            HorizontalAlignment.LEFT, VerticalAlignment.TOP, 1.0, 2.0
+        );
         assertTrue(c1.equals(c2));
         assertTrue(c2.equals(c1));
 
-        c1 = new ColumnArrangement(HorizontalAlignment.RIGHT, 
-                VerticalAlignment.TOP, 1.0, 2.0);
+        c1 = new ColumnArrangement(
+            HorizontalAlignment.RIGHT, VerticalAlignment.TOP, 1.0, 2.0
+        );
         assertFalse(c1.equals(c2));
-        c2 = new ColumnArrangement(HorizontalAlignment.RIGHT,
-                VerticalAlignment.TOP, 1.0, 2.0);
+        c2 = new ColumnArrangement(
+            HorizontalAlignment.RIGHT, VerticalAlignment.TOP, 1.0, 2.0
+        );
         assertTrue(c1.equals(c2));
 
-        c1 = new ColumnArrangement(HorizontalAlignment.RIGHT, 
-                VerticalAlignment.BOTTOM, 1.0, 2.0);
+        c1 = new ColumnArrangement(
+            HorizontalAlignment.RIGHT, VerticalAlignment.BOTTOM, 1.0, 2.0
+        );
         assertFalse(c1.equals(c2));
-        c2 = new ColumnArrangement(HorizontalAlignment.RIGHT, 
-                VerticalAlignment.BOTTOM, 1.0, 2.0);
+        c2 = new ColumnArrangement(
+            HorizontalAlignment.RIGHT, VerticalAlignment.BOTTOM, 1.0, 2.0
+        );
         assertTrue(c1.equals(c2));
     
-        c1 = new ColumnArrangement(HorizontalAlignment.RIGHT, 
-                VerticalAlignment.BOTTOM, 1.1, 2.0);
+        c1 = new ColumnArrangement(
+            HorizontalAlignment.RIGHT, VerticalAlignment.BOTTOM, 1.1, 2.0
+        );
         assertFalse(c1.equals(c2));
-        c2 = new ColumnArrangement(HorizontalAlignment.RIGHT, 
-                VerticalAlignment.BOTTOM, 1.1, 2.0);
+        c2 = new ColumnArrangement(
+            HorizontalAlignment.RIGHT, VerticalAlignment.BOTTOM, 1.1, 2.0
+        );
         assertTrue(c1.equals(c2));
         
-        c1 = new ColumnArrangement(HorizontalAlignment.RIGHT, 
-                VerticalAlignment.BOTTOM, 1.1, 2.2);
+        c1 = new ColumnArrangement(
+            HorizontalAlignment.RIGHT, VerticalAlignment.BOTTOM, 1.1, 2.2
+        );
         assertFalse(c1.equals(c2));
-        c2 = new ColumnArrangement(HorizontalAlignment.RIGHT, 
-                VerticalAlignment.BOTTOM, 1.1, 2.2);
+        c2 = new ColumnArrangement(
+            HorizontalAlignment.RIGHT, VerticalAlignment.BOTTOM, 1.1, 2.2
+        );
         assertTrue(c1.equals(c2));
+        
     }
 
     /**
@@ -134,8 +144,9 @@ public class ColumnArrangementTests extends TestCase {
      * Serialize an instance, restore it, and check for equality.
      */
     public void testSerialization() {
-        FlowArrangement f1 = new FlowArrangement(HorizontalAlignment.LEFT, 
-                VerticalAlignment.TOP, 1.0, 2.0);
+        FlowArrangement f1 = new FlowArrangement(
+            HorizontalAlignment.LEFT, VerticalAlignment.TOP, 1.0, 2.0
+        );
         FlowArrangement f2 = null;
         try {
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -143,13 +154,14 @@ public class ColumnArrangementTests extends TestCase {
             out.writeObject(f1);
             out.close();
 
-            ObjectInput in = new ObjectInputStream(new ByteArrayInputStream(
-                    buffer.toByteArray()));
+            ObjectInput in = new ObjectInputStream(
+                new ByteArrayInputStream(buffer.toByteArray())
+            );
             f2 = (FlowArrangement) in.readObject();
             in.close();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.toString());
         }
         assertEquals(f1, f2);
     }

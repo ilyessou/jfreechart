@@ -59,7 +59,6 @@
  * 17-May-2007 : Set datasetIndex and seriesIndex in getLegendItem() (DG);
  * 18-May-2007 : Set dataset and seriesKey for LegendItem (DG);
  * 13-Jun-2007 : Fixed seriesVisibility bug (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -80,10 +79,10 @@ import org.jfree.chart.plot.CrosshairState;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYZDataset;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A renderer that draws a circle at each data point with a diameter that is

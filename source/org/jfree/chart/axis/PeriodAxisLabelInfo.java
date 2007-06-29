@@ -2,7 +2,7 @@
  * JFreeChart : a free chart library for the Java(tm) platform
  * ===========================================================
  *
- * (C) Copyright 2000-2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2000-2005, by Object Refinery Limited and Contributors.
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
@@ -27,7 +27,7 @@
  * ------------------------
  * PeriodAxisLabelInfo.java
  * ------------------------
- * (C) Copyright 2004-2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2004, 2005, by Object Refinery Limited and Contributors.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   -;
@@ -41,7 +41,6 @@
  * 01-Mar-2005 : Modified constructors to accept DateFormat (DG);
  * 20-May-2005 : Added default constants and null argument checks in the 
  *               constructor (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -61,9 +60,9 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.time.RegularTimePeriod;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleInsets;
 
 /**
  * A record that contains information for one "band" of date labels in 
@@ -81,11 +80,11 @@ public class PeriodAxisLabelInfo implements Cloneable, Serializable {
     
     /** The default insets. */
     public static final RectangleInsets DEFAULT_INSETS 
-            = new RectangleInsets(2, 2, 2, 2);
+        = new RectangleInsets(2, 2, 2, 2);
     
     /** The default font. */
     public static final Font DEFAULT_FONT 
-            = new Font("SansSerif", Font.PLAIN, 10);
+        = new Font("SansSerif", Font.PLAIN, 10);
     
     /** The default label paint. */
     public static final Paint DEFAULT_LABEL_PAINT = Color.black;
@@ -347,7 +346,8 @@ public class PeriodAxisLabelInfo implements Cloneable, Serializable {
      * @throws CloneNotSupportedException if cloning is not supported.
      */
     public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        Object clone = (PeriodAxisLabelInfo) super.clone();
+        return clone;
     }
     
     /**

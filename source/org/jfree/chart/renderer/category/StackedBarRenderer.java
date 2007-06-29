@@ -88,7 +88,6 @@
  *               1304139 (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 11-Oct-2006 : Source reformatting (DG);
- * 20-Jun-2007 : Removed JCommon dependency (DG);
  * 
  */
 
@@ -109,14 +108,14 @@ import org.jfree.chart.labels.ItemLabelAnchor;
 import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.util.GradientPaintTransformer;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
 import org.jfree.data.DataUtilities;
 import org.jfree.data.Range;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.DatasetUtilities;
+import org.jfree.ui.GradientPaintTransformer;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.TextAnchor;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A stacked bar renderer for use with the 

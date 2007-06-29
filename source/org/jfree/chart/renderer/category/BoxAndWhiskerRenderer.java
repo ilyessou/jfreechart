@@ -65,8 +65,6 @@
  * 11-May-2007 : Added check for visibility in getLegendItem() (DG);
  * 17-May-2007 : Set datasetIndex and seriesIndex in getLegendItem() (DG);
  * 18-May-2007 : Set dataset and seriesKey for LegendItem (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 29-Jun-2007 : Simplified entity generation by calling addEntity() (DG);
  *
  */
 
@@ -93,20 +91,22 @@ import java.util.List;
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.entity.CategoryItemEntity;
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.event.RendererChangeEvent;
+import org.jfree.chart.labels.CategoryToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.renderer.Outlier;
 import org.jfree.chart.renderer.OutlierList;
 import org.jfree.chart.renderer.OutlierListCollection;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.statistics.BoxAndWhiskerCategoryDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A box-and-whisker renderer.  This renderer requires a 
@@ -496,7 +496,21 @@ public class BoxAndWhiskerRenderer extends AbstractCategoryItemRenderer
         if (state.getInfo() != null && box != null) {
             EntityCollection entities = state.getEntityCollection();
             if (entities != null) {
-                addItemEntity(entities, dataset, row, column, box);
+                String tip = null;
+                CategoryToolTipGenerator tipster 
+                        = getToolTipGenerator(row, column);
+                if (tipster != null) {
+                    tip = tipster.generateToolTip(dataset, row, column);
+                }
+                String url = null;
+                if (getItemURLGenerator(row, column) != null) {
+                    url = getItemURLGenerator(row, column).generateURL(
+                            dataset, row, column);
+                }
+                CategoryItemEntity entity = new CategoryItemEntity(box, tip, 
+                        url, dataset, dataset.getRowKey(row), 
+                        dataset.getColumnKey(column));
+                entities.add(entity);
             }
         }
 
@@ -714,7 +728,21 @@ public class BoxAndWhiskerRenderer extends AbstractCategoryItemRenderer
         if (state.getInfo() != null && box != null) {
             EntityCollection entities = state.getEntityCollection();
             if (entities != null) {
-                addItemEntity(entities, dataset, row, column, box);
+                String tip = null;
+                CategoryToolTipGenerator tipster 
+                        = getToolTipGenerator(row, column);
+                if (tipster != null) {
+                    tip = tipster.generateToolTip(dataset, row, column);
+                }
+                String url = null;
+                if (getItemURLGenerator(row, column) != null) {
+                    url = getItemURLGenerator(row, column).generateURL(dataset,
+                            row, column);
+                }
+                CategoryItemEntity entity = new CategoryItemEntity(box, tip, 
+                        url, dataset, dataset.getRowKey(row), 
+                        dataset.getColumnKey(column));
+                entities.add(entity);
             }
         }
 

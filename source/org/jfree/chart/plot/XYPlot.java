@@ -187,10 +187,7 @@
  * 24-May-2007 : Fixed bug in render method for an empty series (DG);
  * 07-Jun-2007 : Modified drawBackground() to pass orientation to 
  *               fillBackground() for handling GradientPaint (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 27-Jun-2007 : Updated drawDomainGridlines() method for renamed method in
- *               XYItemRenderer interface.
- *               
+ *
  */
 
 package org.jfree.chart.plot;
@@ -239,19 +236,19 @@ import org.jfree.chart.renderer.RendererUtilities;
 import org.jfree.chart.renderer.xy.AbstractXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRendererState;
-import org.jfree.chart.util.Layer;
-import org.jfree.chart.util.ObjectList;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.Range;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.Layer;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.util.ObjectList;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A general class for plotting data in the form of (x, y) pairs.  This plot can
@@ -3195,8 +3192,6 @@ public class XYPlot extends Plot implements ValueAxisPlot,
      * @param g2  the graphics device.
      * @param dataArea  the data area.
      * @param ticks  the ticks.
-     * 
-     * @see #drawRangeGridlines(Graphics2D, Rectangle2D, List)
      */
     protected void drawDomainGridlines(Graphics2D g2, Rectangle2D dataArea,
                                        List ticks) {
@@ -3210,11 +3205,13 @@ public class XYPlot extends Plot implements ValueAxisPlot,
         if (isDomainGridlinesVisible()) {
             Stroke gridStroke = getDomainGridlineStroke();
             Paint gridPaint = getDomainGridlinePaint();
-            Iterator iterator = ticks.iterator();
-            while (iterator.hasNext()) {
-                ValueTick tick = (ValueTick) iterator.next();
-                getRenderer().drawDomainLine(g2, this, getDomainAxis(),
-                        dataArea, tick.getValue(), gridPaint, gridStroke);
+            if ((gridStroke != null) && (gridPaint != null)) {
+                Iterator iterator = ticks.iterator();
+                while (iterator.hasNext()) {
+                    ValueTick tick = (ValueTick) iterator.next();
+                    getRenderer().drawDomainGridLine(g2, this, getDomainAxis(),
+                            dataArea, tick.getValue());
+                }
             }
         }
     }
@@ -3226,8 +3223,6 @@ public class XYPlot extends Plot implements ValueAxisPlot,
      * @param g2  the graphics device.
      * @param area  the data area.
      * @param ticks  the ticks.
-     * 
-     * @see #drawDomainGridlines(Graphics2D, Rectangle2D, List)
      */
     protected void drawRangeGridlines(Graphics2D g2, Rectangle2D area,
                                       List ticks) {

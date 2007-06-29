@@ -2,7 +2,7 @@
  * JFreeChart : a free chart library for the Java(tm) platform
  * ===========================================================
  *
- * (C) Copyright 2000-2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2000-2005, by Object Refinery Limited and Contributors.
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
@@ -27,7 +27,7 @@
  * ----------------------------
  * DefaultNumberAxisEditor.java
  * ----------------------------
- * (C) Copyright 2005, 2007, Object Refinery Limited and Contributors.
+ * (C) Copyright 2005, Object Refinery Limited and Contributors.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   Arnaud Lelievre;
@@ -37,8 +37,6 @@
  * Changes:
  * --------
  * 24-Nov-2005 : Version 1, based on NumberAxisPropertyEditor (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 
  */
 
 package org.jfree.chart.editor;
@@ -61,10 +59,10 @@ import javax.swing.JTextField;
 
 import org.jfree.chart.axis.Axis;
 import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.ui.LCBLayout;
-import org.jfree.chart.ui.PaintSample;
-import org.jfree.chart.ui.StrokeChooserPanel;
-import org.jfree.chart.ui.StrokeSample;
+import org.jfree.layout.LCBLayout;
+import org.jfree.ui.PaintSample;
+import org.jfree.ui.StrokeChooserPanel;
+import org.jfree.ui.StrokeSample;
 
 /**
  * A panel for editing the properties of a value axis.
@@ -126,12 +124,12 @@ class DefaultNumberAxisEditor extends DefaultAxisEditor
         this.gridStrokeSample = new StrokeSample(new BasicStroke(1.0f));
 
         this.availableStrokeSamples = new StrokeSample[3];
-        this.availableStrokeSamples[0] = new StrokeSample(
-                new BasicStroke(1.0f));
-        this.availableStrokeSamples[1] = new StrokeSample(
-                new BasicStroke(2.0f));
-        this.availableStrokeSamples[2] = new StrokeSample(
-                new BasicStroke(3.0f));
+        this.availableStrokeSamples[0] 
+            = new StrokeSample(new BasicStroke(1.0f));
+        this.availableStrokeSamples[1] 
+            = new StrokeSample(new BasicStroke(2.0f));
+        this.availableStrokeSamples[2] 
+            = new StrokeSample(new BasicStroke(3.0f));
 
         JTabbedPane other = getOtherTabs();
 

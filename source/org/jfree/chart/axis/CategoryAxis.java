@@ -83,8 +83,6 @@
  * 30-Oct-2006 : Updated refreshTicks() method to account for possibility of
  *               multiple domain axes (DG);
  * 07-Mar-2007 : Fixed bug in axis label positioning (DG);
- * 19-Jun-2007 : Removed deprecated code (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -112,17 +110,17 @@ import org.jfree.chart.event.AxisChangeEvent;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
-import org.jfree.chart.text.G2TextMeasurer;
-import org.jfree.chart.text.TextBlock;
-import org.jfree.chart.text.TextUtilities;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.RectangleAnchor;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.ShapeUtilities;
-import org.jfree.chart.util.Size2D;
+import org.jfree.io.SerialUtilities;
+import org.jfree.text.G2TextMeasurer;
+import org.jfree.text.TextBlock;
+import org.jfree.text.TextUtilities;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.Size2D;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.ShapeUtilities;
 
 /**
  * An axis that displays categories.
@@ -829,6 +827,34 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
         return state;
 
     }
+
+    /**
+     * Draws the category labels and returns the updated axis state.
+     *
+     * @param g2  the graphics device (<code>null</code> not permitted).
+     * @param dataArea  the area inside the axes (<code>null</code> not 
+     *                  permitted).
+     * @param edge  the axis location (<code>null</code> not permitted).
+     * @param state  the axis state (<code>null</code> not permitted).
+     * @param plotState  collects information about the plot (<code>null</code>
+     *                   permitted).
+     * 
+     * @return The updated axis state (never <code>null</code>).
+     * 
+     * @deprecated Use {@link #drawCategoryLabels(Graphics2D, Rectangle2D, 
+     *     Rectangle2D, RectangleEdge, AxisState, PlotRenderingInfo)}.
+     */
+    protected AxisState drawCategoryLabels(Graphics2D g2,
+                                           Rectangle2D dataArea,
+                                           RectangleEdge edge,
+                                           AxisState state,
+                                           PlotRenderingInfo plotState) {
+        
+        // this method is deprecated because we really need the plotArea
+        // when drawing the labels - see bug 1277726
+        return drawCategoryLabels(g2, dataArea, dataArea, edge, state, 
+                plotState);
+    }
     
     /**
      * Draws the category labels and returns the updated axis state.
@@ -843,8 +869,6 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
      *                   permitted).
      * 
      * @return The updated axis state (never <code>null</code>).
-     * 
-     * @since 1.0.2
      */
     protected AxisState drawCategoryLabels(Graphics2D g2,
                                            Rectangle2D plotArea,

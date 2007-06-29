@@ -72,9 +72,6 @@
  *               1550045 (DG);
  * 22-Mar-2007 : Simplified getDataItem(RegularTimePeriod) - see patch 1685500 
  *               by Nick Guenther (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 29-Jun-2007 : Changed first parameter in constructors from String to 
- *               Comparable (DG);
  * 
  */
 
@@ -89,10 +86,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import org.jfree.chart.util.ObjectUtilities;
 import org.jfree.data.general.Series;
 import org.jfree.data.general.SeriesChangeEvent;
 import org.jfree.data.general.SeriesException;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * Represents a sequence of zero or more data items in the form (period, value).
@@ -136,7 +133,7 @@ public class TimeSeries extends Series implements Cloneable, Serializable {
      *
      * @param name  the series name (<code>null</code> not permitted).
      */
-    public TimeSeries(Comparable name) {
+    public TimeSeries(String name) {
         this(name, DEFAULT_DOMAIN_DESCRIPTION, DEFAULT_RANGE_DESCRIPTION, 
                 Day.class);
     }
@@ -149,7 +146,7 @@ public class TimeSeries extends Series implements Cloneable, Serializable {
      * @param timePeriodClass  the type of time period (<code>null</code> not 
      *                         permitted).
      */
-    public TimeSeries(Comparable name, Class timePeriodClass) {
+    public TimeSeries(String name, Class timePeriodClass) {
         this(name, DEFAULT_DOMAIN_DESCRIPTION, DEFAULT_RANGE_DESCRIPTION, 
                 timePeriodClass);
     }
@@ -167,7 +164,7 @@ public class TimeSeries extends Series implements Cloneable, Serializable {
      * @param timePeriodClass  the type of time period (<code>null</code> not 
      *                         permitted).
      */
-    public TimeSeries(Comparable name, String domain, String range, 
+    public TimeSeries(String name, String domain, String range, 
                       Class timePeriodClass) {
         super(name);
         this.domain = domain;

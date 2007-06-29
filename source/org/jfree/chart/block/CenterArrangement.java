@@ -2,7 +2,7 @@
  * JFreeChart : a free chart library for the Java(tm) platform
  * ===========================================================
  *
- * (C) Copyright 2000-2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2000-2006, by Object Refinery Limited and Contributors.
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
@@ -27,7 +27,7 @@
  * ----------------------
  * CenterArrangement.java
  * ----------------------
- * (C) Copyright 2005-2007, by Object Refinery Limited.
+ * (C) Copyright 2005, 2006, by Object Refinery Limited.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   -;
@@ -37,9 +37,8 @@
  * Changes:
  * --------
  * 08-Mar-2005 : Version 1 (DG);
- * ------------- JFREECHART 1.0.x ---------------------------------------------
+ * ------------- JFREECHART 1.0.0 ---------------------------------------------
  * 20-Jul-2006 : Set bounds of contained block when arranging (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -50,7 +49,7 @@ import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.List;
 
-import org.jfree.chart.util.Size2D;
+import org.jfree.ui.Size2D;
 
 /**
  * Arranges a block in the center of its container.  This class is immutable.

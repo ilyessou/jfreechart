@@ -121,7 +121,6 @@
  * 03-Apr-2007 : Made drawBackgroundImage() public (DG);
  * 07-Jun-2007 : Added new fillBackground() method to handle GradientPaint 
  *               taking into account orientation (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -158,20 +157,20 @@ import org.jfree.chart.event.MarkerChangeEvent;
 import org.jfree.chart.event.MarkerChangeListener;
 import org.jfree.chart.event.PlotChangeEvent;
 import org.jfree.chart.event.PlotChangeListener;
-import org.jfree.chart.text.G2TextMeasurer;
-import org.jfree.chart.text.TextBlock;
-import org.jfree.chart.text.TextBlockAnchor;
-import org.jfree.chart.text.TextUtilities;
-import org.jfree.chart.util.Align;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.DatasetGroup;
+import org.jfree.io.SerialUtilities;
+import org.jfree.text.G2TextMeasurer;
+import org.jfree.text.TextBlock;
+import org.jfree.text.TextBlockAnchor;
+import org.jfree.text.TextUtilities;
+import org.jfree.ui.Align;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * The base class for all plots in JFreeChart.  The 
@@ -655,7 +654,8 @@ public abstract class Plot implements AxisChangeListener,
 
     /**
      * Returns the background image alignment. Alignment constants are defined 
-     * in the {@link Align} class.
+     * in the <code>org.jfree.ui.Align</code> class in the JCommon class 
+     * library.
      *
      * @return The alignment.
      * 
@@ -668,7 +668,8 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Sets the alignment for the background image and sends a 
      * {@link PlotChangeEvent} to all registered listeners.  Alignment options 
-     * are defined by the {@link Align} class.
+     * are defined by the {@link org.jfree.ui.Align} class in the JCommon 
+     * class library.
      *
      * @param alignment  the alignment.
      * 

@@ -49,7 +49,6 @@
  * 21-Mar-2007 : Added toString() for debugging (DG);
  * 04-Apr-2007 : Added new methods addToDate(Date, TimeZone) and rollDate(Date, 
  *               TimeZone) (CB);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -61,7 +60,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.jfree.chart.util.ObjectUtilities;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A tick unit for use by subclasses of {@link DateAxis}. Instances of this 

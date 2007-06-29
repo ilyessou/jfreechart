@@ -37,7 +37,6 @@
  * Changes
  * -------
  * 03-Nov-2006 : Version 1 (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -54,11 +53,11 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import org.jfree.chart.HashUtilities;
-import org.jfree.chart.util.GradientPaintTransformer;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.StandardGradientPaintTransformer;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.GradientPaintTransformer;
+import org.jfree.ui.StandardGradientPaintTransformer;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A regular dial layer that can be used to draw the background for a dial.

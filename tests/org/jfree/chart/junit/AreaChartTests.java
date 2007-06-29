@@ -37,8 +37,7 @@
  * Changes:
  * --------
  * 12-Apr-2005 : Version 1 (DG);
- * 27-Jun-2007 : Updated for method name change in CategoryItemRenderer
- *               interface (DG);
+ *
  */
 
 package org.jfree.chart.junit;
@@ -123,8 +122,8 @@ public class AreaChartTests extends TestCase {
         CategoryItemRenderer renderer = plot.getRenderer();
         StandardCategoryURLGenerator url1
                 = new StandardCategoryURLGenerator();
-        renderer.setSeriesURLGenerator(0, url1);
-        CategoryURLGenerator url2 = renderer.getURLGenerator(0, 0);
+        renderer.setSeriesItemURLGenerator(0, url1);
+        CategoryURLGenerator url2 = renderer.getItemURLGenerator(0, 0);
         assertTrue(url2 == url1);
     }
     

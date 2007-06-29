@@ -45,7 +45,6 @@
  * 20-Aug-2003 : Implemented Cloneable and PublicCloneable (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 13-Jun-2007 : Added fillPaintSequence (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -66,9 +65,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 import org.jfree.chart.ChartColor;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.ShapeUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.PublicCloneable;
+import org.jfree.util.ShapeUtilities;
 
 /**
  * A default implementation of the {@link DrawingSupplier} interface.  All

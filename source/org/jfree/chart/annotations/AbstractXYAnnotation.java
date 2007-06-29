@@ -39,7 +39,6 @@
  * 29-Sep-2004 : Version 1 (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 06-Mar-2007 : Implemented hashCode() (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -54,7 +53,7 @@ import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.entity.XYAnnotationEntity;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.util.ObjectUtilities;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * The interface that must be supported by annotations that are to be added to 

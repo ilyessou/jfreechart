@@ -42,7 +42,6 @@
  * 18-May-2005 : Added field to equals() test (DG);
  * 22-Sep-2005 : Renamed getMaxBarWidth() --> getMaximumBarWidth() (DG);
  * 11-May-2007 : Added testGetLegendItem() (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -70,10 +69,10 @@ import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.junit.RendererChangeDetector;
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.util.GradientPaintTransformType;
-import org.jfree.chart.util.StandardGradientPaintTransformer;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.GradientPaintTransformType;
+import org.jfree.ui.StandardGradientPaintTransformer;
+import org.jfree.ui.TextAnchor;
 
 /**
  * Tests for the {@link BarRenderer} class.

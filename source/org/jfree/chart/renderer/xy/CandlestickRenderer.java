@@ -79,9 +79,6 @@
  *               other data values (DG);
  * 17-Aug-2006 : Corrections to the equals() method (DG);
  * 05-Mar-2007 : Added flag to allow optional use of outline paint (DG);
- * 20-Jun-2007 : Removed deprecated drawVolume() method, and removed JCommon
- *               dependencies (DG);
- * 27-Jun-2007 : Updated drawItem() to use addEntity() (DG);
  * 
  */
 
@@ -103,6 +100,7 @@ import java.io.Serializable;
 
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
+import org.jfree.chart.entity.XYItemEntity;
 import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.labels.HighLowItemLabelGenerator;
 import org.jfree.chart.labels.XYToolTipGenerator;
@@ -110,13 +108,13 @@ import org.jfree.chart.plot.CrosshairState;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.OHLCDataset;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A renderer that draws candlesticks on an {@link XYPlot} (requires a 
@@ -801,7 +799,21 @@ public class CandlestickRenderer extends AbstractXYItemRenderer
         }
         g2.draw(body);
 
-        addEntity(entities, body, dataset, series, item, 0.0, 0.0);
+        // add an entity for the item...
+        if (entities != null) {
+            String tip = null;
+            XYToolTipGenerator generator = getToolTipGenerator(series, item);
+            if (generator != null) {
+                tip = generator.generateToolTip(dataset, series, item);
+            }
+            String url = null;
+            if (getURLGenerator() != null) {
+                url = getURLGenerator().generateURL(dataset, series, item);
+            }
+            XYItemEntity entity = new XYItemEntity(body, dataset, series, item, 
+                    tip, url);
+            entities.add(entity);
+        }
 
     }
 
@@ -888,6 +900,21 @@ public class CandlestickRenderer extends AbstractXYItemRenderer
         stream.defaultReadObject();
         this.upPaint = SerialUtilities.readPaint(stream);
         this.downPaint = SerialUtilities.readPaint(stream);
+    }
+
+    // --- DEPRECATED CODE ----------------------------------------------------
+    
+    /**
+     * Returns a flag indicating whether or not volume bars are drawn on the
+     * chart.
+     *
+     * @return <code>true</code> if volume bars are drawn on the chart.
+     * 
+     * @deprecated As of 1.0.5, you should use the {@link #getDrawVolume()} 
+     *         method.
+     */
+    public boolean drawVolume() {
+        return this.drawVolume;
     }
 
 }

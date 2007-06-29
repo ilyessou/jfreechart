@@ -42,9 +42,6 @@
  *               --> CategoryItemLabelGenerator (DG);
  * ------------- JFREECHART 1.0.0 ---------------------------------------------
  * 23-Jan-2006 : Renamed getMaxItemWidth() --> getMaximumItemWidth() (DG);
- * 19-Jun-2007 : Removed deprecated code (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 29-Jun-2007 : Simplified entity generation by calling addEntity() (DG);
  * 
  */
 
@@ -59,15 +56,17 @@ import java.io.Serializable;
 
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.entity.CategoryItemEntity;
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.labels.CategoryItemLabelGenerator;
+import org.jfree.chart.labels.CategoryToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A {@link CategoryItemRenderer} that draws individual data items as 
@@ -118,6 +117,32 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
         this.itemMargin = percent;
         notifyListeners(new RendererChangeEvent(this));
     }
+    
+    /**
+     * Returns the maximum width, as a percentage of the available drawing 
+     * space.
+     * 
+     * @return The maximum width.
+     * 
+     * @deprecated Use {@link #getMaximumItemWidth()} instead.
+     */
+    public double getMaxItemWidth() {
+        return this.maxItemWidth;
+    }
+    
+    /**
+     * Sets the maximum item width, which is specified as a percentage of the 
+     * available space for all items, and sends a {@link RendererChangeEvent} 
+     * to all registered listeners.
+     * 
+     * @param percent  the percent.
+     * 
+     * @deprecated Use {@link #setMaximumItemWidth(double)} instead.
+     */
+    public void setMaxItemWidth(double percent) {
+        this.maxItemWidth = percent;
+        notifyListeners(new RendererChangeEvent(this));
+    }
 
     /**
      * Returns the maximum width, as a percentage of the available drawing 
@@ -126,7 +151,7 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
      * @return The maximum width.
      */
     public double getMaximumItemWidth() {
-        return this.maxItemWidth;
+        return getMaxItemWidth();
     }
     
     /**
@@ -137,8 +162,7 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
      * @param percent  the percent.
      */
     public void setMaximumItemWidth(double percent) {
-        this.maxItemWidth = percent;
-        notifyListeners(new RendererChangeEvent(this));
+        setMaxItemWidth(percent);
     }
 
     /**
@@ -196,7 +220,7 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
             else if (orientation == PlotOrientation.VERTICAL) {
                 space = dataArea.getWidth();
             }
-            double maxWidth = space * getMaximumItemWidth();
+            double maxWidth = space * getMaxItemWidth();
             double categoryMargin = 0.0;
             double currentItemMargin = 0.0;
             if (columns > 1) {
@@ -330,11 +354,27 @@ public class LevelRenderer extends AbstractCategoryItemRenderer
         }        
                 
         // collect entity and tool tip information...
-        EntityCollection entities = state.getEntityCollection();
-        if (entities != null) {
-            addItemEntity(entities, dataset, row, column, line.getBounds());
-        }
+        if (state.getInfo() != null) {
+            EntityCollection entities = state.getEntityCollection();
+            if (entities != null) {
+                String tip = null;
+                CategoryToolTipGenerator tipster = getToolTipGenerator(row, 
+                        column);
+                if (tipster != null) {
+                    tip = tipster.generateToolTip(dataset, row, column);
+                }
+                String url = null;
+                if (getItemURLGenerator(row, column) != null) {
+                    url = getItemURLGenerator(row, column).generateURL(dataset,
+                            row, column);
+                }
+                CategoryItemEntity entity = new CategoryItemEntity(
+                        line.getBounds(), tip, url, dataset, 
+                        dataset.getRowKey(row), dataset.getColumnKey(column));
+                entities.add(entity);
+            }
 
+        }
 
     }
 

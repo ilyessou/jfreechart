@@ -2,7 +2,7 @@
  * JFreeChart : a free chart library for the Java(tm) platform
  * ===========================================================
  *
- * (C) Copyright 2000-2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2000-2005, by Object Refinery Limited and Contributors.
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
@@ -27,7 +27,7 @@
  * ---------------------
  * LegendTitleTests.java
  * ---------------------
- * (C) Copyright 2005, 2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2005, by Object Refinery Limited and Contributors.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   -;
@@ -38,7 +38,6 @@
  * -------
  * 25-Feb-2005 : Version 1 (DG);
  * 16-Mar-2005 : Extended testEquals() (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -61,8 +60,8 @@ import junit.framework.TestSuite;
 
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.title.LegendTitle;
-import org.jfree.chart.util.RectangleAnchor;
-import org.jfree.chart.util.RectangleEdge;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.ui.RectangleEdge;
 
 /**
  * Some tests for the {@link LegendTitle} class.

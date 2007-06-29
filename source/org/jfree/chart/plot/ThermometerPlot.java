@@ -81,8 +81,6 @@
  *               deprecated get/setShowValueLines(), deprecated 
  *               getMinimum/MaximumVerticalDataValue(), and fixed serialization 
  *               bug (DG);
- * 19-Jun-2007 : Removed deprecated code (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -114,16 +112,16 @@ import org.jfree.chart.LegendItemCollection;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.event.PlotChangeEvent;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.UnitType;
 import org.jfree.data.Range;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DefaultValueDataset;
 import org.jfree.data.general.ValueDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.UnitType;
 
 /**
  * A plot that displays a single value (from a {@link ValueDataset}) in a 
@@ -268,6 +266,9 @@ public class ThermometerPlot extends Plot implements ValueAxisPlot,
 
     /** The default paint for the mercury in the thermometer. */
     private transient Paint mercuryPaint = Color.lightGray;
+
+    /** A flag that controls whether value lines are drawn. */
+    private boolean showValueLines = false;
 
     /** The display sub-range. */
     private int subrange = -1;
@@ -593,6 +594,28 @@ public class ThermometerPlot extends Plot implements ValueAxisPlot,
     }
 
     /**
+     * Sets the unit type.
+     *
+     * @param u  the unit type (<code>null</code> ignored).
+     * 
+     * @deprecated Use setUnits(int) instead.  Deprecated as of version 1.0.6,
+     *     because this method is a little obscure and redundant anyway.
+     */
+    public void setUnits(String u) {
+        if (u == null) {
+            return;
+        }
+
+        u = u.toUpperCase().trim();
+        for (int i = 0; i < UNITS.length; ++i) {
+            if (u.equals(UNITS[i].toUpperCase().trim())) {
+                setUnits(i);
+                i = UNITS.length;
+            }
+        }
+    }
+
+    /**
      * Returns a code indicating the location at which the value label is
      * displayed.
      *
@@ -754,6 +777,35 @@ public class ThermometerPlot extends Plot implements ValueAxisPlot,
             throw new IllegalArgumentException("Null 'paint' argument.");
         }
         this.mercuryPaint = paint;
+        notifyListeners(new PlotChangeEvent(this));
+    }
+
+    /**
+     * Returns the flag that controls whether not value lines are displayed.
+     *
+     * @return The flag.
+     * 
+     * @see #setShowValueLines(boolean)
+     * 
+     * @deprecated This flag doesn't do anything useful/visible.  Deprecated 
+     *     as of version 1.0.6.
+     */
+    public boolean getShowValueLines() {
+        return this.showValueLines;
+    }
+
+    /**
+     * Sets the display as to whether to show value lines in the output.
+     *
+     * @param b Whether to show value lines in the thermometer
+     * 
+     * @see #getShowValueLines()
+     * 
+     * @deprecated This flag doesn't do anything useful/visible.  Deprecated 
+     *     as of version 1.0.6.
+     */
+    public void setShowValueLines(boolean b) {
+        this.showValueLines = b;
         notifyListeners(new PlotChangeEvent(this));
     }
 
@@ -1041,6 +1093,9 @@ public class ThermometerPlot extends Plot implements ValueAxisPlot,
             // draw the axis...
             if ((this.rangeAxis != null) && (this.axisLocation != NONE)) {
                 int drawWidth = AXIS_GAP;
+                if (this.showValueLines) {
+                    drawWidth += COLUMN_DIAMETER;
+                }
                 Rectangle2D drawArea;
                 double cursor = 0;
 
@@ -1158,6 +1213,34 @@ public class ThermometerPlot extends Plot implements ValueAxisPlot,
             }
         }
         super.datasetChanged(event);
+    }
+
+    /**
+     * Returns the minimum value in either the domain or the range, whichever
+     * is displayed against the vertical axis for the particular type of plot
+     * implementing this interface.
+     *
+     * @return The minimum value in either the domain or the range.
+     * 
+     * @deprecated This method is not used.  Officially deprecated in version 
+     *         1.0.6.
+     */
+    public Number getMinimumVerticalDataValue() {
+        return new Double(this.lowerBound);
+    }
+
+    /**
+     * Returns the maximum value in either the domain or the range, whichever
+     * is displayed against the vertical axis for the particular type of plot
+     * implementing this interface.
+     *
+     * @return The maximum value in either the domain or the range
+     * 
+     * @deprecated This method is not used.  Officially deprecated in version 
+     *         1.0.6.
+     */
+    public Number getMaximumVerticalDataValue() {
+        return new Double(this.upperBound);
     }
 
     /**
@@ -1310,6 +1393,9 @@ public class ThermometerPlot extends Plot implements ValueAxisPlot,
             return false;
         }
         if (!PaintUtilities.equal(this.mercuryPaint, that.mercuryPaint)) {
+            return false;
+        }
+        if (this.showValueLines != that.showValueLines) {
             return false;
         }
         if (this.subrange != that.subrange) {

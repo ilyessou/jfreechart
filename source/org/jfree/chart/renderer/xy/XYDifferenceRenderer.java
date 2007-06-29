@@ -71,9 +71,6 @@
  * 04-May-2007 : Set processVisibleItemsOnly flag to false (DG);
  * 17-May-2007 : Set datasetIndex and seriesIndex in getLegendItem() (DG);
  * 18-May-2007 : Set dataset and seriesKey for LegendItem (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 27-Jun-2007 : Updated drawItem() for method name changes in 
- *               XYItemRenderer (DG);
  * 
  */
 
@@ -105,12 +102,12 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.urls.XYURLGenerator;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.ShapeUtilities;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
+import org.jfree.util.ShapeUtilities;
 
 /**
  * A renderer for an {@link XYPlot} that highlights the differences between two
@@ -920,7 +917,7 @@ public class XYDifferenceRenderer extends AbstractXYItemRenderer
                         x_item);
             }
             String l_url = null;
-            XYURLGenerator l_urlGenerator = getURLGenerator(x_series, x_item);
+            XYURLGenerator l_urlGenerator = getURLGenerator();
             if (null != l_urlGenerator) {
                 l_url = l_urlGenerator.generateURL(x_dataset, x_series, 
                         x_item);

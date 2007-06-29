@@ -82,7 +82,6 @@
  * 11-May-2007 : Check for visibility in getLegendItem() (DG);
  * 17-May-2007 : Set datasetIndex and seriesIndex in getLegendItem() (DG);
  * 18-May-2007 : Set dataset and seriesKey for LegendItem (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -112,15 +111,15 @@ import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
-import org.jfree.chart.text.TextUtilities;
-import org.jfree.chart.util.GradientPaintTransformer;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.StandardGradientPaintTransformer;
 import org.jfree.data.Range;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.DatasetUtilities;
+import org.jfree.text.TextUtilities;
+import org.jfree.ui.GradientPaintTransformer;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.StandardGradientPaintTransformer;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A {@link CategoryItemRenderer} that draws individual data items as bars.

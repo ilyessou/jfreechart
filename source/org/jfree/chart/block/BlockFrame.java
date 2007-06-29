@@ -37,7 +37,6 @@
  * Changes:
  * --------
  * 16-Mar-2007 : Version 1 (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -46,8 +45,8 @@ package org.jfree.chart.block;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleInsets;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A block frame is a type of border that can be drawn around the outside of 

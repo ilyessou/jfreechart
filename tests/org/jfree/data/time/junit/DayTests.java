@@ -2,7 +2,7 @@
  * JFreeChart : a free chart library for the Java(tm) platform
  * ===========================================================
  *
- * (C) Copyright 2000-2007, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2000-2006, by Object Refinery Limited and Contributors.
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
@@ -27,7 +27,7 @@
  * -------------
  * DayTests.java
  * -------------
- * (C) Copyright 2001-2007, by Object Refinery Limited.
+ * (C) Copyright 2001-2006, by Object Refinery Limited.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   -;
@@ -45,7 +45,6 @@
  * 21-Oct-2003 : Added hashCode test (DG);
  * 11-Jan-2005 : Added test for non-clonability (DG);
  * 03-Oct-2006 : Added testGetSerialIndex() (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -70,7 +69,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.jfree.data.time.Day;
-import org.jfree.data.time.MonthConstants;
+import org.jfree.date.MonthConstants;
 
 /**
  * Tests for the {@link Day} class.
@@ -128,15 +127,14 @@ public class DayTests extends TestCase {
     public void testDateConstructor1() {
 
         TimeZone zone = TimeZone.getTimeZone("GMT");
-        Calendar c = new GregorianCalendar(zone);
         Day d1 = new Day(new Date(1078099199999L), zone);
         Day d2 = new Day(new Date(1078099200000L), zone);
 
         assertEquals(MonthConstants.FEBRUARY, d1.getMonth());
-        assertEquals(1078099199999L, d1.getLastMillisecond(c));
+        assertEquals(1078099199999L, d1.getLastMillisecond(zone));
 
         assertEquals(MonthConstants.MARCH, d2.getMonth());
-        assertEquals(1078099200000L, d2.getFirstMillisecond(c));
+        assertEquals(1078099200000L, d2.getFirstMillisecond(zone));
 
     }
 
@@ -148,15 +146,14 @@ public class DayTests extends TestCase {
     public void testDateConstructor2() {
 
         TimeZone zone = TimeZone.getTimeZone("Europe/Helsinki");
-        Calendar c = new GregorianCalendar(zone);
         Day d1 = new Day(new Date(1078091999999L), zone);
         Day d2 = new Day(new Date(1078092000000L), zone);
 
         assertEquals(MonthConstants.FEBRUARY, d1.getMonth());
-        assertEquals(1078091999999L, d1.getLastMillisecond(c));
+        assertEquals(1078091999999L, d1.getLastMillisecond(zone));
 
         assertEquals(MonthConstants.MARCH, d2.getMonth());
-        assertEquals(1078092000000L, d2.getFirstMillisecond(c));
+        assertEquals(1078092000000L, d2.getFirstMillisecond(zone));
 
     }
 
@@ -308,13 +305,12 @@ public class DayTests extends TestCase {
     public void testGetFirstMillisecondWithTimeZone() {
         Day d = new Day(26, 4, 1950);
         TimeZone zone = TimeZone.getTimeZone("America/Los_Angeles");
-        Calendar c = new GregorianCalendar(zone);
-        assertEquals(-621187200000L, d.getFirstMillisecond(c));
+        assertEquals(-621187200000L, d.getFirstMillisecond(zone));
         
         // try null calendar
         boolean pass = false;
         try {
-            d.getFirstMillisecond((Calendar) null);
+            d.getFirstMillisecond((TimeZone) null);
         }
         catch (NullPointerException e) {
             pass = true;
@@ -358,13 +354,12 @@ public class DayTests extends TestCase {
     public void testGetLastMillisecondWithTimeZone() {
         Day d = new Day(1, 2, 1950);
         TimeZone zone = TimeZone.getTimeZone("America/Los_Angeles");
-        Calendar c = new GregorianCalendar(zone);
-        assertEquals(-628358400001L, d.getLastMillisecond(c));
+        assertEquals(-628358400001L, d.getLastMillisecond(zone));
         
         // try null calendar
         boolean pass = false;
         try {
-            d.getLastMillisecond((Calendar) null);
+            d.getLastMillisecond((TimeZone) null);
         }
         catch (NullPointerException e) {
             pass = true;

@@ -47,15 +47,12 @@
  * 17-Apr-2007 : Added null argument checks to constructor, new accessor 
  *               methods, added equals() override and used new URLUtilities
  *               class to encode series key and date (DG);
- * 26-Jun-2007 : Removed URLUtilities dependency (DG);
  * 
  */
 
 package org.jfree.chart.urls;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -183,28 +180,17 @@ public class TimeSeriesURLGenerator implements XYURLGenerator, Serializable {
         Comparable seriesKey = dataset.getSeriesKey(series);
         if (seriesKey != null) {
             result += firstParameter ? "?" : "&amp;";
-            String s = null;
-            try {
-                s = URLEncoder.encode(seriesKey.toString(), "UTF-8");
-            }
-            catch (UnsupportedEncodingException e) {
-                s = seriesKey.toString();
-            }
-            result += this.seriesParameterName + "=" + s;
+            result += this.seriesParameterName + "=" + URLUtilities.encode(
+                    seriesKey.toString(), "UTF-8");
             firstParameter = false;
         }
 
         long x = (long) dataset.getXValue(series, item);
         String xValue = this.dateFormat.format(new Date(x));
         result += firstParameter ? "?" : "&amp;";
-        String s = null;
-        try {
-            s = URLEncoder.encode(xValue, "UTF-8");
-        }
-        catch (UnsupportedEncodingException e) {
-            s = xValue;
-        }
-        result += this.itemParameterName + "=" + s;
+        result += this.itemParameterName + "=" + URLUtilities.encode(xValue, 
+                "UTF-8");
+
         return result;
     }
 

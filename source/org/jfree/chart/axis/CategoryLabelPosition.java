@@ -42,7 +42,6 @@
  * 07-Jan-2005 : Fixed bug in equals() method (DG);
  * 11-Jan-2005 : Removed deprecated constructor in preparation for the 1.0.0 
  *               release (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -50,9 +49,9 @@ package org.jfree.chart.axis;
 
 import java.io.Serializable;
 
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.text.TextBlockAnchor;
-import org.jfree.chart.util.RectangleAnchor;
+import org.jfree.text.TextBlockAnchor;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.ui.TextAnchor;
 
 /**
  * The attributes that control the position of the labels for the categories on 

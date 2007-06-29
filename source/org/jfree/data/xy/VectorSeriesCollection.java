@@ -40,7 +40,6 @@
  * 24-May-2007 : Added indexOf(), removeSeries() and removeAllSeries() 
  *               methods (DG);
  * 25-May-2007 : Moved from experimental to the main source tree (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -49,8 +48,8 @@ package org.jfree.data.xy;
 import java.io.Serializable;
 import java.util.List;
 
-import org.jfree.chart.util.ObjectUtilities;
 import org.jfree.data.general.DatasetChangeEvent;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A collection of {@link VectorSeries} objects.

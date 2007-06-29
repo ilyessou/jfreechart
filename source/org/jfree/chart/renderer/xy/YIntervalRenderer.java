@@ -44,8 +44,6 @@
  * 25-Feb-2004 : Replaced CrosshairInfo with CrosshairState (DG);
  * 27-Sep-2004 : Access double values from dataset (DG);
  * 11-Nov-2004 : Now uses ShapeUtilities to translate shapes (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 27-Jun-2007 : Updated drawItem() to use addEntity() (DG);
  * 
  */
 
@@ -61,15 +59,17 @@ import java.io.Serializable;
 
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
+import org.jfree.chart.entity.XYItemEntity;
+import org.jfree.chart.labels.XYToolTipGenerator;
 import org.jfree.chart.plot.CrosshairState;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.ShapeUtilities;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PublicCloneable;
+import org.jfree.util.ShapeUtilities;
 
 /**
  * A renderer that draws a line connecting the start and end Y values for an 
@@ -122,6 +122,7 @@ public class YIntervalRenderer extends AbstractXYItemRenderer
                          int pass) {
 
         // setup for collecting optional entity info...
+        Shape entityArea = null;
         EntityCollection entities = null;
         if (info != null) {
             entities = info.getOwner().getEntityCollection();
@@ -167,7 +168,21 @@ public class YIntervalRenderer extends AbstractXYItemRenderer
 
         // add an entity for the item...
         if (entities != null) {
-            addEntity(entities, line.getBounds(), dataset, series, item, 0.0, 0.0);
+            if (entityArea == null) {
+                entityArea = line.getBounds();
+            }
+            String tip = null;
+            XYToolTipGenerator generator = getToolTipGenerator(series, item);
+            if (generator != null) {
+                tip = generator.generateToolTip(dataset, series, item);
+            }
+            String url = null;
+            if (getURLGenerator() != null) {
+                url = getURLGenerator().generateURL(dataset, series, item);
+            }
+            XYItemEntity entity = new XYItemEntity(entityArea, dataset, series,
+                    item, tip, url);
+            entities.add(entity);
         }
 
     }
