@@ -2,7 +2,7 @@
  * JFreeChart : a free chart library for the Java(tm) platform
  * ===========================================================
  *
- * (C) Copyright 2000-2006, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2000-2007, by Object Refinery Limited and Contributors.
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
@@ -27,19 +27,18 @@
  * ---------------------
  * SWTTimeSeriesDemo.java
  * ---------------------
- * (C) Copyright 2006, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2006, 2007, by Object Refinery Limited and Contributors.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   Henry Proudhon (henry.proudhon AT ensmp.fr);
  *
  * Changes
  * -------
- * 30-Jan-2007 : Adapted for SWT from TimeSeriesDemo.java (HP);
+ * 30-Jan-2007 : New class derived from TimeSeriesDemo.java (HP);
  * 
  */
 package org.jfree.experimental.chart.swt.demo;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 
@@ -50,24 +49,23 @@ import org.eclipse.swt.widgets.Shell;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
-import org.jfree.chart.plot.IntervalMarker;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYDifferenceRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.util.RectangleInsets;
 import org.jfree.data.time.Month;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
+import org.jfree.ui.RectangleInsets;
 
 /**
  * An example of a time series chart.  For the most part, default settings are 
  * used, except that the renderer is modified to show filled shapes (as well as 
  * lines) at each data point.
  */
-public class SWTTimeSeriesDemo {
+public class SWTTimeSeriesDemo
+{
 
     /**
      * Creates a chart.
@@ -97,23 +95,13 @@ public class SWTTimeSeriesDemo {
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
-        //plot.setForegroundAlpha(0.5f);
-
+        
         XYItemRenderer r = plot.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {
             XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
             renderer.setBaseShapesVisible(true);
             renderer.setBaseShapesFilled(true);
         }
-        
-        // code to test the alpha channel
-        IntervalMarker interv = new IntervalMarker(120, 150,
-        		Color.blue, new BasicStroke(5.0f),null,null,0.2f);
-        plot.addRangeMarker(interv);
-        
-        // code to test the alpha channel within awt colors
-        XYDifferenceRenderer differenceRenderer= new XYDifferenceRenderer(new Color(255,0,0,128),new Color(0,255,0,128),false);
-        plot.setRenderer(differenceRenderer);
         
         DateAxis axis = (DateAxis) plot.getDomainAxis();
         axis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy"));
@@ -158,13 +146,9 @@ public class SWTTimeSeriesDemo {
         s2.add(new Month(7, 2001), 119.2);
         s2.add(new Month(8, 2001), 116.5);
         s2.add(new Month(9, 2001), 112.7);
-        s2.add(new Month(10, 2001), 180.5);
-        s2.add(new Month(11, 2001), 140.1);
-        s2.add(new Month(12, 2001), 110.3);         
-//        s2.add(new Month(9, 2001), 112.7);
-//        s2.add(new Month(10, 2001), 101.5);
-//        s2.add(new Month(11, 2001), 106.1);
-//        s2.add(new Month(12, 2001), 110.3);
+        s2.add(new Month(10, 2001), 101.5);
+        s2.add(new Month(11, 2001), 106.1);
+        s2.add(new Month(12, 2001), 110.3);
         s2.add(new Month(1, 2002), 111.7);
         s2.add(new Month(2, 2002), 111.0);
         s2.add(new Month(3, 2002), 109.6);
@@ -172,6 +156,7 @@ public class SWTTimeSeriesDemo {
         s2.add(new Month(5, 2002), 111.6);
         s2.add(new Month(6, 2002), 108.8);
         s2.add(new Month(7, 2002), 101.6);
+        
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s1);
         dataset.addSeries(s2);

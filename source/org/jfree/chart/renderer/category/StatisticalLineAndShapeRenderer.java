@@ -45,8 +45,6 @@
  *               visible (DG);
  * 14-Jun-2007 : If the dataset is not a StatisticalCategoryDataset, revert
  *               to the drawing behaviour of LineAndShapeRenderer (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 29-Jun-2007 : Simplified entity generation by calling addEntity() (DG);
  * 27-Sep-2007 : Added offset option to match new option in 
  *               LineAndShapeRenderer (DG);
  *
@@ -70,13 +68,13 @@ import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.ShapeUtilities;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.statistics.StatisticalCategoryDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
+import org.jfree.util.ShapeUtilities;
 
 /**
  * A renderer that draws shapes for each data item, and lines between data
@@ -332,9 +330,9 @@ public class StatisticalLineAndShapeRenderer extends LineAndShapeRenderer
             }
         }
 
-        // collect entity and tool tip information...
+        // add an item entity, if this information is being collected
         EntityCollection entities = state.getEntityCollection();
-        if (entities != null) {
+        if (entities != null && shape != null) {
             addItemEntity(entities, dataset, row, column, shape);
         }
 

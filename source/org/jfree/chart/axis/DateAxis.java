@@ -114,9 +114,6 @@
  * 19-Apr-2007 : Fix exceptions in setMinimum/MaximumDate() (DG);
  * 03-May-2007 : Fixed minor bugs in previousStandardDate(), with new JUnit
  *               tests (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 02-Jul-2007 : Added entity support for axis labels (DG);
- * 12-Jul-2007 : Updated for API changes in super class (DG);
  * 
  */
 
@@ -140,15 +137,15 @@ import org.jfree.chart.event.AxisChangeEvent;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.ValueAxisPlot;
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
 import org.jfree.data.Range;
 import org.jfree.data.time.DateRange;
 import org.jfree.data.time.Month;
 import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.Year;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.TextAnchor;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * The base class for axes that display dates.  You will find it easier to 
@@ -1696,12 +1693,11 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
 
         // draw the tick marks and labels...
         AxisState state = drawTickMarksAndLabels(g2, cursor, plotArea, 
-                dataArea, edge, plotState);
+                dataArea, edge);
 
         // draw the axis label (note that 'state' is passed in *and* 
         // returned)...
-        state = drawLabel(getLabel(), g2, plotArea, dataArea, edge, state,
-                plotState);
+        state = drawLabel(getLabel(), g2, plotArea, dataArea, edge, state);
 
         return state;
 

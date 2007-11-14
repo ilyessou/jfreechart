@@ -37,7 +37,6 @@
  * 08-Mar-2005 : Version 1 (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 20-Jul-2006 : Set bounds of contained block when arranging (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -48,7 +47,7 @@ import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.List;
 
-import org.jfree.chart.util.Size2D;
+import org.jfree.ui.Size2D;
 
 /**
  * Arranges a block in the center of its container.  This class is immutable.

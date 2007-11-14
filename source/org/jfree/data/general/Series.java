@@ -48,7 +48,6 @@
  * 19-May-2005 : Made abstract (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 04-May-2006 : Updated API docs (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 26-Sep-2007 : Added isEmpty() and getItemCount() methods (DG);
  * 
  */
@@ -61,7 +60,7 @@ import java.io.Serializable;
 
 import javax.swing.event.EventListenerList;
 
-import org.jfree.chart.util.ObjectUtilities;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * Base class representing a data series.  Subclasses are left to implement the

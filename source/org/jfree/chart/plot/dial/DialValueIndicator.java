@@ -35,7 +35,6 @@
  * Changes
  * -------
  * 03-Nov-2006 : Version 1 (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 17-Oct-2007 : Updated equals() (DG);
  * 24-Oct-2007 : Added default constructor and missing event notification (DG);
  * 
@@ -61,14 +60,14 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import org.jfree.chart.HashUtilities;
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.text.TextUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleAnchor;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.Size2D;
+import org.jfree.io.SerialUtilities;
+import org.jfree.text.TextUtilities;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.Size2D;
+import org.jfree.ui.TextAnchor;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A value indicator for a {@link DialPlot}.
@@ -76,6 +75,9 @@ import org.jfree.chart.util.Size2D;
 public class DialValueIndicator extends AbstractDialLayer implements DialLayer, 
         Cloneable, PublicCloneable, Serializable {
     
+    /** For serialization. */
+    static final long serialVersionUID = 803094354130942585L;
+
     /** The dataset index. */
     private int datasetIndex;
     

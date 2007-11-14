@@ -36,7 +36,6 @@
  * -------
  * 20-Oct-2006 : Version 1 (DG);
  * 27-Nov-2006 : Added clone() override (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -45,8 +44,8 @@ package org.jfree.data.xy;
 import java.io.Serializable;
 import java.util.List;
 
-import org.jfree.chart.util.ObjectUtilities;
 import org.jfree.data.general.DatasetChangeEvent;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A collection of {@link XIntervalSeries} objects.

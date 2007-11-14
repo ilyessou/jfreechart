@@ -40,7 +40,6 @@
  *               null titles cannot be created (DG);
  * 24-Nov-2005 : Removed OldLegend (DG);
  * 16-May-2007 : Added some new tests (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -73,15 +72,15 @@ import org.jfree.chart.plot.RingPlot;
 import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.chart.title.Title;
-import org.jfree.chart.util.Align;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.ui.Align;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
 
 /**
  * Tests for the {@link JFreeChart} class.
@@ -539,40 +538,6 @@ public class JFreeChartTests extends TestCase implements ChartChangeListener {
         LegendTitle legend = chart.getLegend();
         legend.setPosition(RectangleEdge.TOP);
         assertNotNull(this.lastChartChangeEvent);
-    }
-    
-    /**
-     * Some checks for title changes and event notification.
-     */
-    public void testTitleChangeEvent() {
-        DefaultPieDataset dataset = new DefaultPieDataset();
-        JFreeChart chart = ChartFactory.createPieChart("title", dataset, true, 
-                false, false);
-        chart.addChangeListener(this);
-        this.lastChartChangeEvent = null;
-        TextTitle t = chart.getTitle();
-        t.setFont(new Font("Dialog", Font.BOLD, 9));
-        assertNotNull(this.lastChartChangeEvent);
-        this.lastChartChangeEvent = null;
-        
-        // now create a new title and replace the existing title, several
-        // things should happen:
-        // (1) Adding the new title should trigger an immediate 
-        //     ChartChangeEvent;
-        // (2) Modifying the new title should trigger a ChartChangeEvent;
-        // (3) Modifying the old title should NOT trigger a ChartChangeEvent
-        TextTitle t2 = new TextTitle("T2");
-        chart.setTitle(t2);
-        assertNotNull(this.lastChartChangeEvent);
-        this.lastChartChangeEvent = null;
-        
-        t2.setFont(new Font("Dialog", Font.BOLD, 9));
-        assertNotNull(this.lastChartChangeEvent);
-        this.lastChartChangeEvent = null;
-        
-        t.setFont(new Font("Dialog", Font.BOLD, 9));
-        assertNull(this.lastChartChangeEvent);
-        this.lastChartChangeEvent = null;
     }
     
     /** The last ChartChangeEvent received. */

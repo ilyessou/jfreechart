@@ -69,8 +69,7 @@ import org.jfree.experimental.swt.SWTUtils;
 /**
  * An editor for plot properties.
  */
-class SWTPlotAppearanceEditor extends Composite
-{
+class SWTPlotAppearanceEditor extends Composite {
     
     private Spinner selectStroke;
     
@@ -98,8 +97,7 @@ class SWTPlotAppearanceEditor extends Composite
     protected static ResourceBundle localizationResources 
         = ResourceBundle.getBundle("org.jfree.chart.editor.LocalizationBundle");
 
-    SWTPlotAppearanceEditor(Composite parent, int style, Plot plot)
-    {
+    SWTPlotAppearanceEditor(Composite parent, int style, Plot plot) {
         super(parent, style);
         FillLayout layout = new FillLayout();
         layout.marginHeight = layout.marginWidth = 4;

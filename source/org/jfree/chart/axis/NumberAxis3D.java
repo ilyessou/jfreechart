@@ -63,9 +63,6 @@
  * 07-Nov-2003 : Modified refreshTicks method signature (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 18-Jan-2006 : Fixed bug 1408904 (axis assumes CategoryPlot) (DG):
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 02-Jul-2007 : Added entity support for axis labels (DG);
- * 12-Jul-2007 : Updated for API changes in super class (DG);
  *
  */
 
@@ -81,7 +78,7 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
-import org.jfree.chart.util.RectangleEdge;
+import org.jfree.ui.RectangleEdge;
 
 /**
  * A standard linear value axis with a 3D effect corresponding to the
@@ -168,11 +165,10 @@ public class NumberAxis3D extends NumberAxis implements Serializable {
 
         // draw the tick marks and labels...
         AxisState info = drawTickMarksAndLabels(g2, cursor, plotArea, 
-                adjustedDataArea, edge, plotState);
+                adjustedDataArea, edge);
        
         // draw the axis label...
-        info = drawLabel(getLabel(), g2, plotArea, dataArea, edge, info, 
-                plotState);
+        info = drawLabel(getLabel(), g2, plotArea, dataArea, edge, info);
 
         return info;
         

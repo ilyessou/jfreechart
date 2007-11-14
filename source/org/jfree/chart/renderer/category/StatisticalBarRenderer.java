@@ -49,20 +49,15 @@
  * 19-May-2006 : Added support for tooltips and URLs (DG);
  * 12-Jul-2006 : Added support for item labels (DG);
  * 02-Feb-2007 : Removed author tags all over JFreeChart sources (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 06-Jul-2007 : Added errorIndicatorStroke attribute (DG);
- * 11-Jul-2007 : Fixed serialization for new errorIndicatorStroke field (DG);
  * 28-Aug-2007 : Fixed NullPointerException - see bug 1779941 (DG);
  * 
  */
 
 package org.jfree.chart.renderer.category;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
-import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
@@ -77,12 +72,12 @@ import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.labels.CategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.statistics.StatisticalCategoryDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A renderer that handles the drawing a bar plot where
@@ -100,19 +95,11 @@ public class StatisticalBarRenderer extends BarRenderer
     private transient Paint errorIndicatorPaint;
     
     /**
-     * The stroke used to draw the error indicator. 
-     * 
-     * @since 1.2.0
-     */
-    private transient Stroke errorIndicatorStroke;
-    
-    /**
      * Default constructor.
      */
     public StatisticalBarRenderer() {
         super();
         this.errorIndicatorPaint = Color.gray;
-        this.errorIndicatorStroke = new BasicStroke(0.5f);
     }
 
     /**
@@ -137,34 +124,6 @@ public class StatisticalBarRenderer extends BarRenderer
      */
     public void setErrorIndicatorPaint(Paint paint) {
         this.errorIndicatorPaint = paint;
-        notifyListeners(new RendererChangeEvent(this));
-    }
-    
-    /**
-     * Returns the stroke used for the error indicators.
-     * 
-     * @return The stroke (possibly <code>null</code>).
-     *         
-     * @see #setErrorIndicatorStroke(Stroke)
-     *
-     * @since 1.2.0
-     */
-    public Stroke getErrorIndicatorStroke() {
-        return this.errorIndicatorStroke;   
-    }
-
-    /**
-     * Sets the stroke used for the error indicators (if <code>null</code>, 
-     * the item outline stroke is used instead)
-     * 
-     * @param stroke  the stroke (<code>null</code> permitted).
-     * 
-     * @see #getErrorIndicatorStroke()
-     *
-     * @since 1.2.0
-     */
-    public void setErrorIndicatorStroke(Stroke stroke) {
-        this.errorIndicatorStroke = stroke;
         notifyListeners(new RendererChangeEvent(this));
     }
     
@@ -257,7 +216,6 @@ public class StatisticalBarRenderer extends BarRenderer
         if (meanValue == null) {
             return;
         }
-
         double value = meanValue.doubleValue();
         double base = 0.0;
         double lclip = getLowerClip();
@@ -306,7 +264,7 @@ public class StatisticalBarRenderer extends BarRenderer
         Paint seriesPaint = getItemPaint(row, column);
         g2.setPaint(seriesPaint);
         g2.fill(bar);
-        if (isDrawBarOutline() && state.getBarWidth() > 3) {
+        if (state.getBarWidth() > 3) {
             g2.setStroke(getItemStroke(row, column));
             g2.setPaint(getItemOutlinePaint(row, column));
             g2.draw(bar);
@@ -321,19 +279,12 @@ public class StatisticalBarRenderer extends BarRenderer
             double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() 
                     - valueDelta, dataArea, yAxisLocation);
 
-            if (this.errorIndicatorStroke != null) {
-                g2.setStroke(this.errorIndicatorStroke);
-            }
-            else {
-                g2.setStroke(getItemOutlineStroke(row, column));
-            }
             if (this.errorIndicatorPaint != null) {
                 g2.setPaint(this.errorIndicatorPaint);  
             }
             else {
                 g2.setPaint(getItemOutlinePaint(row, column));   
             }
-        
             Line2D line = null;
             line = new Line2D.Double(lowVal, rectY + rectHeight / 2.0d, 
                                      highVal, rectY + rectHeight / 2.0d);
@@ -456,7 +407,7 @@ public class StatisticalBarRenderer extends BarRenderer
         Paint seriesPaint = getItemPaint(row, column);
         g2.setPaint(seriesPaint);
         g2.fill(bar);
-        if (isDrawBarOutline() && state.getBarWidth() > 3) {
+        if (state.getBarWidth() > 3) {
             g2.setStroke(getItemStroke(row, column));
             g2.setPaint(getItemOutlinePaint(row, column));
             g2.draw(bar);
@@ -471,12 +422,6 @@ public class StatisticalBarRenderer extends BarRenderer
             double lowVal = rangeAxis.valueToJava2D(meanValue.doubleValue() 
                     - valueDelta, dataArea, yAxisLocation);
 
-            if (this.errorIndicatorStroke != null) {
-                g2.setStroke(this.errorIndicatorStroke);
-            }
-            else {
-                g2.setStroke(getItemOutlineStroke(row, column));
-            }
             if (this.errorIndicatorPaint != null) {
                 g2.setPaint(this.errorIndicatorPaint);  
             }
@@ -544,7 +489,6 @@ public class StatisticalBarRenderer extends BarRenderer
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
         SerialUtilities.writePaint(this.errorIndicatorPaint, stream);
-        SerialUtilities.writeStroke(this.errorIndicatorStroke, stream);
     }
 
     /**
@@ -559,7 +503,6 @@ public class StatisticalBarRenderer extends BarRenderer
         throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.errorIndicatorPaint = SerialUtilities.readPaint(stream);
-        this.errorIndicatorStroke = SerialUtilities.readStroke(stream);
     }
 
 }

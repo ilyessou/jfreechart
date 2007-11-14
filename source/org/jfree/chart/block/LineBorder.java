@@ -54,10 +54,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SerialUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
 
 /**
  * A line border for any {@link AbstractBlock}. 
@@ -65,6 +65,9 @@ import org.jfree.chart.util.SerialUtilities;
  * @since 1.0.5
  */
 public class LineBorder implements BlockFrame, Serializable {
+
+    /** For serialization. */
+    static final long serialVersionUID = 4630356736707233924L;
 
     /** The line color. */
     private transient Paint paint;
@@ -194,7 +197,7 @@ public class LineBorder implements BlockFrame, Serializable {
         if (!PaintUtilities.equal(this.paint, that.paint)) {
             return false;
         }
-        if (!ObjectUtilities.equal(this.stroke, that.stroke)){
+        if (!ObjectUtilities.equal(this.stroke, that.stroke)) {
             return false;
         }
         if (!this.insets.equals(that.insets)) {

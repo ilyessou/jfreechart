@@ -38,7 +38,7 @@
  * 01-Nov-2005 : To remove the dependency on non-supported APIs, use ImageIO 
  *               instead of com.sun.image.codec.jpeg.JPEGImageEncoder - this 
  *               adapter will only be available on JDK 1.4 or later (DG);
- * ------------- JFREECHART 1.0.0 ---------------------------------------------
+ * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 20-Jul-2006 : Pass quality setting to ImageIO. Also increased default 
  *               value to 0.95 (DG);
  * 

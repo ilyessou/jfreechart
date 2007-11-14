@@ -36,7 +36,6 @@
  * -------
  * 09-Mar-2005 : Version 1, copied from the demo collection that ships with
  *               the JFreeChart Developer Guide (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -54,13 +53,13 @@ import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.util.ApplicationFrame;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.RefineryUtilities;
 import org.jfree.data.time.Month;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.RefineryUtilities;
 
 /**
  * An example of a time series chart.  For the most part, default settings are 

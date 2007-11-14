@@ -59,7 +59,6 @@
  * 12-Jun-2007 : Added override to findDomainBounds() to handle cluster offset,
  *               fixed rendering to handle inverted axes, and simplified 
  *               entity generation code (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -78,11 +77,11 @@ import org.jfree.chart.plot.CrosshairState;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
 import org.jfree.data.Range;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PublicCloneable;
 
 /**
  * An extension of {@link XYBarRenderer} that displays bars for different
@@ -113,8 +112,8 @@ public class ClusteredXYBarRenderer extends XYBarRenderer
      * Constructs a new XY clustered bar renderer.
      *
      * @param margin  the percentage amount to trim from the width of each bar.
-     * @param centerBarAtStartValue  if true, bars will be centered on the start 
-     *                               of the time period.
+     * @param centerBarAtStartValue  if true, bars will be centered on the 
+     *         start of the time period.
      */
     public ClusteredXYBarRenderer(double margin, 
                                   boolean centerBarAtStartValue) {

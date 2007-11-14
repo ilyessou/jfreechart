@@ -37,8 +37,6 @@
  * 29-Jul-2005 : Version 1, based on CategoryTextAnnotation (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 06-Mar-2007 : Reimplemented hashCode() (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 06-Jul-2007 : Updated for changes to CategoryAnnotation interface (DG);
  *
  */
 
@@ -62,12 +60,11 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.PlotRenderingInfo;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
 
 /**
  * A line annotation that can be placed on a {@link CategoryPlot}.
@@ -75,6 +72,9 @@ import org.jfree.data.category.CategoryDataset;
 public class CategoryLineAnnotation implements CategoryAnnotation, 
                                                Cloneable, Serializable {
     
+    /** For serialization. */
+    static final long serialVersionUID = 3477740483341587984L;
+
     /** The category for the start of the line. */
     private Comparable category1;
 
@@ -279,12 +279,9 @@ public class CategoryLineAnnotation implements CategoryAnnotation,
      * @param dataArea  the data area.
      * @param domainAxis  the domain axis.
      * @param rangeAxis  the range axis.
-     * @param rendererIndex  the renderer index.
-     * @param info  the plot info (<code>null</code> permitted).
      */
     public void draw(Graphics2D g2, CategoryPlot plot, Rectangle2D dataArea,
-            CategoryAxis domainAxis, ValueAxis rangeAxis, 
-            int rendererIndex, PlotRenderingInfo info) {
+                     CategoryAxis domainAxis, ValueAxis rangeAxis) {
 
         CategoryDataset dataset = plot.getDataset();
         int catIndex1 = dataset.getColumnIndex(this.category1);

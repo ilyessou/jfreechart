@@ -32,15 +32,14 @@
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   Nicolas Brodu;
  *
- * Changes (from 18-Sep-2001)
- * --------------------------
+ * Changes
+ * -------
  * 18-Sep-2001 : Added standard header and fixed DOS encoding problem (DG);
  * 26-Sep-2002 : Fixed errors reported by Checkstyle (DG);
  * 08-Nov-2002 : Moved to new package com.jrefinery.chart.axis (DG);
  * 26-Mar-2003 : Implemented Serializable (DG);
  * 12-Sep-2003 : Implemented Cloneable (NB);
  * 07-Nov-2003 : Added subclasses for particular types of ticks (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -48,8 +47,8 @@ package org.jfree.chart.axis;
 
 import java.io.Serializable;
 
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.util.ObjectUtilities;
+import org.jfree.ui.TextAnchor;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * The base class used to represent labelled ticks along an axis.

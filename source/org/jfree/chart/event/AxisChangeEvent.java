@@ -45,7 +45,6 @@ import org.jfree.chart.axis.Axis;
 
 /**
  * A change event that encapsulates information about a change to an axis.
- *
  */
 public class AxisChangeEvent extends ChartChangeEvent {
 

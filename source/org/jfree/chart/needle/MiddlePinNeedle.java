@@ -24,9 +24,9 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc. 
  * in the United States and other countries.]
  *
- * --------------
- * PinNeedle.java
- * --------------
+ * --------------------
+ * MiddlePinNeedle.java
+ * --------------------
  * (C) Copyright 2002-2007, by the Australian Antarctic Division and 
  *                          Contributors.
  *

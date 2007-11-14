@@ -51,7 +51,6 @@
  * 25-Nov-2004 : Moved some code into abstract super class (DG);
  * 29-Jul-2005 : Removed implementation of PieSectionLabelGenerator 
  *               interface (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 10-Jul-2007 : Added constructors with locale argument (DG);
  *
  */
@@ -62,8 +61,8 @@ import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.general.PieDataset;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A standard item label generator for plots that use data from a 
@@ -85,6 +84,13 @@ public class StandardPieToolTipGenerator extends AbstractPieItemLabelGenerator
     
     /** The default tooltip format. */
     public static final String DEFAULT_TOOLTIP_FORMAT = "{0}: ({1}, {2})";
+
+    /** 
+     * The default section label format. 
+     * 
+     * @deprecated As of 1.0.7, use {@link #DEFAULT_TOOLTIP_FORMAT} instead.
+     */
+    public static final String DEFAULT_SECTION_LABEL_FORMAT = "{0} = {1}";
 
     /**
      * Creates an item label generator using default number formatters.

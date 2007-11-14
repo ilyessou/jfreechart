@@ -51,7 +51,7 @@
  * 25-Sep-2003 : Oops, Range immutable, clone not necessary (NB);
  * 05-May-2004 : Added constrain() and intersects() methods (DG);
  * 18-May-2004 : Added expand() method (DG);
- * ------------- JFreeChart 1.0.0 ---------------------------------------------
+ * ------------- JFreeChart 1.0.x ---------------------------------------------
  * 11-Jan-2006 : Added new method expandToInclude(Range, double) (DG);
  * 
  */

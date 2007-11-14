@@ -21,17 +21,23 @@
     <target name="initialise" description="Initialise required settings.">
         <tstamp />
         <property name="jfreechart.name" value="jfreechart" />
-        <property name="jfreechart.version" value="1.2.0-pre1" />
+        <property name="jfreechart.version" value="1.0.7" />
         <property name="jfreechart-bundle-file" value="${jfreechart.name}-${jfreechart.version}-bundle.jar" />
+        <property name="jcommon.name" value="jcommon" />
+        <property name="jcommon.version" value="1.0.12" />
+        <property name="jcommon.jar" value="${basedir}/lib/${jcommon.name}-${jcommon.version}.jar"/>
         <property name="itext.name" value="itext" />
-        <property name="itext.version" value="2.0.2" />
+        <property name="itext.version" value="2.0.6" />
         <property name="itext.jar" value="${basedir}/lib/${itext.name}-${itext.version}.jar"/>
         <property name="builddir" value="${basedir}/build" />
         <property name="servlet.jar" value="${basedir}/lib/servlet.jar"/>
+        <property name="gnujaxp.jar" value="${basedir}/lib/gnujaxp.jar"/>
         <property name="junit.jar" value="${basedir}/lib/junit.jar"/>
         <available classname="javax.imageio.ImageIO" property="ImageIO.present"/>
         <path id="build.classpath">
+            <pathelement location="${jcommon.jar}"/>
             <pathelement location="${servlet.jar}"/>
+            <pathelement location="${gnujaxp.jar}"/>
         </path>
 
     </target>
@@ -48,10 +54,13 @@
                destdir="${basedir}/build"
                debug="on"
                deprecation="false"
-               source="1.4"
-               target="1.4">
+               source="1.3"
+               target="1.3">
             <classpath refid="build.classpath" />
-            <include name="org/jfree/**"/>       	
+            <include name="org/jfree/**"/>
+            <exclude name="org/jfree/chart/xml/**"/>
+            <exclude name="org/jfree/chart/encoders/SunPNGEncoderAdapter.java" unless="ImageIO.present"/>
+            <exclude name="org/jfree/chart/encoders/SunJPEGEncoderAdapter.java" unless="ImageIO.present"/>        	
         </javac>
 
         <!-- copy across gorilla.jpg -->
@@ -70,11 +79,6 @@
         </copy>
         <copy todir="${basedir}/build/org/jfree/chart/editor">
             <fileset dir="${basedir}/source/org/jfree/chart/editor">
-                <include name="*.properties" />
-            </fileset>
-        </copy>
-        <copy todir="${basedir}/build/org/jfree/chart/ui">
-            <fileset dir="${basedir}/source/org/jfree/chart/ui">
                 <include name="*.properties" />
             </fileset>
         </copy>
@@ -98,7 +102,9 @@
         <mkdir dir="${basedir}/build" />
 
         <path id="build.experimental.classpath">
+            <pathelement location="${jcommon.jar}"/>
             <pathelement location="${servlet.jar}"/>
+            <pathelement location="${gnujaxp.jar}"/>
             <pathelement location="${basedir}/${jfreechart.name}-${jfreechart.version}.jar"/>
         </path>
 
@@ -107,8 +113,8 @@
                destdir="${basedir}/build"
                debug="on"
                deprecation="false"
-               source="1.4"
-               target="1.4">
+               source="1.3"
+               target="1.3">
             <classpath refid="build.experimental.classpath" />
             <include name="org/jfree/experimental/**"/>
             <exclude name="org/jfree/experimental/**/junit/*"/>
@@ -180,6 +186,7 @@
         <copy todir="${basedir}/distribution/source">
             <fileset dir="${basedir}/source">
               <exclude name="**/CVS/*"/>
+              <exclude name="org/jfree/chart/xml/**"/>
             </fileset>
         </copy>
 
@@ -202,9 +209,11 @@
         </copy>    	
 
         <!-- copy across lib files -->
-        <copy file="${basedir}/lib/swtgraphics2d.jar" tofile="${basedir}/distribution/lib/swtgraphics2d.jar" />
+        <copy file="${jcommon.jar}" tofile="${basedir}/distribution/lib/${jcommon.name}-${jcommon.version}.jar" />
+        <copy file="${basedir}/lib/swtgraphics2d.jar" tofile="${basedir}/distribution/lib/swtgraphics2d.jar" failonerror="false" />
         <copy file="${basedir}/lib/jfreechart-${jfreechart.version}-swt.jar" tofile="${basedir}/distribution/lib/${jfreechart.name}-${jfreechart.version}-swt.jar" />
         <copy file="${servlet.jar}" tofile="${basedir}/distribution/lib/servlet.jar" />
+        <copy file="${gnujaxp.jar}" tofile="${basedir}/distribution/lib/gnujaxp.jar" />
         <copy file="${junit.jar}" tofile="${basedir}/distribution/lib/junit.jar" />
         <copy file="${itext.jar}" tofile="${basedir}/distribution/lib/${itext.name}-${itext.version}.jar" />
 
@@ -270,6 +279,7 @@
     <filterchain id="version.filters">
        <replacetokens>
          <token key="VERSION" value="${jfreechart.version}"/>
+         <token key="JCOMMON.VERSION" value="${jcommon.version}"/>
        </replacetokens>
     </filterchain>
     <copy file="maven-jfreechart-project.xml" tofile="distribution/project.xml">
@@ -295,8 +305,8 @@
         <mkdir dir="${basedir}/build-tests"/>
         <javac srcdir="${basedir}/tests" 
                destdir="${basedir}/build-tests" 
-               source="1.4"
-               target="1.4" 
+               source="1.3"
+               target="1.3" 
                debug="true" 
                deprecation="false"
                optimize="false">

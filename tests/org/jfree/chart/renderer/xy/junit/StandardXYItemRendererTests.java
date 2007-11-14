@@ -40,7 +40,6 @@
  * 14-Mar-2007 : Added new checks in testEquals() and testCloning() (DG);
  * 17-May-2007 : Added testGetLegendItemSeriesIndex() (DG);
  * 08-Jun-2007 : Added testNoDisplayedItem() (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -72,9 +71,9 @@ import org.jfree.chart.junit.TestUtilities;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
-import org.jfree.chart.util.UnitType;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.util.UnitType;
 
 /**
  * Tests for the {@link StandardXYItemRenderer} class.
@@ -140,6 +139,11 @@ public class StandardXYItemRendererTests extends TestCase {
         r1.setLegendLine(new Line2D.Double(1.0, 2.0, 3.0, 4.0));
         assertFalse(r1.equals(r2));
         r2.setLegendLine(new Line2D.Double(1.0, 2.0, 3.0, 4.0));
+        assertTrue(r1.equals(r2));
+
+        r1.setShapesFilled(false);
+        assertFalse(r1.equals(r2));
+        r2.setShapesFilled(false);
         assertTrue(r1.equals(r2));
         
         r1.setSeriesShapesFilled(1, Boolean.TRUE);

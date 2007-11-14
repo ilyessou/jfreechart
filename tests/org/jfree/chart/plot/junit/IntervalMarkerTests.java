@@ -55,15 +55,16 @@ import junit.framework.TestSuite;
 import org.jfree.chart.event.MarkerChangeEvent;
 import org.jfree.chart.event.MarkerChangeListener;
 import org.jfree.chart.plot.IntervalMarker;
-import org.jfree.chart.util.GradientPaintTransformType;
-import org.jfree.chart.util.GradientPaintTransformer;
-import org.jfree.chart.util.StandardGradientPaintTransformer;
+import org.jfree.ui.GradientPaintTransformType;
+import org.jfree.ui.GradientPaintTransformer;
+import org.jfree.ui.StandardGradientPaintTransformer;
 
 /**
  * Tests for the {@link IntervalMarker} class.
  */
-public class IntervalMarkerTests extends TestCase 
-        implements MarkerChangeListener {
+public class IntervalMarkerTests 
+    extends TestCase 
+    implements MarkerChangeListener {
 
     MarkerChangeEvent lastEvent;
     

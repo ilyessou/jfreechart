@@ -36,7 +36,6 @@
  * -------
  * 03-Nov-2006 : Version 1 (DG);
  * 17-Nov-2006 : Added flags for tick label visibility (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 24-Oct-2007 : Added tick label formatter (DG);
  * 
  */
@@ -60,17 +59,20 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.text.TextUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.SerialUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.text.TextUtilities;
+import org.jfree.ui.TextAnchor;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A scale for a {@link DialPlot}.
  */
 public class StandardDialScale extends AbstractDialLayer implements DialScale, 
         Cloneable, PublicCloneable, Serializable {
+    
+    /** For serialization. */
+    static final long serialVersionUID = 3715644629665918516L;
     
     /** The minimum data value for the scale. */
     private double lowerBound;

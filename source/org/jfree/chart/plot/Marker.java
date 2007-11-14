@@ -32,8 +32,8 @@
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   Nicolas Brodu;
  *
- * Changes (since 2-Jul-2002)
- * --------------------------
+ * Changes
+ * -------
  * 02-Jul-2002 : Added extra constructor, standard header and Javadoc 
  *               comments (DG);
  * 20-Aug-2002 : Added the outline stroke attribute (DG);
@@ -54,7 +54,6 @@
  * 19-Aug-2005 : Changed constructor from public --> protected (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 05-Sep-2006 : Added MarkerChangeListener support (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 26-Sep-2007 : Fix for serialization bug 1802195 (DG);
  *
  */
@@ -76,13 +75,13 @@ import javax.swing.event.EventListenerList;
 
 import org.jfree.chart.event.MarkerChangeEvent;
 import org.jfree.chart.event.MarkerChangeListener;
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.util.LengthAdjustmentType;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.RectangleAnchor;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SerialUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.LengthAdjustmentType;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.TextAnchor;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
 
 /**
  * The base class for markers that can be added to plots to highlight a value 

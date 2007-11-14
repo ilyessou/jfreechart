@@ -30,11 +30,11 @@
  * (C) Copyright 2006, 2007, by Object Refinery Limited and Contributors.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
- * Contributor(s):   Henry Proudhon (henry.proudhon AT ensmp.fr).
+ * Contributor(s):   Henry Proudhon;
  *
  * Changes
  * -------
- * 23-Aug-2006 : Adapted for SWT (HP);
+ * 23-Aug-2006 : New class (HP);
  * 
  */
 
@@ -58,13 +58,13 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.title.TextTitle;
-import org.jfree.chart.util.RectangleInsets;
 import org.jfree.data.time.Minute;
 import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
+import org.jfree.ui.RectangleInsets;
 
 /**
  * This demo shows a time series chart that has multiple range axes.

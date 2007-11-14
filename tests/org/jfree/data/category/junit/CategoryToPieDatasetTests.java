@@ -36,8 +36,7 @@
  * -------
  * 26-Jul-2006 : Version 1 (DG);
  * 01-Aug-2006 : Added testGetIndex() method (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 
+ *
  */
 
 package org.jfree.data.category.junit;
@@ -53,10 +52,10 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.jfree.chart.util.TableOrder;
 import org.jfree.data.category.CategoryToPieDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.util.TableOrder;
 
 /**
  * Tests for the {@link CategoryToPieDataset} class.

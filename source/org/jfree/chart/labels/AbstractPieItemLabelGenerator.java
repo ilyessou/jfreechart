@@ -89,8 +89,7 @@ public class AbstractPieItemLabelGenerator implements Serializable {
         }
         if (percentFormat == null) {
             throw new IllegalArgumentException(
-                "Null 'percentFormat' argument."
-            );   
+                    "Null 'percentFormat' argument.");   
         }
         this.labelFormat = labelFormat;
         this.numberFormat = numberFormat;
@@ -197,7 +196,7 @@ public class AbstractPieItemLabelGenerator implements Serializable {
         }
         
         AbstractPieItemLabelGenerator that 
-            = (AbstractPieItemLabelGenerator) obj;
+                = (AbstractPieItemLabelGenerator) obj;
         if (!this.labelFormat.equals(that.labelFormat)) {
             return false;
         }
@@ -220,7 +219,7 @@ public class AbstractPieItemLabelGenerator implements Serializable {
      */
     public Object clone() throws CloneNotSupportedException {      
         AbstractPieItemLabelGenerator clone 
-            = (AbstractPieItemLabelGenerator) super.clone();
+                = (AbstractPieItemLabelGenerator) super.clone();
         if (this.numberFormat != null) {
             clone.numberFormat = (NumberFormat) this.numberFormat.clone();
         }

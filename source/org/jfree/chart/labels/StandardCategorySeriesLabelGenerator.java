@@ -37,7 +37,6 @@
  * 20-Apr-2005 : Version 1 (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 03-May-2006 : Fixed equals() method (bug 1481102) (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -46,8 +45,8 @@ package org.jfree.chart.labels;
 import java.io.Serializable;
 import java.text.MessageFormat;
 
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A standard series label generator for plots that use data from 

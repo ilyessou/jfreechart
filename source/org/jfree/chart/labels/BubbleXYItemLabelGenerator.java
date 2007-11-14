@@ -37,7 +37,6 @@
  * 13-Dec-2005 : Version 1, based on StandardXYZToolTipGenerator (DG);
  * 26-Jan-2006 : Renamed StandardXYZItemLabelGenerator 
  *               --> BubbleXYItemLabelGenerator (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -49,9 +48,9 @@ import java.text.MessageFormat;
 import java.text.NumberFormat;
 
 import org.jfree.chart.renderer.xy.XYBubbleRenderer;
-import org.jfree.chart.util.ObjectUtilities;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYZDataset;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * An item label generator defined for use with the {@link XYBubbleRenderer}

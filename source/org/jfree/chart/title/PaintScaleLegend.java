@@ -35,8 +35,6 @@
  * Changes
  * -------
  * 22-Jan-2007 : Version 1 (DG);
- * 19-Jun-2007 : Fixed deprecation warnings (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -61,12 +59,12 @@ import org.jfree.chart.event.TitleChangeEvent;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.PaintScale;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.Size2D;
 import org.jfree.data.Range;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.Size2D;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A legend that shows a range of values and their associated colors, driven
@@ -76,6 +74,9 @@ import org.jfree.data.Range;
  */
 public class PaintScaleLegend extends Title implements PublicCloneable {
 
+    /** For serialization. */
+    static final long serialVersionUID = -1365146490993227503L;
+    
     /** The paint scale (never <code>null</code>). */
     private PaintScale scale;
     
@@ -379,7 +380,7 @@ public class PaintScaleLegend extends Title implements PublicCloneable {
                 throw new RuntimeException("Not yet implemented."); 
             }
             else if (h == LengthConstraintType.FIXED) {
-                throw new RuntimeException("Not yet implemented.");                 
+                throw new RuntimeException("Not yet implemented.");
             }            
         }
         else if (w == LengthConstraintType.RANGE) {
@@ -391,7 +392,7 @@ public class PaintScaleLegend extends Title implements PublicCloneable {
                         cc.getHeightRange()); 
             }
             else if (h == LengthConstraintType.FIXED) {
-                throw new RuntimeException("Not yet implemented.");                 
+                throw new RuntimeException("Not yet implemented.");
             }
         }
         else if (w == LengthConstraintType.FIXED) {
@@ -402,7 +403,7 @@ public class PaintScaleLegend extends Title implements PublicCloneable {
                 throw new RuntimeException("Not yet implemented."); 
             }
             else if (h == LengthConstraintType.FIXED) {
-                throw new RuntimeException("Not yet implemented.");                 
+                throw new RuntimeException("Not yet implemented.");
             }
         }
         return new Size2D(calculateTotalWidth(contentSize.getWidth()),
@@ -484,8 +485,8 @@ public class PaintScaleLegend extends Title implements PublicCloneable {
             g2.setPaint(this.backgroundPaint);
             g2.fill(target);
         }
-        getFrame().draw(g2, target);
-        getFrame().getInsets().trim(target);
+        getBorder().draw(g2, target);
+        getBorder().getInsets().trim(target);
         target = trimPadding(target);
         double base = this.axis.getLowerBound();
         double increment = this.axis.getRange().getLength() / SUBDIVISIONS;

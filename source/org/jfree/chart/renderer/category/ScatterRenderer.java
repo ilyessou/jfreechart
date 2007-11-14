@@ -59,12 +59,13 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.util.BooleanList;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.ShapeUtilities;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.statistics.MultiValueCategoryDataset;
+import org.jfree.util.BooleanList;
+import org.jfree.util.BooleanUtilities;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
+import org.jfree.util.ShapeUtilities;
 
 /**
  * A renderer that handles the multiple values from a 
@@ -294,7 +295,8 @@ public class ScatterRenderer extends AbstractCategoryItemRenderer
      * @param filled the flag.
      */
     public void setSeriesShapesFilled(int series, boolean filled) {
-        this.seriesShapesFilled.setBoolean(series, Boolean.valueOf(filled));
+        this.seriesShapesFilled.setBoolean(series, 
+                BooleanUtilities.valueOf(filled));
         notifyListeners(new RendererChangeEvent(this));
     }
 
@@ -378,7 +380,7 @@ public class ScatterRenderer extends AbstractCategoryItemRenderer
             if (this.useSeriesOffset) {
                 x1 = domainAxis.getCategorySeriesMiddle(dataset.getColumnKey(
                         column), dataset.getRowKey(row), dataset, 
-                        this.itemMargin, dataArea, plot.getDomainAxisEdge());            
+                        this.itemMargin, dataArea, plot.getDomainAxisEdge());
             }
             else {
                 x1 = domainAxis.getCategoryMiddle(column, getColumnCount(), 

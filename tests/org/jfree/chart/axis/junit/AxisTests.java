@@ -30,15 +30,13 @@
  * (C) Copyright 2003-2007, by Object Refinery Limited and Contributors.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
- * Contributor(s):   -
+ * Contributor(s):   -;
  *
  * Changes
  * -------
  * 13-Aug-2003 : Version 1 (DG);
  * 06-Jan-2004 : Added tests for axis line attributes (DG);
  * 07-Jan-2005 : Added hashCode() test (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 
  */
 
 package org.jfree.chart.axis.junit;
@@ -54,7 +52,7 @@ import junit.framework.TestSuite;
 
 import org.jfree.chart.axis.Axis;
 import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.util.RectangleInsets;
+import org.jfree.ui.RectangleInsets;
 
 /**
  * Tests for the {@link Axis} class.
@@ -90,7 +88,7 @@ public class AxisTests extends TestCase {
             a2 = (CategoryAxis) a1.clone();
         }
         catch (CloneNotSupportedException e) {
-            e.printStackTrace();
+            System.err.println("Failed to clone.");
         }
         assertTrue(a1 != a2);
         assertTrue(a1.getClass() == a2.getClass());
@@ -142,16 +140,6 @@ public class AxisTests extends TestCase {
         a1.setLabelAngle(1.23);
         assertFalse(a1.equals(a2));
         a2.setLabelAngle(1.23);
-        assertTrue(a1.equals(a2));
-
-        a1.setLabelToolTip("123");
-        assertFalse(a1.equals(a2));
-        a2.setLabelToolTip("123");
-        assertTrue(a1.equals(a2));
-
-        a1.setLabelURL("ABC");
-        assertFalse(a1.equals(a2));
-        a2.setLabelURL("ABC");
         assertTrue(a1.equals(a2));
 
         // axis line visible...

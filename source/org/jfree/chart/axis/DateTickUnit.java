@@ -32,8 +32,8 @@
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   Chris Boek;
  *
- * Changes (from 8-Nov-2002)
- * --------------------------
+ * Changes
+ * -------
  * 08-Nov-2002 : Moved to new package com.jrefinery.chart.axis (DG);
  * 27-Nov-2002 : Added IllegalArgumentException to getMillisecondCount() 
  *               method (DG);
@@ -47,7 +47,6 @@
  * 21-Mar-2007 : Added toString() for debugging (DG);
  * 04-Apr-2007 : Added new methods addToDate(Date, TimeZone) and rollDate(Date, 
  *               TimeZone) (CB);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -59,7 +58,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.jfree.chart.util.ObjectUtilities;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A tick unit for use by subclasses of {@link DateAxis}. Instances of this 

@@ -65,7 +65,6 @@
  * ------------- JFreeChart 1.0.x ---------------------------------------------
  * 11-Jan-2005 : Renamed update(int, Number) --> updateByIndex() (DG);
  * 15-Jan-2007 : Added toArray() method (DG);
- * 20-Jun-2007 : Removed deprecated code and JCommon dependencies (DG);
  * 31-Oct-2007 : Implemented faster hashCode() (DG);
  * 
  */
@@ -76,10 +75,10 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-import org.jfree.chart.util.ObjectUtilities;
 import org.jfree.data.general.Series;
 import org.jfree.data.general.SeriesChangeEvent;
 import org.jfree.data.general.SeriesException;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * Represents a sequence of zero or more data items in the form (x, y).  By 
@@ -474,12 +473,26 @@ public class XYSeries extends Series implements Cloneable, Serializable {
      * @param index  the item (zero based index).
      * @param y  the new value (<code>null</code> permitted).
      * 
-     * @since 1.0.1
+     * @deprecated Renamed {@link #updateByIndex(int, Number)} to avoid 
+     *         confusion with the {@link #update(Number, Number)} method.
      */
-    public void updateByIndex(int index, Number y) {
+    public void update(int index, Number y) {
         XYDataItem item = getDataItem(index);
         item.setY(y);
         fireSeriesChanged();
+    }
+    
+    /**
+     * Updates the value of an item in the series and sends a 
+     * {@link SeriesChangeEvent} to all registered listeners.
+     * 
+     * @param index  the item (zero based index).
+     * @param y  the new value (<code>null</code> permitted).
+     * 
+     * @since 1.0.1
+     */
+    public void updateByIndex(int index, Number y) {
+        update(index, y);
     }
     
     /**
@@ -562,7 +575,7 @@ public class XYSeries extends Series implements Cloneable, Serializable {
      */
     public int indexOf(Number x) {
         if (this.autoSort) {
-            return Collections.binarySearch(this.data, new XYDataItem(x, null));   
+            return Collections.binarySearch(this.data, new XYDataItem(x, null));
         }
         else {
             for (int i = 0; i < this.data.size(); i++) {

@@ -36,7 +36,6 @@
  * -------
  * 02-Jun-2004 : Version 1 (DG);
  * 23-Mar-2005 : Implemented PublicCloneable (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -46,9 +45,9 @@ import java.io.Serializable;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
 
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.statistics.BoxAndWhiskerCategoryDataset;
+import org.jfree.util.PublicCloneable;
 
 /**
  * An item label generator for plots that use data from a 

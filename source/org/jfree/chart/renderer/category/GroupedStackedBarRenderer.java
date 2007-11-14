@@ -41,8 +41,6 @@
  * 20-Apr-2005 : Renamed CategoryLabelGenerator 
  *               --> CategoryItemLabelGenerator (DG);
  * 22-Sep-2005 : Renamed getMaxBarWidth() --> getMaximumBarWidth() (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 29-Jun-2007 : Simplified entity generation by calling addEntity() (DG);
  * 
  */
  
@@ -56,17 +54,19 @@ import java.io.Serializable;
 
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.entity.CategoryItemEntity;
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.labels.CategoryItemLabelGenerator;
+import org.jfree.chart.labels.CategoryToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
 import org.jfree.data.KeyToGroupMap;
 import org.jfree.data.Range;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.DatasetUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A renderer that draws stacked bars within groups.  This will probably be 
@@ -328,17 +328,35 @@ public class GroupedStackedBarRenderer extends StackedBarRenderer
             g2.draw(bar);
         }
 
-        CategoryItemLabelGenerator generator = getItemLabelGenerator(row, 
-                column);
+        CategoryItemLabelGenerator generator 
+            = getItemLabelGenerator(row, column);
         if (generator != null && isItemLabelVisible(row, column)) {
-            drawItemLabel(g2, dataset, row, column, plot, generator, bar, 
-                    (value < 0.0));
+            drawItemLabel(
+                g2, dataset, row, column, plot, generator, bar, 
+                (value < 0.0)
+            );
         }        
                 
         // collect entity and tool tip information...
-        EntityCollection entities = state.getEntityCollection();
-        if (entities != null) {
-            addItemEntity(entities, dataset, row, column, bar);
+        if (state.getInfo() != null) {
+            EntityCollection entities = state.getEntityCollection();
+            if (entities != null) {
+                String tip = null;
+                CategoryToolTipGenerator tipster = getToolTipGenerator(row, 
+                        column);
+                if (tipster != null) {
+                    tip = tipster.generateToolTip(dataset, row, column);
+                }
+                String url = null;
+                if (getItemURLGenerator(row, column) != null) {
+                    url = getItemURLGenerator(row, column).generateURL(
+                            dataset, row, column);
+                }
+                CategoryItemEntity entity = new CategoryItemEntity(
+                        bar, tip, url, dataset, dataset.getRowKey(row), 
+                        dataset.getColumnKey(column));
+                entities.add(entity);
+            }
         }
         
     }

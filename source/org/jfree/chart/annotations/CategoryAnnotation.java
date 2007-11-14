@@ -36,8 +36,6 @@
  * --------
  * 02-Apr-2003 : Version 1 (DG);
  * 02-Jul-2003 : Eliminated Annotation base interface (DG);
- * ------------- JFREECHART 1.0.x ---------------------------------------------
- * 06-Jul-2007 : Added PlotRenderingInfo parameter to draw() method (DG);
  *
  */
 
@@ -49,11 +47,10 @@ import java.awt.geom.Rectangle2D;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotRenderingInfo;
 
 /**
  * The interface that must be supported by annotations that are to be added to 
- * a {@link CategoryPlot}.
+ * a {@link org.jfree.chart.plot.CategoryPlot}.
  */
 public interface CategoryAnnotation {
 
@@ -65,11 +62,8 @@ public interface CategoryAnnotation {
      * @param dataArea  the data area.
      * @param domainAxis  the domain axis.
      * @param rangeAxis  the range axis.
-     * @param rendererIndex  the renderer index.
-     * @param info  the plot info (<code>null</code> permitted).
      */
     public void draw(Graphics2D g2, CategoryPlot plot, Rectangle2D dataArea,
-                     CategoryAxis domainAxis, ValueAxis rangeAxis, 
-                     int rendererIndex, PlotRenderingInfo info);
+                     CategoryAxis domainAxis, ValueAxis rangeAxis);
 
 }

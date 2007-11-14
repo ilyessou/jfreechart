@@ -38,7 +38,6 @@
  * 16-Sep-2003 : Added percentage complete (DG);
  * 30-Jul-2004 : Added clone() and equals() methods and implemented 
  *               Serializable (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -48,10 +47,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.time.SimpleTimePeriod;
 import org.jfree.data.time.TimePeriod;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A simple representation of a task.  The task has a description and a 

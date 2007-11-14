@@ -35,7 +35,6 @@
  * Changes
  * -------
  * 13-May-2004 : Version 1 (DG);
- * 20-Jun-2007 : Removed JCommon dependency (DG);
  *
  */
 
@@ -54,7 +53,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.jfree.chart.axis.DateTick;
-import org.jfree.chart.text.TextAnchor;
+import org.jfree.ui.TextAnchor;
 
 /**
  * Tests for the {@link DateTick} class.

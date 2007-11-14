@@ -37,10 +37,8 @@
  * 11-May-2004 : Version 1 (DG);
  * 20-Apr-2005 : Renamed StandardCategoryLabelGenerator 
  *               --> StandardCategoryItemLabelGenerator (DG);
- * ------------- JFREECHART 1.0.x ---------------------------------------------
+ * ------------- JFREECHART 1.0.0 ---------------------------------------------
  * 03-May-2005 : Added equals() implementation, to fix bug 1481087 (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 
  */
 
 package org.jfree.chart.labels;
@@ -49,8 +47,8 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A standard label generator that can be used with a 

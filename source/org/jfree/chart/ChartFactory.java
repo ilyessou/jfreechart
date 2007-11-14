@@ -113,10 +113,6 @@
  *               generator is a DateAxis is requested (DG);
  * 17-Jan-2007 : Added createBoxAndWhiskerChart() method from patch 1603937
  *               submitted by Darren Jung (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 26-Jun-2007 : Updated some code for method name changes in 
- *               the CategoryItemRenderer interface (DG);
- * 27-Jun-2007 : Updates for method name changes in XYItemRenderer (DG);
  * 10-Jul-2007 : Added new methods to create pie charts with locale for
  *               section label and tool tip formatting (DG);
  *
@@ -188,7 +184,6 @@ import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.renderer.xy.XYStepAreaRenderer;
 import org.jfree.chart.renderer.xy.XYStepRenderer;
-import org.jfree.chart.text.TextAnchor;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.chart.urls.PieURLGenerator;
 import org.jfree.chart.urls.StandardCategoryURLGenerator;
@@ -196,11 +191,6 @@ import org.jfree.chart.urls.StandardPieURLGenerator;
 import org.jfree.chart.urls.StandardXYURLGenerator;
 import org.jfree.chart.urls.StandardXYZURLGenerator;
 import org.jfree.chart.urls.XYURLGenerator;
-import org.jfree.chart.util.Layer;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SortOrder;
-import org.jfree.chart.util.TableOrder;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.IntervalCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -214,6 +204,12 @@ import org.jfree.data.xy.TableXYDataset;
 import org.jfree.data.xy.WindDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYZDataset;
+import org.jfree.ui.Layer;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.TextAnchor;
+import org.jfree.util.SortOrder;
+import org.jfree.util.TableOrder;
 
 /**
  * A collection of utility methods for creating some standard charts with 
@@ -377,7 +373,7 @@ public abstract class ChartFactory {
                     plot.setSectionPaint(key, new Color((int) shade, 0, 0));
                 }
                 if (showDifference) {
-                    series.setValue(key + " (" + (percentChange >= 0 ? "+" : "") 
+                    series.setValue(key + " (" + (percentChange >= 0 ? "+" : "")
                             + NumberFormat.getPercentInstance().format(
                             percentChange / 100.0) + ")", newValue);
                 }
@@ -503,7 +499,7 @@ public abstract class ChartFactory {
                     plot.setSectionPaint(key, new Color((int) shade, 0, 0));
                 }
                 if (showDifference) {
-                    series.setValue(key + " (" + (percentChange >= 0 ? "+" : "") 
+                    series.setValue(key + " (" + (percentChange >= 0 ? "+" : "")
                             + NumberFormat.getPercentInstance().format(
                             percentChange / 100.0) + ")", newValue);
                 }
@@ -820,7 +816,8 @@ public abstract class ChartFactory {
                     new StandardCategoryToolTipGenerator());
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardCategoryURLGenerator());
+            renderer.setBaseItemURLGenerator(
+                    new StandardCategoryURLGenerator());
         }
 
         CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis, 
@@ -876,7 +873,8 @@ public abstract class ChartFactory {
                     new StandardCategoryToolTipGenerator());
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardCategoryURLGenerator());
+            renderer.setBaseItemURLGenerator(
+                    new StandardCategoryURLGenerator());
         }
 
         CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis, 
@@ -930,7 +928,8 @@ public abstract class ChartFactory {
                     new StandardCategoryToolTipGenerator());
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardCategoryURLGenerator());
+            renderer.setBaseItemURLGenerator(
+                    new StandardCategoryURLGenerator());
         }
 
         CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis, 
@@ -994,7 +993,8 @@ public abstract class ChartFactory {
                     new StandardCategoryToolTipGenerator());
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardCategoryURLGenerator());
+            renderer.setBaseItemURLGenerator(
+                    new StandardCategoryURLGenerator());
         }
 
         // create the plot...
@@ -1058,7 +1058,8 @@ public abstract class ChartFactory {
                     new StandardCategoryToolTipGenerator());
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardCategoryURLGenerator());
+            renderer.setBaseItemURLGenerator(
+                    new StandardCategoryURLGenerator());
         }
 
         CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis, 
@@ -1113,7 +1114,8 @@ public abstract class ChartFactory {
                     new StandardCategoryToolTipGenerator());
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardCategoryURLGenerator());
+            renderer.setBaseItemURLGenerator(
+                    new StandardCategoryURLGenerator());
         }
 
         CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis, 
@@ -1167,7 +1169,8 @@ public abstract class ChartFactory {
                     new StandardCategoryToolTipGenerator());
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardCategoryURLGenerator());
+            renderer.setBaseItemURLGenerator(
+                    new StandardCategoryURLGenerator());
         }
         CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis, 
                 renderer);
@@ -1220,7 +1223,8 @@ public abstract class ChartFactory {
                     new StandardCategoryToolTipGenerator());
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardCategoryURLGenerator());
+            renderer.setBaseItemURLGenerator(
+                    new StandardCategoryURLGenerator());
         }
         CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis, 
                 renderer);
@@ -1269,7 +1273,8 @@ public abstract class ChartFactory {
                     "{3} - {4}", DateFormat.getDateInstance()));
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardCategoryURLGenerator());
+            renderer.setBaseItemURLGenerator(
+                    new StandardCategoryURLGenerator());
         }
 
         CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, dateAxis, 
@@ -1340,7 +1345,8 @@ public abstract class ChartFactory {
             renderer.setBaseToolTipGenerator(generator);
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardCategoryURLGenerator());
+            renderer.setBaseItemURLGenerator(
+                    new StandardCategoryURLGenerator());
         }
 
         CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis, 
@@ -1435,7 +1441,7 @@ public abstract class ChartFactory {
         }
         XYItemRenderer renderer = new XYLineAndShapeRenderer(false, true);
         renderer.setBaseToolTipGenerator(toolTipGenerator);
-        renderer.setBaseURLGenerator(urlGenerator);
+        renderer.setURLGenerator(urlGenerator);
         plot.setRenderer(renderer);
         plot.setOrientation(orientation);
 
@@ -1502,7 +1508,7 @@ public abstract class ChartFactory {
             renderer.setBaseToolTipGenerator(tt);
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardXYURLGenerator());
+            renderer.setURLGenerator(new StandardXYURLGenerator());
         }
 
         XYPlot plot = new XYPlot(dataset, domainAxis, valueAxis, renderer);
@@ -1670,7 +1676,7 @@ public abstract class ChartFactory {
             renderer.setBaseToolTipGenerator(new StandardXYToolTipGenerator());
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardXYURLGenerator());
+            renderer.setURLGenerator(new StandardXYURLGenerator());
         }
 
         JFreeChart chart = new JFreeChart(title, JFreeChart.DEFAULT_TITLE_FONT,
@@ -1838,7 +1844,7 @@ public abstract class ChartFactory {
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(true, 
                 false);
         renderer.setBaseToolTipGenerator(toolTipGenerator);
-        renderer.setBaseURLGenerator(urlGenerator);
+        renderer.setURLGenerator(urlGenerator);
         plot.setRenderer(renderer);
         
         JFreeChart chart = new JFreeChart(title, JFreeChart.DEFAULT_TITLE_FONT,
@@ -1986,7 +1992,7 @@ public abstract class ChartFactory {
             renderer.setBaseToolTipGenerator(new StandardXYZToolTipGenerator());
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardXYZURLGenerator());
+            renderer.setURLGenerator(new StandardXYZURLGenerator());
         }
         plot.setRenderer(renderer);
         plot.setOrientation(orientation);
@@ -2036,7 +2042,7 @@ public abstract class ChartFactory {
             renderer.setBaseToolTipGenerator(new StandardXYToolTipGenerator());
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardXYURLGenerator());
+            renderer.setURLGenerator(new StandardXYURLGenerator());
         }
 
         XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
@@ -2140,7 +2146,7 @@ public abstract class ChartFactory {
             renderer.setBaseToolTipGenerator(new StandardXYToolTipGenerator());
         }
         if (urls) {
-            renderer.setBaseURLGenerator(new StandardXYURLGenerator());
+            renderer.setURLGenerator(new StandardXYURLGenerator());
         }
         XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
         JFreeChart chart = new JFreeChart(title, JFreeChart.DEFAULT_TITLE_FONT,

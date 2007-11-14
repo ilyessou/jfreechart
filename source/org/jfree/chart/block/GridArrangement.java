@@ -35,7 +35,6 @@
  * Changes:
  * --------
  * 08-Feb-2005 : Version 1 (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -47,7 +46,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jfree.chart.util.Size2D;
+import org.jfree.ui.Size2D;
 
 /**
  * Arranges blocks in a grid within their container.

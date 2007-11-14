@@ -36,7 +36,6 @@
  * -------
  * 17-Feb-2004 : Version 1 (DG);
  * 07-Jan-2005 : Added test for hashCode() (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -55,8 +54,8 @@ import junit.framework.TestSuite;
 
 import org.jfree.chart.axis.CategoryLabelPosition;
 import org.jfree.chart.axis.CategoryLabelPositions;
-import org.jfree.chart.text.TextBlockAnchor;
-import org.jfree.chart.util.RectangleAnchor;
+import org.jfree.text.TextBlockAnchor;
+import org.jfree.ui.RectangleAnchor;
 
 /**
  * Tests for the {@link CategoryLabelPositions} class.
@@ -200,12 +199,13 @@ public class CategoryLabelPositionsTests extends TestCase {
             out.close();
 
             ObjectInput in = new ObjectInputStream(
-                    new ByteArrayInputStream(buffer.toByteArray()));
+                new ByteArrayInputStream(buffer.toByteArray())
+            );
             p2 = (CategoryLabelPositions) in.readObject();
             in.close();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.toString());
         }
         assertEquals(p1, p2);
     }

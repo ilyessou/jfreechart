@@ -32,8 +32,8 @@
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   -;
  *
- * Changes (from 03-Sep-2002)
- * --------------------------
+ * Changes
+ * -------
  * 03-Sep-2002 : Updated Javadoc comments (DG);
  * 01-Oct-2002 : Fixed errors reported by Checkstyle (DG);
  * 08-Nov-2002 : Moved to new package com.jrefinery.chart.axis (DG);
@@ -42,7 +42,6 @@
  * 29-Oct-2003 : Added workaround for font alignment in PDF output (DG);
  * 21-Jan-2004 : Update for renamed method in ValueAxis (DG);
  * 07-Apr-2004 : Changed text bounds calculation (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -61,9 +60,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.jfree.chart.plot.IntervalMarker;
-import org.jfree.chart.text.TextUtilities;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.RectangleEdge;
+import org.jfree.text.TextUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A band that can be added to a number axis to display regions.

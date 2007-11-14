@@ -37,7 +37,6 @@
  * 05-Aug-2003 : Renamed XYDataPair --> XYDataItem (DG);
  * 03-Feb-2004 : Fixed bug in equals() method (DG);
  * 21-Feb-2005 : Added setY(double) method (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -45,13 +44,14 @@ package org.jfree.data.xy;
 
 import java.io.Serializable;
 
-import org.jfree.chart.util.ObjectUtilities;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * Represents one (x, y) data item for an {@link XYSeries}.
  */
 public class XYDataItem implements Cloneable, Comparable, Serializable {
 
+    /** For serialization. */
     private static final long serialVersionUID = 2751513470325494890L;
     
     /** The x-value. */

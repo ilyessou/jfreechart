@@ -36,7 +36,6 @@
  * --------
  * 31-Oct-2002 : Version 1 (DG);
  * 11-Jan-2005 : Minor tidy up (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 28-Sep-2007 : Clean up equals() method (DG);
  * 03-Oct-2007 : Make method behaviour consistent with DefaultKeyedValues (DG);
  *
@@ -48,7 +47,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jfree.chart.util.PublicCloneable;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A collection of (key, object) pairs.

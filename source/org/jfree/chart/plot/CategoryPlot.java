@@ -34,8 +34,8 @@
  *                   Arnaud Lelievre;
  *                   Richard West, Advanced Micro Devices, Inc.;
  *
- * Changes (from 21-Jun-2001)
- * --------------------------
+ * Changes
+ * -------
  * 21-Jun-2001 : Removed redundant JFreeChart parameter from constructors (DG);
  * 21-Aug-2001 : Added standard header. Fixed DOS encoding problem (DG);
  * 18-Sep-2001 : Updated header (DG);
@@ -147,13 +147,12 @@
  *               setRangeCrosshairStroke(), fixed clipping for 
  *               annotations (DG);
  * 07-Jun-2007 : Override drawBackground() for new GradientPaint handling (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 06-Jul-2007 : Updated annotation handling (DG);
  * 10-Jul-2007 : Added getRangeAxisIndex(ValueAxis) method (DG);
  * 24-Sep-2007 : Implemented new zoom methods (DG);
  * 25-Oct-2007 : Added some argument checks (DG);
  * 05-Nov-2007 : Applied patch 1823697, by Richard West, for removal of domain
  *               and range markers (DG);
+ * 14-Nov-2007 : Added missing event notifications (DG);
  *
  */
 
@@ -203,20 +202,20 @@ import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.event.RendererChangeListener;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRendererState;
-import org.jfree.chart.util.Layer;
-import org.jfree.chart.util.ObjectList;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.SortOrder;
 import org.jfree.data.Range;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.Layer;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.util.ObjectList;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
+import org.jfree.util.SortOrder;
 
 /**
  * A general plotting class that uses data from a {@link CategoryDataset} and 
@@ -247,7 +246,7 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
             {2.0f, 2.0f}, 0.0f);
 
     /** The default grid line paint. */
-    public static final Paint DEFAULT_GRIDLINE_PAINT = Color.WHITE;
+    public static final Paint DEFAULT_GRIDLINE_PAINT = Color.lightGray;
 
     /** The default value label font. */
     public static final Font DEFAULT_VALUE_LABEL_FONT = new Font("SansSerif", 
@@ -459,7 +458,7 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
             dataset.addChangeListener(this);
         }
 
-        this.axisOffset = new RectangleInsets(4.0, 4.0, 4.0, 4.0);
+        this.axisOffset = RectangleInsets.ZERO_INSETS;
 
         setDomainAxisLocation(AxisLocation.BOTTOM_OR_LEFT, false);
         setRangeAxisLocation(AxisLocation.TOP_OR_LEFT, false);
@@ -1612,7 +1611,7 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
      */
     public void setDomainGridlineStroke(Stroke stroke) {
         if (stroke == null) {
-            throw new IllegalArgumentException("Null 'stroke' not permitted.");   
+            throw new IllegalArgumentException("Null 'stroke' not permitted.");
         }
         this.domainGridlineStroke = stroke;
         notifyListeners(new PlotChangeEvent(this));
@@ -1905,8 +1904,8 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
     /**
      * Adds a marker for display against the domain axis and sends a 
      * {@link PlotChangeEvent} to all registered listeners.  Typically a marker 
-     * will be drawn by the renderer as a line perpendicular to the domain axis, 
-     * however this is entirely up to the renderer.
+     * will be drawn by the renderer as a line perpendicular to the domain 
+     * axis, however this is entirely up to the renderer.
      *
      * @param marker  the marker (<code>null</code> not permitted).
      * @param layer  the layer (foreground or background) (<code>null</code> 
@@ -2106,7 +2105,7 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
                     index));
         }
         else {
-            markers = (ArrayList)this.backgroundDomainMarkers.get(new Integer(
+            markers = (ArrayList) this.backgroundDomainMarkers.get(new Integer(
                     index));
         }
         boolean removed = markers.remove(marker);
@@ -2327,11 +2326,11 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
         }
         ArrayList markers;
         if (layer == Layer.FOREGROUND) {
-            markers = (ArrayList)this.foregroundRangeMarkers.get(new Integer(
+            markers = (ArrayList) this.foregroundRangeMarkers.get(new Integer(
                     index));
         }
         else {
-            markers = (ArrayList)this.backgroundRangeMarkers.get(new Integer(
+            markers = (ArrayList) this.backgroundRangeMarkers.get(new Integer(
                     index));
         }
 
@@ -2503,7 +2502,7 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
     /**
      * Returns the list of annotations.
      *
-     * @return The list of annotations (never <code>null</code>).
+     * @return The list of annotations.
      */
     public List getAnnotations() {
         return this.annotations;
@@ -2519,7 +2518,7 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
      */
     public void addAnnotation(CategoryAnnotation annotation) {
         if (annotation == null) {
-            throw new IllegalArgumentException("Null 'annotation' argument.");   
+            throw new IllegalArgumentException("Null 'annotation' argument.");
         }
         this.annotations.add(annotation);
         notifyListeners(new PlotChangeEvent(this));
@@ -2766,64 +2765,15 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
 
         DatasetRenderingOrder order = getDatasetRenderingOrder();
         if (order == DatasetRenderingOrder.FORWARD) {
-
-            // draw background annotations
-            int datasetCount = this.datasets.size();
-            for (int i = 0; i < datasetCount; i++) {
-                CategoryItemRenderer r = getRenderer(i);
-                if (r != null) {
-                    CategoryAxis domainAxis = getDomainAxisForDataset(i);
-                    ValueAxis rangeAxis = getRangeAxisForDataset(i);
-                    r.drawAnnotations(g2, dataArea, domainAxis, rangeAxis,
-                            Layer.BACKGROUND, state);
-                }
-            }
-
-            for (int i = 0; i < datasetCount; i++) {
+            for (int i = 0; i < this.datasets.size(); i++) {
                 foundData = render(g2, dataArea, i, state) || foundData;
-            }
-
-            // draw foreground annotations
-            for (int i = 0; i < datasetCount; i++) {
-                CategoryItemRenderer r = getRenderer(i);
-                if (r != null) {
-                    CategoryAxis domainAxis = getDomainAxisForDataset(i);
-                    ValueAxis rangeAxis = getRangeAxisForDataset(i);
-                    r.drawAnnotations(g2, dataArea, domainAxis, rangeAxis,
-                            Layer.FOREGROUND, state);
-                }
             }
         }
         else {  // DatasetRenderingOrder.REVERSE
-            
-            // draw background annotations
-            int datasetCount = this.datasets.size();
-            for (int i = datasetCount - 1; i >= 0; i--) {
-                CategoryItemRenderer r = getRenderer(i);
-                if (r != null) {
-                    CategoryAxis domainAxis = getDomainAxisForDataset(i);
-                    ValueAxis rangeAxis = getRangeAxisForDataset(i);
-                    r.drawAnnotations(g2, dataArea, domainAxis, rangeAxis,
-                            Layer.BACKGROUND, state);
-                }
-            }
-            
             for (int i = this.datasets.size() - 1; i >= 0; i--) {
                 foundData = render(g2, dataArea, i, state) || foundData;   
             }
-
-            // draw foreground annotations
-            for (int i = datasetCount - 1; i >= 0; i--) {
-                CategoryItemRenderer r = getRenderer(i);
-                if (r != null) {
-                    CategoryAxis domainAxis = getDomainAxisForDataset(i);
-                    ValueAxis rangeAxis = getRangeAxisForDataset(i);
-                    r.drawAnnotations(g2, dataArea, domainAxis, rangeAxis,
-                            Layer.FOREGROUND, state);
-                }
-            }
         }
-        
         // draw the foreground markers...
         for (int i = 0; i < this.renderers.size(); i++) {
             drawDomainMarkers(g2, dataArea, i, Layer.FOREGROUND);
@@ -2832,8 +2782,8 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
             drawRangeMarkers(g2, dataArea, i, Layer.FOREGROUND);
         }
 
-        // draw the plot's annotations (if any)...
-        drawAnnotations(g2, dataArea, state);
+        // draw the annotations (if any)...
+        drawAnnotations(g2, dataArea);
 
         g2.setClip(savedClip);
         g2.setComposite(originalComposite);
@@ -3114,21 +3064,21 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
     }
 
     /**
-     * Draws the annotations.
+     * Draws the annotations...
      *
      * @param g2  the graphics device.
      * @param dataArea  the data area.
-     * @param info  the plot rendering info (<code>null</code> permitted).
      */
-    protected void drawAnnotations(Graphics2D g2, Rectangle2D dataArea,
-            PlotRenderingInfo info) {
+    protected void drawAnnotations(Graphics2D g2, Rectangle2D dataArea) {
 
-        Iterator iterator = getAnnotations().iterator();
-        while (iterator.hasNext()) {
-            CategoryAnnotation annotation 
-                    = (CategoryAnnotation) iterator.next();
-            annotation.draw(g2, this, dataArea, getDomainAxis(), 
-                    getRangeAxis(), 0, info);
+        if (getAnnotations() != null) {
+            Iterator iterator = getAnnotations().iterator();
+            while (iterator.hasNext()) {
+                CategoryAnnotation annotation 
+                        = (CategoryAnnotation) iterator.next();
+                annotation.draw(g2, this, dataArea, getDomainAxis(), 
+                        getRangeAxis());
+            }
         }
 
     }
@@ -3377,7 +3327,8 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
     }
 
     /**
-     * Sets the weight for the plot.
+     * Sets the weight for the plot and sends a {@link PlotChangeEvent} to all
+     * registered listeners.
      *
      * @param weight  the weight.
      * 
@@ -3385,7 +3336,7 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
      */
     public void setWeight(int weight) {
         this.weight = weight;
-        // TODO: notify?
+        notifyListeners(new PlotChangeEvent(this));
     }
     
     /**
@@ -3400,15 +3351,33 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
     }
 
     /**
-     * Sets the fixed domain axis space.
+     * Sets the fixed domain axis space and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
      *
      * @param space  the space (<code>null</code> permitted).
      * 
      * @see #getFixedDomainAxisSpace()
      */
     public void setFixedDomainAxisSpace(AxisSpace space) {
+        setFixedDomainAxisSpace(space, true);
+    }
+
+    /**
+     * Sets the fixed domain axis space and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param space  the space (<code>null</code> permitted).
+     * @param notify  notify listeners?
+     * 
+     * @see #getFixedDomainAxisSpace()
+     * 
+     * @since 1.0.7
+     */
+    public void setFixedDomainAxisSpace(AxisSpace space, boolean notify) {
         this.fixedDomainAxisSpace = space;
-        // TODO: notify?
+        if (notify) {
+            notifyListeners(new PlotChangeEvent(this));
+        }
     }
 
     /**
@@ -3423,15 +3392,33 @@ public class CategoryPlot extends Plot implements ValueAxisPlot,
     }
 
     /**
-     * Sets the fixed range axis space.
+     * Sets the fixed range axis space and sends a {@link PlotChangeEvent} to 
+     * all registered listeners.
      *
      * @param space  the space (<code>null</code> permitted).
      * 
      * @see #getFixedRangeAxisSpace()
      */
     public void setFixedRangeAxisSpace(AxisSpace space) {
+        setFixedRangeAxisSpace(space, true);
+    }
+
+    /**
+     * Sets the fixed range axis space and sends a {@link PlotChangeEvent} to 
+     * all registered listeners.
+     *
+     * @param space  the space (<code>null</code> permitted).
+     * @param notify  notify listeners?
+     * 
+     * @see #getFixedRangeAxisSpace()
+     *
+     * @since 1.0.7
+     */
+    public void setFixedRangeAxisSpace(AxisSpace space, boolean notify) {
         this.fixedRangeAxisSpace = space;
-        // TODO: fire event?
+        if (notify) {
+            notifyListeners(new PlotChangeEvent(this));
+        }
     }
 
     /**

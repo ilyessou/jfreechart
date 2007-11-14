@@ -39,7 +39,6 @@
  * 29-Jan-2004 : Added paint attribute (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 21-Mar-2007 : Implemented equals(), clone() and fixed serialization (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -56,18 +55,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jfree.chart.event.AxisChangeEvent;
-import org.jfree.chart.text.TextBlock;
-import org.jfree.chart.text.TextFragment;
-import org.jfree.chart.text.TextLine;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.text.TextBlock;
+import org.jfree.text.TextFragment;
+import org.jfree.text.TextLine;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PaintUtilities;
 
 /**
  * An extended version of the {@link CategoryAxis} class that supports 
  * sublabels on the axis.
  */
 public class ExtendedCategoryAxis extends CategoryAxis {
+
+    /** For serialization. */
+    static final long serialVersionUID = -3004429093959826567L;
 
     /** Storage for the sublabels. */
     private Map sublabels;

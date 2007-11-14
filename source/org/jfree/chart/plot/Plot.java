@@ -37,8 +37,8 @@
  *                   Nicolas Brodu;
  *                   Michal Krause;
  *
- * Changes (from 21-Jun-2001)
- * --------------------------
+ * Changes
+ * -------
  * 21-Jun-2001 : Removed redundant JFreeChart parameter from constructors (DG);
  * 18-Sep-2001 : Updated header info and fixed DOS encoding problem (DG);
  * 19-Oct-2001 : Moved series paint and stroke methods from JFreeChart 
@@ -119,8 +119,6 @@
  * 03-Apr-2007 : Made drawBackgroundImage() public (DG);
  * 07-Jun-2007 : Added new fillBackground() method to handle GradientPaint 
  *               taking into account orientation (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 06-Jul-2007 : Changed default background color to LIGHT_GRAY (DG);
  *
  */
 
@@ -157,20 +155,20 @@ import org.jfree.chart.event.MarkerChangeEvent;
 import org.jfree.chart.event.MarkerChangeListener;
 import org.jfree.chart.event.PlotChangeEvent;
 import org.jfree.chart.event.PlotChangeListener;
-import org.jfree.chart.text.G2TextMeasurer;
-import org.jfree.chart.text.TextBlock;
-import org.jfree.chart.text.TextBlockAnchor;
-import org.jfree.chart.text.TextUtilities;
-import org.jfree.chart.util.Align;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.DatasetGroup;
+import org.jfree.io.SerialUtilities;
+import org.jfree.text.G2TextMeasurer;
+import org.jfree.text.TextBlock;
+import org.jfree.text.TextBlockAnchor;
+import org.jfree.text.TextUtilities;
+import org.jfree.ui.Align;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * The base class for all plots in JFreeChart.  The 
@@ -194,7 +192,7 @@ public abstract class Plot implements AxisChangeListener,
 
     /** The default insets. */
     public static final RectangleInsets DEFAULT_INSETS 
-            = new RectangleInsets(4.0, 8.0, 4.0, 8.0);
+        = new RectangleInsets(4.0, 8.0, 4.0, 8.0);
 
     /** The default outline stroke. */
     public static final Stroke DEFAULT_OUTLINE_STROKE = new BasicStroke(0.5f);
@@ -209,7 +207,7 @@ public abstract class Plot implements AxisChangeListener,
     public static final float DEFAULT_BACKGROUND_ALPHA = 1.0f;
 
     /** The default background color. */
-    public static final Paint DEFAULT_BACKGROUND_PAINT = Color.LIGHT_GRAY;
+    public static final Paint DEFAULT_BACKGROUND_PAINT = Color.white;
 
     /** The minimum width at which the plot should be drawn. */
     public static final int MINIMUM_WIDTH_TO_DRAW = 10;
@@ -654,7 +652,8 @@ public abstract class Plot implements AxisChangeListener,
 
     /**
      * Returns the background image alignment. Alignment constants are defined 
-     * in the {@link Align} class.
+     * in the <code>org.jfree.ui.Align</code> class in the JCommon class 
+     * library.
      *
      * @return The alignment.
      * 
@@ -667,7 +666,8 @@ public abstract class Plot implements AxisChangeListener,
     /**
      * Sets the alignment for the background image and sends a 
      * {@link PlotChangeEvent} to all registered listeners.  Alignment options 
-     * are defined by the {@link Align} class.
+     * are defined by the {@link org.jfree.ui.Align} class in the JCommon 
+     * class library.
      *
      * @param alignment  the alignment.
      * 
@@ -1054,8 +1054,8 @@ public abstract class Plot implements AxisChangeListener,
                     this.noDataMessage, this.noDataMessageFont, 
                     this.noDataMessagePaint, 0.9f * (float) area.getWidth(), 
                     new G2TextMeasurer(g2));
-            block.draw(g2, (float) area.getCenterX(), (float) area.getCenterY(), 
-                    TextBlockAnchor.CENTER);
+            block.draw(g2, (float) area.getCenterX(), 
+                    (float) area.getCenterY(), TextBlockAnchor.CENTER);
         }
         g2.setClip(savedClip);
     }

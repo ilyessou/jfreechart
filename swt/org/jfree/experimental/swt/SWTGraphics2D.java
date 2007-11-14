@@ -43,10 +43,8 @@
  *               thanks to silent for pointing this out (HP);
  * 23-May-2007 : Removed resource leaks by adding a resource pool (CC);
  * 15-Jun-2007 : Fixed compile error for JDK 1.4 (DG);
- * 06-Jul-2007 : Implemented clipping (HP);
- * 16-Jul-2007 : Implemented alpha channel (HP);
- * 11-Sep-2007 : Fixed alpha channel lying within awt colors, bug 1737869 (HP);
- * 13-Oct-2007 : Fixed compositing issues (HP);
+ * 22-Oct-2007 : Implemented clipping (HP);
+ * 22-Oct-2007 : Implemented some AlphaComposite support (HP);
  * 23-Oct-2007 : Added mechanism for storing RenderingHints (which are 
  *               still ignored at this point) (DG);
  * 23-Oct-2007 : Implemented drawPolygon(), drawPolyline(), drawOval(),

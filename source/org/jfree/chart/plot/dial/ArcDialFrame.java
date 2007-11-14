@@ -24,9 +24,9 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc. 
  * in the United States and other countries.]
  *
- * ----------------------
+ * -----------------
  * ArcDialFrame.java
- * ----------------------
+ * -----------------
  * (C) Copyright 2006, 2007, by Object Refinery Limited.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
@@ -36,9 +36,9 @@
  * -------
  * 03-Nov-2006 : Version 1 (DG);
  * 08-Mar-2007 : Fix in hashCode() (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 17-Oct-2007 : Updated equals() (DG);
- * 24-Oct-2007 : Added argument checks and API docs (DG);
+ * 24-Oct-2007 : Added argument checks and API docs, and renamed 
+ *               StandardDialFrame --> ArcDialFrame (DG);
  * 
  */
 
@@ -61,9 +61,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import org.jfree.chart.HashUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.SerialUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A standard frame for the {@link DialPlot} class.
@@ -71,6 +71,9 @@ import org.jfree.chart.util.SerialUtilities;
 public class ArcDialFrame extends AbstractDialLayer implements DialFrame, 
         Cloneable, PublicCloneable, Serializable {
     
+    /** For serialization. */
+    static final long serialVersionUID = -4089176959553523499L;
+
     /**
      * The color used for the front of the panel.  This field is transient
      * because it requires special handling for serialization.
@@ -327,10 +330,10 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
                 this.innerRadius, this.innerRadius);
         Rectangle2D outerFrame = DialPlot.rectangleByRadius(frame, 
                 this.outerRadius, this.outerRadius);
-        Arc2D inner = new Arc2D.Double(innerFrame, this.startAngle, this.extent, 
-                Arc2D.OPEN);
+        Arc2D inner = new Arc2D.Double(innerFrame, this.startAngle, 
+                this.extent, Arc2D.OPEN);
         Arc2D outer = new Arc2D.Double(outerFrame, this.startAngle 
-                + this.extent, - this.extent, Arc2D.OPEN);
+                + this.extent, -this.extent, Arc2D.OPEN);
         GeneralPath p = new GeneralPath();
         Point2D point1 = inner.getStartPoint();
         p.moveTo((float) point1.getX(), (float) point1.getY());
@@ -360,7 +363,7 @@ public class ArcDialFrame extends AbstractDialLayer implements DialFrame,
         Arc2D inner = new Arc2D.Double(innerFrame, this.startAngle 
                 - angleMargin, this.extent + 2 * angleMargin, Arc2D.OPEN);
         Arc2D outer = new Arc2D.Double(outerFrame, this.startAngle 
-                + angleMargin + this.extent, - this.extent - 2 * angleMargin, 
+                + angleMargin + this.extent, -this.extent - 2 * angleMargin, 
                 Arc2D.OPEN);
         GeneralPath p = new GeneralPath();
         Point2D point1 = inner.getStartPoint();

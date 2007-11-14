@@ -32,8 +32,8 @@
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   -;
  *
- * Changes
- * -------
+ * Changes (from 24-Aug-2001)
+ * --------------------------
  * 14-Jan-2003 : Version 1 (DG);
  *
  */

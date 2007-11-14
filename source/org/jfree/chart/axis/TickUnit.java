@@ -32,8 +32,8 @@
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   -;
  *
- * Changes (from 19-Dec-2001)
- * --------------------------
+ * Changes
+ * -------
  * 19-Dec-2001 : Added standard header (DG);
  * 01-May-2002 : Changed the unit size from Number to double (DG);
  * 26-Sep-2002 : Fixed errors reported by Checkstyle (DG);

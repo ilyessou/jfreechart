@@ -41,9 +41,6 @@
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 03-Oct-2006 : Fixed NullPointerException in equals(), fire change event in 
  *               add() method, updated API docs (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 29-Jun-2007 : Changed first parameter in constructors from String to 
- *               Comparable (DG);
  *
  */
 
@@ -53,10 +50,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jfree.chart.util.ObjectUtilities;
 import org.jfree.data.general.Series;
 import org.jfree.data.general.SeriesChangeEvent;
 import org.jfree.data.general.SeriesException;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A structure containing zero, one or many {@link TimePeriodValue} instances.  
@@ -109,7 +106,7 @@ public class TimePeriodValues extends Series implements Serializable {
      *
      * @param name  the name of the series (<code>null</code> not permitted).
      */
-    public TimePeriodValues(Comparable name) {
+    public TimePeriodValues(String name) {
         this(name, DEFAULT_DOMAIN_DESCRIPTION, DEFAULT_RANGE_DESCRIPTION);
     }
 
@@ -124,7 +121,7 @@ public class TimePeriodValues extends Series implements Serializable {
      * @param domain  the domain description.
      * @param range  the range description.
      */
-    public TimePeriodValues(Comparable name, String domain, String range) {
+    public TimePeriodValues(String name, String domain, String range) {
         super(name);
         this.domain = domain;
         this.range = range;
