@@ -2,7 +2,7 @@
  * JFreeChart : a free chart library for the Java(tm) platform
  * ===========================================================
  *
- * (C) Copyright 2000-2005, by Object Refinery Limited and Contributors.
+ * (C) Copyright 2000-2007, by Object Refinery Limited and Contributors.
  *
  * Project Info:  http://www.jfree.org/jfreechart/index.html
  *
@@ -27,14 +27,16 @@
  * -------------------
  * SwtPaintCanvas.java
  * -------------------
- * (C) Copyright 2000-2005, by Object Refinery Limited.
+ * (C) Copyright 2000-2007, by Object Refinery Limited.
  *
  * Original Author:  Henry Proudhon (henry.proudhon AT ensmp.fr);
- * Contributor(s):
+ * Contributor(s):   David Gilbert (for Object Refinery Limited);
  *
  * Changes
  * -------
- * 4 Aug 2006 : New class (HP);
+ * 04-Aug-2006 : New class (HP);
+ * 25-Oct-2007 : Fixed Eclipse warnings (DG);
+ * 
  */
 
 package org.jfree.experimental.swt;
@@ -49,8 +51,7 @@ import org.eclipse.swt.widgets.Composite;
 /**
  * A paint canvas.
  */
-public class SWTPaintCanvas extends Canvas
-{
+public class SWTPaintCanvas extends Canvas {
     private Color myColor;
     
     /**

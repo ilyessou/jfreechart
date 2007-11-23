@@ -57,6 +57,7 @@ import org.jfree.chart.needle.PlumNeedle;
  * Tests for the {@link PlumNeedle} class.
  */
 public class PlumNeedleTests extends TestCase {
+    
     /**
      * Returns the tests as a test suite.
      *

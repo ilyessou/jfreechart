@@ -174,14 +174,14 @@ class SWTAxisEditor extends Composite {
                             }
                             // Create the new font and set it into the title 
                             // label
-                            SWTAxisEditor.this.font = new Font(getShell()
-                                    .getDisplay(), dlg.getFontList());
+                            SWTAxisEditor.this.font = new Font(
+                                    getShell().getDisplay(), dlg.getFontList());
                             //label.setFont( font );
                             SWTAxisEditor.this.labelFontField.setText(
                                     SWTAxisEditor.this.font.getFontData()[0]
                                     .toString());
-                            SWTAxisEditor.this.labelFont = SWTAxisEditor.this
-                                    .font.getFontData()[0];
+                            SWTAxisEditor.this.labelFont 
+                                    = SWTAxisEditor.this.font.getFontData()[0];
                         }
                     }
                 }
@@ -212,8 +212,8 @@ class SWTAxisEditor extends Composite {
                           // SwtPaintCanvas
                             SWTAxisEditor.this.labelPaintColor = new Color(
                                     getDisplay(), rgb);
-                          colorCanvas.setColor(SWTAxisEditor.this
-                                  .labelPaintColor);
+                            colorCanvas.setColor(
+                                    SWTAxisEditor.this.labelPaintColor);
                         }
                     }
                 }
@@ -260,15 +260,16 @@ class SWTAxisEditor extends Composite {
                             if (SWTAxisEditor.this.font != null) {
                                 SWTAxisEditor.this.font.dispose();
                             }
-                            // Create the new font and set it into the title label
-                            SWTAxisEditor.this.font = new Font(getShell()
-                                    .getDisplay(), dlg.getFontList());
+                            // Create the new font and set it into the title 
+                            // label
+                            SWTAxisEditor.this.font = new Font(
+                                    getShell().getDisplay(), dlg.getFontList());
                             //tickLabelFontField.setFont(font);
                             SWTAxisEditor.this.tickLabelFontField.setText(
                                     SWTAxisEditor.this.font.getFontData()[0]
                                     .toString());
-                            SWTAxisEditor.this.tickLabelFont = SWTAxisEditor
-                                    .this.font.getFontData()[0];
+                            SWTAxisEditor.this.tickLabelFont 
+                                    = SWTAxisEditor.this.font.getFontData()[0];
                         }
                     }
                 }

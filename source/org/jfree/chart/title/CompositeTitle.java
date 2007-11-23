@@ -39,7 +39,6 @@
  * 04-Feb-2005 : Implemented MAXIMUM_WIDTH in calculateSize (DG);
  * 20-Apr-2005 : Added new draw() method (DG);
  * 03-May-2005 : Implemented equals() method (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -52,7 +51,7 @@ import java.io.Serializable;
 import org.jfree.chart.block.BlockContainer;
 import org.jfree.chart.block.BorderArrangement;
 import org.jfree.chart.block.RectangleConstraint;
-import org.jfree.chart.util.Size2D;
+import org.jfree.ui.Size2D;
 
 /**
  * A title that contains multiple titles within a {@link BlockContainer}.

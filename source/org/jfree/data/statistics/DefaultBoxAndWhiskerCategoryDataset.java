@@ -47,7 +47,6 @@
  * 02-Feb-2007 : Removed author tags from all over JFreeChart sources (DG);
  * 17-Apr-2007 : Fixed bug 1701822 (DG);
  * 13-Jun-2007 : Fixed error in previous patch (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 28-Sep-2007 : Fixed cloning bug (DG);
  * 02-Oct-2007 : Fixed bug in updating cached bounds (DG);
  * 03-Oct-2007 : Fixed another bug in updating cached bounds, added removal
@@ -59,13 +58,13 @@ package org.jfree.data.statistics;
 
 import java.util.List;
 
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.KeyedObjects2D;
 import org.jfree.data.Range;
 import org.jfree.data.RangeInfo;
 import org.jfree.data.general.AbstractDataset;
 import org.jfree.data.general.DatasetChangeEvent;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A convenience class that provides a default implementation of the

@@ -35,14 +35,13 @@
  * Changes
  * -------
  * 07-Nov-2003 : Version 1 (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 02-Aug-2007 : Added new constructor with tick type (DG);
  * 
  */
 
 package org.jfree.chart.axis;
 
-import org.jfree.chart.text.TextAnchor;
+import org.jfree.ui.TextAnchor;
 
 /**
  * A numerical tick.

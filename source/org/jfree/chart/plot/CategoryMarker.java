@@ -38,7 +38,6 @@
  * 19-Aug-2005 : Implemented equals(), fixed bug in constructor (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 05-Sep-2006 : Added MarkerChangeListener support (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -51,7 +50,7 @@ import java.awt.Stroke;
 import java.io.Serializable;
 
 import org.jfree.chart.event.MarkerChangeEvent;
-import org.jfree.chart.util.LengthAdjustmentType;
+import org.jfree.ui.LengthAdjustmentType;
 
 /**
  * A marker for a category.

@@ -36,7 +36,7 @@
  * -------
  * 03-Nov-2006 : Version 1 (DG);
  * 08-Mar-2007 : Fix in hashCode() (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
+ * 29-Oct-2007 : Renamed StandardDialFrame (DG);
  * 
  */
 
@@ -57,9 +57,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import org.jfree.chart.HashUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.SerialUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A simple circular frame for the {@link DialPlot} class.
@@ -68,6 +68,9 @@ import org.jfree.chart.util.SerialUtilities;
  */
 public class StandardDialFrame extends AbstractDialLayer implements DialFrame, 
         Cloneable, PublicCloneable, Serializable {
+    
+    /** For serialization. */
+    static final long serialVersionUID = 1016585407507121596L;
     
     /** The outer radius, relative to the framing rectangle. */
     private double radius;
@@ -121,8 +124,8 @@ public class StandardDialFrame extends AbstractDialLayer implements DialFrame,
      */
     public void setRadius(double radius) {
         if (radius <= 0) { 
-            throw new IllegalArgumentException("" +
-                        "The 'radius' must be positive.");
+            throw new IllegalArgumentException(
+                    "The 'radius' must be positive.");
         }
         this.radius = radius;
         notifyListeners(new DialLayerChangeEvent(this));

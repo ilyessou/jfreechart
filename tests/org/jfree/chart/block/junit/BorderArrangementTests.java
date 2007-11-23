@@ -35,7 +35,6 @@
  * Changes
  * -------
  * 22-Oct-2004 : Version 1 (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -60,9 +59,9 @@ import org.jfree.chart.block.BorderArrangement;
 import org.jfree.chart.block.EmptyBlock;
 import org.jfree.chart.block.LengthConstraintType;
 import org.jfree.chart.block.RectangleConstraint;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.Size2D;
 import org.jfree.data.Range;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.Size2D;
 
 /**
  * Tests for the {@link BorderArrangement} class.

@@ -48,8 +48,6 @@
  * 06-Feb-2007 : Fixed bug 1086307, crosshairs with multiple axes (DG);
  * 14-Feb-2007 : Added equals() method override (DG);
  * 04-May-2007 : Set processVisibleItemsOnly flag to false (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 27-Jun-2007 : Updated drawItem() to use addEntity() (DG);
  * 
  */
 
@@ -65,6 +63,7 @@ import java.io.Serializable;
 
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
+import org.jfree.chart.entity.XYItemEntity;
 import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.labels.XYToolTipGenerator;
 import org.jfree.chart.plot.CrosshairState;
@@ -72,9 +71,9 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.urls.XYURLGenerator;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.ShapeUtilities;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.util.PublicCloneable;
+import org.jfree.util.ShapeUtilities;
 
 /**
  * A step chart renderer that fills the area between the step and the x-axis.
@@ -153,7 +152,7 @@ public class XYStepAreaRenderer extends AbstractXYItemRenderer
 
         super();
         setBaseToolTipGenerator(toolTipGenerator);
-        setBaseURLGenerator(urlGenerator);
+        setURLGenerator(urlGenerator);
 
         if (type == AREA) {
             this.plotArea = true;
@@ -191,7 +190,7 @@ public class XYStepAreaRenderer extends AbstractXYItemRenderer
      */
     public void setOutline(boolean show) {
         this.showOutline = show;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -216,7 +215,7 @@ public class XYStepAreaRenderer extends AbstractXYItemRenderer
      */
     public void setShapesVisible(boolean flag) {
         this.shapesVisible = flag;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -231,7 +230,8 @@ public class XYStepAreaRenderer extends AbstractXYItemRenderer
     }
     
     /**
-     * Sets the 'shapes filled' for ALL series.
+     * Sets the 'shapes filled' for ALL series and sends a 
+     * {@link RendererChangeEvent} to all registered listeners.
      *
      * @param filled  the flag.
      * 
@@ -239,7 +239,7 @@ public class XYStepAreaRenderer extends AbstractXYItemRenderer
      */
     public void setShapesFilled(boolean filled) {
         this.shapesFilled = filled;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -255,7 +255,8 @@ public class XYStepAreaRenderer extends AbstractXYItemRenderer
 
     /**
      * Sets a flag that controls whether or not areas are drawn for each data 
-     * item.
+     * item and sends a {@link RendererChangeEvent} to all registered 
+     * listeners.
      * 
      * @param flag  the flag.
      * 
@@ -263,7 +264,7 @@ public class XYStepAreaRenderer extends AbstractXYItemRenderer
      */
     public void setPlotArea(boolean flag) {
         this.plotArea = flag;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**
@@ -281,7 +282,8 @@ public class XYStepAreaRenderer extends AbstractXYItemRenderer
 
     /**
      * Sets the value on the range axis which defines the default border of the 
-     * area.  E.g. setRangeBase(Double.NEGATIVE_INFINITY) lets areas always 
+     * area, and sends a {@link RendererChangeEvent} to all registered 
+     * listeners.  E.g. setRangeBase(Double.NEGATIVE_INFINITY) lets areas always
      * reach the lower border of the plotArea. 
      * 
      * @param val  the value on the range axis which defines the default border
@@ -291,7 +293,7 @@ public class XYStepAreaRenderer extends AbstractXYItemRenderer
      */
     public void setRangeBase(double val) {
         this.rangeBase = val;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -520,9 +522,24 @@ public class XYStepAreaRenderer extends AbstractXYItemRenderer
                     rangeAxisIndex, transX1, transY1, orientation);
         }
 
-        EntityCollection entities = state.getEntityCollection();
-        if (entities != null) {
-            addEntity(entities, shape, dataset, series, item, 0.0, 0.0);
+        // collect entity and tool tip information...
+        if (state.getInfo() != null) {
+            EntityCollection entities = state.getEntityCollection();
+            if (entities != null && shape != null) {
+                String tip = null;
+                XYToolTipGenerator generator 
+                    = getToolTipGenerator(series, item);
+                if (generator != null) {
+                    tip = generator.generateToolTip(dataset, series, item);
+                }
+                String url = null;
+                if (getURLGenerator() != null) {
+                    url = getURLGenerator().generateURL(dataset, series, item);
+                }
+                XYItemEntity entity = new XYItemEntity(shape, dataset, series, 
+                        item, tip, url);
+                entities.add(entity);
+            }
         }
     }
 

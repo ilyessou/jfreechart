@@ -54,13 +54,11 @@
  * 31-Jan-2005 : Added generateRowLabel() and generateColumnLabel()  
  *               methods (DG);
  * 20-Apr-2005 : Reverted name change of 11-May-2004 (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
 package org.jfree.chart.labels;
 
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.category.CategoryDataset;
 
 /**
@@ -70,7 +68,7 @@ import org.jfree.data.category.CategoryDataset;
  * items in a {@link org.jfree.chart.plot.CategoryPlot}. 
  * <p>
  * To assist with cloning charts, classes that implement this interface should 
- * also implement the {@link PublicCloneable} interface.
+ * also implement the {@link org.jfree.util.PublicCloneable} interface.
  */
 public interface CategoryItemLabelGenerator {
 

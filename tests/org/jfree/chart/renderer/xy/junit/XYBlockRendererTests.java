@@ -36,7 +36,6 @@
  * -------
  * 05-Jul-2006 : Version 1 (DG);
  * 09-Mar-2007 : Added independence check to testCloning (DG);
- * 20-Jun-2007 : Updated for deprecated code removal (DG);
  *
  */
 

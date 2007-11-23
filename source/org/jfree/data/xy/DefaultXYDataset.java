@@ -38,7 +38,6 @@
  * 02-Nov-2006 : Fixed a problem with adding a new series with the same key
  *               as an existing series (see bug 1589392) (DG);
  * 25-Jan-2007 : Implemented PublicCloneable (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -48,9 +47,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.DomainOrder;
 import org.jfree.data.general.DatasetChangeEvent;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A default implementation of the {@link XYDataset} interface that stores

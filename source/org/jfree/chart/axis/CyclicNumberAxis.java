@@ -43,8 +43,6 @@
  *               (for consistency with other classes) and removed unused
  *               parameters (DG);
  * 08-Jun-2005 : Fixed equals() method to handle GradientPaint (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 12-Jul-2007 : Updated for API changes in super class (DG);
  *
  */
 
@@ -67,13 +65,13 @@ import java.util.List;
 
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.text.TextUtilities;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.Range;
+import org.jfree.io.SerialUtilities;
+import org.jfree.text.TextUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.TextAnchor;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
 
 /**
 This class extends NumberAxis and handles cycling.
@@ -125,6 +123,9 @@ A Cyclic item renderer is provided to do exactly this.
 
  */
 public class CyclicNumberAxis extends NumberAxis {
+
+    /** For serialization. */
+    static final long serialVersionUID = -7514160997164582554L;
 
     /** The default axis line stroke. */
     public static Stroke DEFAULT_ADVANCE_LINE_STROKE = new BasicStroke(1.0f);
@@ -977,17 +978,17 @@ public class CyclicNumberAxis extends NumberAxis {
      * @param plotArea  the plot area.
      * @param dataArea  the area inside the axes.
      * @param edge  the side on which the axis is displayed.
-     * @param info  the plot rendering info.
      * 
      * @return The axis state.
      */
     protected AxisState drawTickMarksAndLabels(Graphics2D g2, double cursor, 
-            Rectangle2D plotArea, Rectangle2D dataArea, RectangleEdge edge,
-            PlotRenderingInfo info) {
-        
+                                               Rectangle2D plotArea, 
+                                               Rectangle2D dataArea, 
+                                               RectangleEdge edge) {
         this.internalMarkerWhenTicksOverlap = false;
-        AxisState ret = super.drawTickMarksAndLabels(g2, cursor, plotArea, 
-                dataArea, edge, info);
+        AxisState ret = super.drawTickMarksAndLabels(
+            g2, cursor, plotArea, dataArea, edge
+        );
         
         // continue and separate the labels only if necessary
         if (!this.internalMarkerWhenTicksOverlap) {

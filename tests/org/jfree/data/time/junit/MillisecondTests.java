@@ -27,7 +27,7 @@
  * ---------------------
  * MillisecondTests.java
  * ---------------------
- * (C) Copyright 2002-2007 by Object Refinery Limited.
+ * (C) Copyright 2002-2007, by Object Refinery Limited.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   -;
@@ -40,7 +40,6 @@
  * 29-Apr-2004 : Added test for getMiddleMillisecond() method (DG);
  * 11-Jan-2005 : Added test for non-clonability (DG);
  * 05-Oct-2006 : Added some tests (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 11-Jul-2007 : Fixed bad time zone assumption (DG);
  *
  */
@@ -67,8 +66,8 @@ import org.jfree.data.time.Day;
 import org.jfree.data.time.Hour;
 import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.Minute;
-import org.jfree.data.time.MonthConstants;
 import org.jfree.data.time.Second;
+import org.jfree.date.MonthConstants;
 
 /**
  * Tests for the {@link Millisecond} class.
@@ -135,15 +134,14 @@ public class MillisecondTests extends TestCase {
     public void testDateConstructor1() {
 
         TimeZone zone = TimeZone.getTimeZone("GMT");
-        Calendar c = new GregorianCalendar(zone);
         Millisecond m1 = new Millisecond(new Date(1016729759122L), zone);
         Millisecond m2 = new Millisecond(new Date(1016729759123L), zone);
 
         assertEquals(122, m1.getMillisecond());
-        assertEquals(1016729759122L, m1.getLastMillisecond(c));
+        assertEquals(1016729759122L, m1.getLastMillisecond(zone));
 
         assertEquals(123, m2.getMillisecond());
-        assertEquals(1016729759123L, m2.getFirstMillisecond(c));
+        assertEquals(1016729759123L, m2.getFirstMillisecond(zone));
 
     }
 
@@ -155,15 +153,14 @@ public class MillisecondTests extends TestCase {
     public void testDateConstructor2() {
 
         TimeZone zone = TimeZone.getTimeZone("Europe/Tallinn");
-        Calendar c = new GregorianCalendar(zone);
         Millisecond m1 = new Millisecond(new Date(1016722559122L), zone);
         Millisecond m2 = new Millisecond(new Date(1016722559123L), zone);
 
         assertEquals(122, m1.getMillisecond());
-        assertEquals(1016722559122L, m1.getLastMillisecond(c));
+        assertEquals(1016722559122L, m1.getLastMillisecond(zone));
 
         assertEquals(123, m2.getMillisecond());
-        assertEquals(1016722559123L, m2.getFirstMillisecond(c));
+        assertEquals(1016722559123L, m2.getFirstMillisecond(zone));
 
     }
 
@@ -248,13 +245,12 @@ public class MillisecondTests extends TestCase {
     public void testGetFirstMillisecondWithTimeZone() {
         Millisecond m = new Millisecond(500, 50, 59, 15, 1, 4, 1950);
         TimeZone zone = TimeZone.getTimeZone("America/Los_Angeles");
-        Calendar c = new GregorianCalendar(zone);
-        assertEquals(-623289609500L, m.getFirstMillisecond(c));
+        assertEquals(-623289609500L, m.getFirstMillisecond(zone));
         
         // try null calendar
         boolean pass = false;
         try {
-            m.getFirstMillisecond((Calendar) null);
+            m.getFirstMillisecond((TimeZone) null);
         }
         catch (NullPointerException e) {
             pass = true;
@@ -302,13 +298,12 @@ public class MillisecondTests extends TestCase {
     public void testGetLastMillisecondWithTimeZone() {
         Millisecond m = new Millisecond(750, 55, 1, 2, 7, 7, 1950);
         TimeZone zone = TimeZone.getTimeZone("America/Los_Angeles");
-        Calendar c = new GregorianCalendar(zone);
-        assertEquals(-614962684250L, m.getLastMillisecond(c));
+        assertEquals(-614962684250L, m.getLastMillisecond(zone));
         
         // try null calendar
         boolean pass = false;
         try {
-            m.getLastMillisecond((Calendar) null);
+            m.getLastMillisecond((TimeZone) null);
         }
         catch (NullPointerException e) {
             pass = true;

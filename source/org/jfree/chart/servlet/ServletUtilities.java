@@ -47,7 +47,7 @@
  *               by System property java.io.tmpdir, rather than default (RA);
  * 24-Mar-2004 : Added temp filename prefix attribute (DG);
  * 09-Mar-2005 : Added "one time" file option (DG);
- * ------------- JFREECHART 1.0.0 RELEASED ------------------------------------
+ * ------------- JFREECHART 1.0.x RELEASED ------------------------------------
  * 10-Jan-2006 : Updated API docs and reformatted (DG);
  * 13-Sep-2006 : Format date in response header in English, not locale default
  *               (see bug 1557141) (DG);
@@ -55,7 +55,6 @@
  */
 
 package org.jfree.chart.servlet;
-
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

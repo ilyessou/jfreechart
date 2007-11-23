@@ -43,7 +43,6 @@
  * 21-Oct-2003 : Added hashCode test (DG);
  * 11-Jan-2005 : Added non-clonability test (DG);
  * 05-Oct-2006 : Added some new tests (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 11-Jul-2007 : Fixed bad time zone assumption (DG);
  *
  */
@@ -67,9 +66,9 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.jfree.data.time.Month;
-import org.jfree.data.time.MonthConstants;
 import org.jfree.data.time.TimePeriodFormatException;
 import org.jfree.data.time.Year;
+import org.jfree.date.MonthConstants;
 
 /**
  * Tests for the {@link Month} class.
@@ -142,15 +141,14 @@ public class MonthTests extends TestCase {
     public void testDateConstructor1() {
 
         TimeZone zone = TimeZone.getTimeZone("GMT");
-        Calendar c = new GregorianCalendar(zone);
         Month m1 = new Month(new Date(951868799999L), zone);
         Month m2 = new Month(new Date(951868800000L), zone);
 
         assertEquals(MonthConstants.FEBRUARY, m1.getMonth());
-        assertEquals(951868799999L, m1.getLastMillisecond(c));
+        assertEquals(951868799999L, m1.getLastMillisecond(zone));
 
         assertEquals(MonthConstants.MARCH, m2.getMonth());
-        assertEquals(951868800000L, m2.getFirstMillisecond(c));
+        assertEquals(951868800000L, m2.getFirstMillisecond(zone));
 
     }
 
@@ -161,15 +159,14 @@ public class MonthTests extends TestCase {
     public void testDateConstructor2() {
 
         TimeZone zone = TimeZone.getTimeZone("Pacific/Auckland");
-        Calendar c = new GregorianCalendar(zone);
         Month m1 = new Month(new Date(951821999999L), zone);
         Month m2 = new Month(new Date(951822000000L), zone);
 
         assertEquals(MonthConstants.FEBRUARY, m1.getMonth());
-        assertEquals(951821999999L, m1.getLastMillisecond(c));
+        assertEquals(951821999999L, m1.getLastMillisecond(zone));
 
         assertEquals(MonthConstants.MARCH, m2.getMonth());
-        assertEquals(951822000000L, m2.getFirstMillisecond(c));
+        assertEquals(951822000000L, m2.getFirstMillisecond(zone));
 
     }
 
@@ -315,13 +312,12 @@ public class MonthTests extends TestCase {
     public void testGetFirstMillisecondWithTimeZone() {
         Month m = new Month(2, 1950);
         TimeZone zone = TimeZone.getTimeZone("America/Los_Angeles");
-        Calendar c = new GregorianCalendar(zone);
-        assertEquals(-628444800000L, m.getFirstMillisecond(c));
+        assertEquals(-628444800000L, m.getFirstMillisecond(zone));
         
         // try null calendar
         boolean pass = false;
         try {
-            m.getFirstMillisecond((Calendar) null);
+            m.getFirstMillisecond((TimeZone) null);
         }
         catch (NullPointerException e) {
             pass = true;
@@ -369,13 +365,12 @@ public class MonthTests extends TestCase {
     public void testGetLastMillisecondWithTimeZone() {
         Month m = new Month(2, 1950);
         TimeZone zone = TimeZone.getTimeZone("America/Los_Angeles");
-        Calendar c = new GregorianCalendar(zone);
-        assertEquals(-626025600001L, m.getLastMillisecond(c));
+        assertEquals(-626025600001L, m.getLastMillisecond(zone));
         
         // try null calendar
         boolean pass = false;
         try {
-            m.getLastMillisecond((Calendar) null);
+            m.getLastMillisecond((TimeZone) null);
         }
         catch (NullPointerException e) {
             pass = true;

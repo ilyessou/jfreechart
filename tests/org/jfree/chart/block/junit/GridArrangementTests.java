@@ -35,7 +35,6 @@
  * Changes
  * -------
  * 08-Mar-2005 : Version 1 (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -58,7 +57,7 @@ import org.jfree.chart.block.EmptyBlock;
 import org.jfree.chart.block.GridArrangement;
 import org.jfree.chart.block.LengthConstraintType;
 import org.jfree.chart.block.RectangleConstraint;
-import org.jfree.chart.util.Size2D;
+import org.jfree.ui.Size2D;
 
 /**
  * Tests for the {@link GridArrangement} class.

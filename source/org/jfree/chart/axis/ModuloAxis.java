@@ -35,7 +35,7 @@
  * Changes
  * -------
  * 13-Aug-2004 : Version 1 (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
+ * 13-Nov-2007 : Implemented equals() (DG);
  * 
  */
 
@@ -44,8 +44,8 @@ package org.jfree.chart.axis;
 import java.awt.geom.Rectangle2D;
 
 import org.jfree.chart.event.AxisChangeEvent;
-import org.jfree.chart.util.RectangleEdge;
 import org.jfree.data.Range;
+import org.jfree.ui.RectangleEdge;
 
 /**
  * An axis that displays numerical values within a fixed range using a modulo 
@@ -115,11 +115,8 @@ public class ModuloAxis extends NumberAxis {
             setRange(this.displayStart, this.displayEnd);
         }
         else {
-            setRange(
-                this.displayStart, 
-                this.fixedRange.getUpperBound() 
-                  + (this.displayEnd - this.fixedRange.getLowerBound())
-            );
+            setRange(this.displayStart, this.fixedRange.getUpperBound() 
+                  + (this.displayEnd - this.fixedRange.getLowerBound()));
         }
         notifyListeners(new AxisChangeEvent(this));        
     }
@@ -402,6 +399,33 @@ public class ModuloAxis extends NumberAxis {
             areaLength = area.getWidth();
         }
         return (length / axisLength) * areaLength;
+    }
+    
+    /**
+     * Tests this axis for equality with an arbitrary object.
+     * 
+     * @param obj  the object (<code>null</code> permitted).
+     * 
+     * @return A boolean.
+     */
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof ModuloAxis)) {
+            return false;
+        }
+        ModuloAxis that = (ModuloAxis) obj;
+        if (this.displayStart != that.displayStart) {
+            return false;
+        }
+        if (this.displayEnd != that.displayEnd) {
+            return false;
+        }
+        if (!this.fixedRange.equals(that.fixedRange)) {
+            return false;
+        }
+        return super.equals(obj);
     }
     
 }

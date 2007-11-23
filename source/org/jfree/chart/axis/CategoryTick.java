@@ -36,16 +36,15 @@
  * -------
  * 07-Nov-2003 : Version 1 (DG);
  * 13-May-2004 : Added equals() method (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
 package org.jfree.chart.axis;
 
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.text.TextBlock;
-import org.jfree.chart.text.TextBlockAnchor;
-import org.jfree.chart.util.ObjectUtilities;
+import org.jfree.text.TextBlock;
+import org.jfree.text.TextBlockAnchor;
+import org.jfree.ui.TextAnchor;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A tick for a {@link CategoryAxis}.

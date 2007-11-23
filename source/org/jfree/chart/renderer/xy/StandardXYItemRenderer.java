@@ -101,9 +101,7 @@
  *               method (DG);
  * 18-May-2007 : Set dataset and seriesKey for LegendItem (DG);
  * 08-Jun-2007 : Fixed bug in entity creation (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 27-Jun-2007 : Updated constructor for method changes in XYItemRenderer (DG);
- * 02-Jul-2007 : Removed override field (DG);
+ * 21-Nov-2007 : Deprecated override flag methods (DG);
  *
  */
 
@@ -134,13 +132,15 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.urls.XYURLGenerator;
-import org.jfree.chart.util.BooleanList;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.ShapeUtilities;
-import org.jfree.chart.util.UnitType;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.BooleanList;
+import org.jfree.util.BooleanUtilities;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
+import org.jfree.util.ShapeUtilities;
+import org.jfree.util.UnitType;
 
 /**
  * Standard item renderer for an {@link XYPlot}.  This class can draw (a) 
@@ -191,6 +191,13 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
     
     /** Threshold for deciding when to discontinue a line. */
     private double gapThreshold = 1.0;
+
+    /** 
+     * A flag that controls whether or not shapes are filled for ALL series. 
+     *
+     * @deprecated As of 1.0.8, this override should not be used.
+     */
+    private Boolean shapesFilled;
 
     /** 
      * A table of flags that control (per series) whether or not shapes are 
@@ -261,7 +268,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
 
         super();
         setBaseToolTipGenerator(toolTipGenerator);
-        setBaseURLGenerator(urlGenerator);
+        setURLGenerator(urlGenerator);
         if ((type & SHAPES) != 0) {
             this.baseShapesVisible = true;
         }
@@ -275,6 +282,7 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
             this.plotDiscontinuous = true;
         }
 
+        this.shapesFilled = null;
         this.seriesShapesFilled = new BooleanList();
         this.baseShapesFilled = true;
         this.legendLine = new Line2D.Double(-7.0, 0.0, 7.0, 0.0);
@@ -325,6 +333,12 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
      * @see #getSeriesShapesFilled(int)
      */
     public boolean getItemShapeFilled(int series, int item) {
+        // return the overall setting, if there is one...
+        if (this.shapesFilled != null) {
+            return this.shapesFilled.booleanValue();
+        }
+
+        // otherwise look up the paint table
         Boolean flag = this.seriesShapesFilled.getBoolean(series);
         if (flag != null) {
             return flag.booleanValue();
@@ -332,6 +346,60 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
         else {
             return this.baseShapesFilled;
         }
+    }
+
+    /**
+     * Returns the override flag that controls whether or not shapes are filled
+     * for ALL series.
+     * 
+     * @return The flag (possibly <code>null</code>).
+     * 
+     * @since 1.0.5
+     * 
+     * @deprecated As of 1.0.8, you should avoid using this method and rely
+     *             on just the per-series ({@link #getSeriesShapesFilled(int)}) 
+     *             and base-level ({@link #getBaseShapesFilled()}) settings.
+     */
+    public Boolean getShapesFilled() {
+        return this.shapesFilled;
+    }
+    
+    /**
+     * Sets the override flag that controls whether or not shapes are filled
+     * for ALL series and sends a {@link RendererChangeEvent} to all registered
+     * listeners. 
+     *
+     * @param filled  the flag.
+     * 
+     * @see #setShapesFilled(Boolean)
+     * 
+     * @deprecated As of 1.0.8, you should avoid using this method and rely
+     *             on just the per-series ({@link #setSeriesShapesFilled(int, 
+     *             Boolean)}) and base-level ({@link #setBaseShapesVisible(
+     *             boolean)}) settings.
+     */
+    public void setShapesFilled(boolean filled) {
+        // here we use BooleanUtilities to remain compatible with JDKs < 1.4 
+        setShapesFilled(BooleanUtilities.valueOf(filled));
+    }
+
+    /**
+     * Sets the override flag that controls whether or not shapes are filled
+     * for ALL series and sends a {@link RendererChangeEvent} to all registered
+     * listeners. 
+     *
+     * @param filled  the flag (<code>null</code> permitted).
+     * 
+     * @see #setShapesFilled(boolean)
+     * 
+     * @deprecated As of 1.0.8, you should avoid using this method and rely
+     *             on just the per-series ({@link #setSeriesShapesFilled(int, 
+     *             Boolean)}) and base-level ({@link #setBaseShapesVisible(
+     *             boolean)}) settings.
+     */
+    public void setShapesFilled(Boolean filled) {
+        this.shapesFilled = filled;
+        fireChangeEvent();
     }
 
     /**
@@ -959,6 +1027,9 @@ public class StandardXYItemRenderer extends AbstractXYItemRenderer
             return false;
         }
         if (this.gapThreshold != that.gapThreshold) {
+            return false;
+        }
+        if (!ObjectUtilities.equal(this.shapesFilled, that.shapesFilled)) {
             return false;
         }
         if (!this.seriesShapesFilled.equals(that.seriesShapesFilled)) {

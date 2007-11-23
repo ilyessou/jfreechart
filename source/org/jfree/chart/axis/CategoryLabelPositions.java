@@ -37,7 +37,6 @@
  * 06-Jan-2004 : Version 1 (DG);
  * 17-Feb-2004 : Added equals() method (DG);
  * 05-Nov-2004 : Adjusted settings for UP_90 and DOWN_90 (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -45,10 +44,10 @@ package org.jfree.chart.axis;
 
 import java.io.Serializable;
 
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.text.TextBlockAnchor;
-import org.jfree.chart.util.RectangleAnchor;
-import org.jfree.chart.util.RectangleEdge;
+import org.jfree.text.TextBlockAnchor;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.TextAnchor;
 
 /**
  * Records the label positions for a category axis.  Instances of this class 

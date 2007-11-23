@@ -36,7 +36,7 @@
  * -------
  * 25-Mar-2003 : Version 1 (DG);
  * 22-Oct-2003 : Added hashCode test (DG);
- *
+ * 10-Jul-2007 : Fixed compile errors (DG);
  */
 
 package org.jfree.chart.renderer.xy.junit;
@@ -155,9 +155,9 @@ public class ClusteredXYBarRendererTests extends TestCase {
         assertEquals(r1, r2);
 
     }
-    
-    private static final double EPSILON = 0.0000000001;
 
+    private static final double EPSILON = 0.0000000001;
+    
     /**
      * Some checks for the findDomainBounds() method (which requires special
      * handling when the centerBarAtStartValue flag is set to true).

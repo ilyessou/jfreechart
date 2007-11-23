@@ -50,7 +50,6 @@
  *               that can result from anti-aliasing (thanks to Doug 
  *               Clayton) (DG);
  * 30-Nov-2006 : Added accessor methods for the roundXCoordinates flag (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -71,11 +70,11 @@ import org.jfree.chart.plot.CrosshairState;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.urls.XYURLGenerator;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
 import org.jfree.data.Range;
 import org.jfree.data.xy.TableXYDataset;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A stacked area renderer for the {@link XYPlot} class.
@@ -146,7 +145,7 @@ public class StackedXYAreaRenderer2 extends XYAreaRenderer2
      */
     public void setRoundXCoordinates(boolean round) {
         this.roundXCoordinates = round;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**

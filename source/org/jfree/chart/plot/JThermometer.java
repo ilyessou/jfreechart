@@ -41,7 +41,6 @@
  * 18-Sep-2003 : Integrated new methods contributed by Irv Thomae (DG);
  * 08-Jan-2004 : Renamed AbstractTitle --> Title and moved to new package (DG);
  * 31-May-2005 : Fixed typo in method name (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -61,8 +60,8 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.chart.title.Title;
-import org.jfree.chart.util.RectangleInsets;
 import org.jfree.data.general.DefaultValueDataset;
+import org.jfree.ui.RectangleInsets;
 
 /**
  * An initial quick and dirty.  The concept behind this class would be to
@@ -345,6 +344,15 @@ public class JThermometer extends JPanel implements Serializable {
      */
     public void setFollowDataInSubranges(boolean flag) {
         this.plot.setFollowDataInSubranges(flag);
+    }
+
+    /**
+     * Sets the flag that controls whether or not value lines are displayed.
+     *
+     * @param b  the new flag value.
+     */
+    public void setShowValueLines(boolean b) {
+        this.plot.setShowValueLines(b);
     }
 
     /**

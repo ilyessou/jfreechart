@@ -37,7 +37,6 @@
  * 04-Feb-2004 : Version 1, contributed by David Basten based on 
  *               CustomXYURLGenerator by Richard Atkinson (added to main source
  *               tree on 25-May-2004);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 package org.jfree.chart.urls;
@@ -50,8 +49,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.jfree.chart.plot.MultiplePiePlot;
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.general.PieDataset;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A custom URL generator for pie charts.

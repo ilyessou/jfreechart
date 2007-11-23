@@ -37,7 +37,6 @@
  * 22-Oct-2004 : Version 1 (DG);
  * 04-Feb-2005 : Now cloneable and serializable (DG);
  * 20-Apr-2005 : Added new draw() method (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -47,7 +46,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
-import org.jfree.chart.util.PublicCloneable;
+import org.jfree.util.PublicCloneable;
 
 /**
  * An empty block with a fixed size.

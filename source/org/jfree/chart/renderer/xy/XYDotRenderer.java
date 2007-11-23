@@ -44,8 +44,7 @@
  * 19-Jan-2005 : Now uses only primitives from dataset (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 10-Jul-2006 : Added dotWidth and dotHeight attributes (DG);
- * 06-Feb-2007 : Fixed bug 1086307, crosshairs with multiple axes (DG)
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
+ * 06-Feb-2007 : Fixed bug 1086307, crosshairs with multiple axes (DG);
  * 09-Nov-2007 : Added legend shape attribute, plus override for 
  *               getLegendItem() (DG);
  *
@@ -69,11 +68,11 @@ import org.jfree.chart.plot.CrosshairState;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.ShapeUtilities;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PublicCloneable;
+import org.jfree.util.ShapeUtilities;
 
 /**
  * A renderer that draws a small dot at each data point for an {@link XYPlot}.
@@ -138,7 +137,7 @@ public class XYDotRenderer extends AbstractXYItemRenderer
             throw new IllegalArgumentException("Requires w > 0.");
         }
         this.dotWidth = w;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**
@@ -169,7 +168,7 @@ public class XYDotRenderer extends AbstractXYItemRenderer
             throw new IllegalArgumentException("Requires h > 0.");
         }
         this.dotHeight = h;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**
@@ -200,7 +199,7 @@ public class XYDotRenderer extends AbstractXYItemRenderer
             throw new IllegalArgumentException("Null 'shape' argument.");   
         }
         this.legendShape = shape;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**

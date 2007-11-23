@@ -32,8 +32,8 @@
  * Original Author:  Andreas Schroeder;
  * Contributor(s):   David Gilbert (for Object Refinery Limited);
  *
- * Changes (from 31-Mar-2004)
- * --------------------------
+ * Changes
+ * -------
  * 31-Mar-2004 : Version 1 (AS);
  * 15-Jul-2004 : Switched getX() with getXValue() and getY() with 
  *               getYValue() (DG);
@@ -46,7 +46,6 @@
  * 06-Oct-2005 : Implemented DatasetChangeListener to recalculate 
  *               autoIntervalWidth (DG);
  * 02-Feb-2007 : Removed author tags all over JFreeChart sources (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *   
  */
 
@@ -54,13 +53,13 @@ package org.jfree.data.xy;
 
 import java.io.Serializable;
 
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.DomainInfo;
 import org.jfree.data.Range;
 import org.jfree.data.RangeInfo;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.DatasetUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A delegate that handles the specification or automatic calculation of the
@@ -390,6 +389,8 @@ public class IntervalXYDelegate implements DatasetChangeListener,
     
     /**
      * Recalculate the minimum width "from scratch".
+     * 
+     * @return The minimum width.
      */
     private double recalculateInterval() {
         double result = Double.POSITIVE_INFINITY;
@@ -404,6 +405,8 @@ public class IntervalXYDelegate implements DatasetChangeListener,
      * Calculates the interval width for a given series.
      *  
      * @param series  the series index.
+     * 
+     * @return The interval width.
      */
     private double calculateIntervalForSeries(int series) {
         double result = Double.POSITIVE_INFINITY;

@@ -48,7 +48,6 @@
  * 20-Apr-2005 : Renamed CategoryLabelGenerator 
  *               --> CategoryItemLabelGenerator (DG);
  * 09-Jun-2005 : Use addItemEntity() from superclass (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -73,15 +72,15 @@ import org.jfree.chart.labels.CategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.AbstractRenderer;
-import org.jfree.chart.util.GradientPaintTransformType;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.StandardGradientPaintTransformer;
 import org.jfree.data.Range;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.DatasetUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.GradientPaintTransformType;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.StandardGradientPaintTransformer;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A renderer that handles the drawing of waterfall bar charts, for use with 
@@ -194,7 +193,7 @@ public class WaterfallBarRenderer extends BarRenderer
             throw new IllegalArgumentException("Null 'paint' argument");   
         }
         this.firstBarPaint = paint;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -207,7 +206,8 @@ public class WaterfallBarRenderer extends BarRenderer
     }
     
     /**
-     * Sets the paint that will be used to draw the last bar.
+     * Sets the paint that will be used to draw the last bar and sends a 
+     * {@link RendererChangeEvent} to all registered listeners.
      *
      * @param paint  the paint (<code>null</code> not permitted).
      */
@@ -216,7 +216,7 @@ public class WaterfallBarRenderer extends BarRenderer
             throw new IllegalArgumentException("Null 'paint' argument");   
         }
         this.lastBarPaint = paint;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -238,7 +238,7 @@ public class WaterfallBarRenderer extends BarRenderer
             throw new IllegalArgumentException("Null 'paint' argument");   
         }
         this.positiveBarPaint = paint;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -251,7 +251,8 @@ public class WaterfallBarRenderer extends BarRenderer
     }
     
     /**
-     * Sets the paint that will be used to draw bars having negative values.
+     * Sets the paint that will be used to draw bars having negative values,
+     * and sends a {@link RendererChangeEvent} to all registered listeners.
      *
      * @param paint  the paint (<code>null</code> not permitted).
      */
@@ -260,7 +261,7 @@ public class WaterfallBarRenderer extends BarRenderer
             throw new IllegalArgumentException("Null 'paint' argument");   
         }
         this.negativeBarPaint = paint;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**

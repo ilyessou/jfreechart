@@ -37,7 +37,6 @@
  * 05-Mar-2003 : Version 1 (DG);
  * 27-Aug-2003 : Moved SortOrder from org.jfree.data --> org.jfree.util (DG);
  * 12-Jan-2005 : Added accessor methods (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -45,7 +44,7 @@ package org.jfree.data;
 
 import java.util.Comparator;
 
-import org.jfree.chart.util.SortOrder;
+import org.jfree.util.SortOrder;
 
 /**
  * A utility class that can compare and order two {@link KeyedValue} instances 

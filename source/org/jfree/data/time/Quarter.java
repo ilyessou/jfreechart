@@ -53,7 +53,6 @@
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 05-Oct-2006 : Updated API docs (DG);
  * 06-Oct-2006 : Refactored to cache first and last millisecond values (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -63,6 +62,9 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+
+import org.jfree.date.MonthConstants;
+import org.jfree.date.SerialDate;
 
 /**
  * Defines a quarter (in a given year).  The range supported is Q1 1900 to 

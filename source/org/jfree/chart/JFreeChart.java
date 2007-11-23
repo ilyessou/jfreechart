@@ -135,9 +135,6 @@
  *               get/setSubtitles(), and added new addSubtitle(int, Title) 
  *               method (DG);
  * 05-Jun-2007 : Add change listener to default legend (DG);
- * 20-Jun-2007 : Removed JCommon dependency (DG);
- * 07-Jul-2007 : Changed default background color to white. Fixed bug
- *               1749124 (not registering as listener with TextTitle) (DG);
  * 
  */
 
@@ -170,8 +167,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 import javax.swing.event.EventListenerList;
 
+import org.jfree.JCommon;
 import org.jfree.chart.block.BlockParams;
 import org.jfree.chart.block.EntityBlockResult;
 import org.jfree.chart.block.LengthConstraintType;
@@ -193,19 +192,20 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.chart.title.Title;
-import org.jfree.chart.ui.Contributor;
-import org.jfree.chart.ui.Licences;
-import org.jfree.chart.ui.ProjectInfo;
-import org.jfree.chart.util.Align;
-import org.jfree.chart.util.HorizontalAlignment;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.Size2D;
-import org.jfree.chart.util.VerticalAlignment;
 import org.jfree.data.Range;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.Align;
+import org.jfree.ui.Drawable;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.Size2D;
+import org.jfree.ui.VerticalAlignment;
+import org.jfree.ui.about.Contributor;
+import org.jfree.ui.about.Licences;
+import org.jfree.ui.about.ProjectInfo;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
 
 /**
  * A chart class implemented using the Java 2D APIs.  The current version
@@ -245,7 +245,8 @@ public class JFreeChart implements Drawable,
             = new Font("SansSerif", Font.BOLD, 18);
 
     /** The default background color. */
-    public static final Paint DEFAULT_BACKGROUND_PAINT = Color.WHITE;
+    public static final Paint DEFAULT_BACKGROUND_PAINT 
+            = UIManager.getColor("Panel.background");
 
     /** The default background image. */
     public static final Image DEFAULT_BACKGROUND_IMAGE = null;
@@ -566,13 +567,7 @@ public class JFreeChart implements Drawable,
      * @see #getTitle()
      */
     public void setTitle(TextTitle title) {
-        if (this.title != null) {
-            this.title.removeChangeListener(this);
-        }
         this.title = title;
-        if (title != null) {
-            title.addChangeListener(this);
-        }
         fireChartChanged();
     }
 
@@ -1021,7 +1016,7 @@ public class JFreeChart implements Drawable,
 
     /**
      * Sets the background alignment.  Alignment options are defined by the 
-     * {@link Align} class.
+     * {@link org.jfree.ui.Align} class.
      *
      * @param alignment  the alignment.
      * 
@@ -1765,6 +1760,7 @@ class JFreeChartInfo extends ProjectInfo {
                 new Contributor("Paolo Cova", "-"),
                 new Contributor("Mike Duffy", "-"),
                 new Contributor("Don Elliott", "-"),
+                new Contributor("David Forslund", "-"),
                 new Contributor("Jonathan Gabbai", "-"),
                 new Contributor("David Gilbert", 
                         "david.gilbert@object-refinery.com"),
@@ -1834,6 +1830,8 @@ class JFreeChartInfo extends ProjectInfo {
                 new Contributor("Sam (oldman)", "-"),
             }
         ));
+
+        addLibrary(JCommon.INFO);
 
     }
 

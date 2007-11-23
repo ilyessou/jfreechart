@@ -36,7 +36,6 @@
  * --------
  * 22-Oct-2004 : Version 1 (DG);
  * 04-Feb-2005 : Added equals() and implemented Serializable (DG);
- * 20-Jun-2007 : Removed JCommon dependency (DG);
  * 
  */
 
@@ -48,9 +47,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jfree.chart.util.HorizontalAlignment;
-import org.jfree.chart.util.Size2D;
-import org.jfree.chart.util.VerticalAlignment;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.Size2D;
+import org.jfree.ui.VerticalAlignment;
 
 /**
  * Arranges blocks in a column layout.  This class is immutable.

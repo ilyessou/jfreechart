@@ -35,15 +35,14 @@
  * Changes
  * -------
  * 19-Oct-2006 : New class, based on XYDataItem (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 
+ *
  */
 
 package org.jfree.data;
 
 import java.io.Serializable;
 
-import org.jfree.chart.util.ObjectUtilities;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * Represents one (Comparable, Object) data item for use in a 
@@ -54,6 +53,7 @@ import org.jfree.chart.util.ObjectUtilities;
 public class ComparableObjectItem implements Cloneable, Comparable, 
         Serializable {
 
+    /** For serialization. */
     private static final long serialVersionUID = 2751513470325494890L;
     
     /** The x-value. */

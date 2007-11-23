@@ -36,7 +36,6 @@
  * -------
  * 22-Mar-2005 : Version 1 (DG);
  * 29-Mar-2005 : Fixed serialization (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -51,10 +50,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.Range;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
 
 /**
  * An interval to be highlighted on a {@link MeterPlot}.  Instances of this

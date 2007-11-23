@@ -37,7 +37,6 @@
  * 25-Oct-2006 : Version 1 (DG);
  * 23-Mar-2007 : Check item visibility before drawing error bars - see bug
  *               1686178 (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -58,13 +57,13 @@ import org.jfree.chart.plot.CrosshairState;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.Range;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PaintUtilities;
 
 /**
  * A line and shape renderer that can also display x and/or y-error values.  
@@ -75,6 +74,9 @@ import org.jfree.data.xy.XYDataset;
  */
 public class XYErrorRenderer extends XYLineAndShapeRenderer {
 
+    /** For serialization. */
+    static final long serialVersionUID = 5162283570955172424L;
+    
     /** A flag that controls whether or not the x-error bars are drawn. */
     private boolean drawXError;
     
@@ -125,7 +127,7 @@ public class XYErrorRenderer extends XYLineAndShapeRenderer {
     public void setDrawXError(boolean draw) {
         if (this.drawXError != draw) {
             this.drawXError = draw;
-            this.notifyListeners(new RendererChangeEvent(this));
+            fireChangeEvent();
         }
     }
     
@@ -153,7 +155,7 @@ public class XYErrorRenderer extends XYLineAndShapeRenderer {
     public void setDrawYError(boolean draw) {
         if (this.drawYError != draw) {
             this.drawYError = draw;
-            notifyListeners(new RendererChangeEvent(this));
+            fireChangeEvent();
         }
     }
     
@@ -179,7 +181,7 @@ public class XYErrorRenderer extends XYLineAndShapeRenderer {
      */
     public void setCapLength(double length) {
         this.capLength = length;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**
@@ -195,7 +197,8 @@ public class XYErrorRenderer extends XYLineAndShapeRenderer {
     }
     
     /**
-     * Sets the paint used to draw the error bars.
+     * Sets the paint used to draw the error bars and sends a 
+     * {@link RendererChangeEvent} to all registered listeners.
      * 
      * @param paint  the paint (<code>null</code> permitted).
      * 
@@ -203,7 +206,7 @@ public class XYErrorRenderer extends XYLineAndShapeRenderer {
      */
     public void setErrorPaint(Paint paint) {
         this.errorPaint = paint;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**

@@ -35,7 +35,6 @@
  * Changes
  * -------
  * 03-Nov-2006 : Version 1 (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -55,8 +54,8 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.jfree.chart.plot.dial.DialBackground;
-import org.jfree.chart.util.GradientPaintTransformType;
-import org.jfree.chart.util.StandardGradientPaintTransformer;
+import org.jfree.ui.GradientPaintTransformType;
+import org.jfree.ui.StandardGradientPaintTransformer;
 
 /**
  * Tests for the {@link DialBackground} class.

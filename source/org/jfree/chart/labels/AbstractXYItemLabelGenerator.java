@@ -45,7 +45,8 @@
  * ------------- JFREECHART 1.0.x --------------------------------------------
  * 26-Jan-2006 : Minor API doc update (DG);
  * 25-Jan-2007 : Added new constructor and fixed bug in clone() method (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
+ * 16-Oct-2007 : Removed redundant code (DG);
+ * 23-Nov-2007 : Implemented hashCode() (DG);
  * 
  */
 
@@ -57,8 +58,9 @@ import java.text.MessageFormat;
 import java.text.NumberFormat;
 import java.util.Date;
 
-import org.jfree.chart.util.ObjectUtilities;
+import org.jfree.chart.HashUtilities;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A base class for creating item label generators.
@@ -82,9 +84,6 @@ public class AbstractXYItemLabelGenerator implements Cloneable, Serializable {
 
     /** A date formatter for the y value. */
     private DateFormat yDateFormat;
-
-    /** The string used to represent 'null' for the x-value. */
-    private String nullXString = "null";
     
     /** The string used to represent 'null' for the y-value. */
     private String nullYString = "null";
@@ -266,16 +265,11 @@ public class AbstractXYItemLabelGenerator implements Cloneable, Serializable {
         result[0] = dataset.getSeriesKey(series).toString();
         
         double x = dataset.getXValue(series, item);
-        if (Double.isNaN(x) && dataset.getX(series, item) == null) {
-            result[1] = this.nullXString;
+        if (this.xDateFormat != null) {
+            result[1] = this.xDateFormat.format(new Date((long) x));   
         }
         else {
-            if (this.xDateFormat != null) {
-                result[1] = this.xDateFormat.format(new Date((long) x));   
-            }
-            else {
-                result[1] = this.xFormat.format(x);
-            }
+            result[1] = this.xFormat.format(x);
         }
         
         double y = dataset.getYValue(series, item);
@@ -326,6 +320,21 @@ public class AbstractXYItemLabelGenerator implements Cloneable, Serializable {
         return true;
     }
 
+    /**
+     * Returns a hash code for this instance.
+     * 
+     * @return A hash code.
+     */
+    public int hashCode() {
+        int result = 127;
+        result = HashUtilities.hashCode(result, this.formatString);
+        result = HashUtilities.hashCode(result, this.xFormat);
+        result = HashUtilities.hashCode(result, this.xDateFormat);
+        result = HashUtilities.hashCode(result, this.yFormat);
+        result = HashUtilities.hashCode(result, this.yDateFormat);
+        return result;
+    }
+    
     /**
      * Returns an independent copy of the generator.
      * 

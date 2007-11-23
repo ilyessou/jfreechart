@@ -52,8 +52,7 @@
  * 13-Sep-2006 : Updated API docs (DG);
  * 30-Oct-2006 : Added new getCategoriesForAxis() override (DG);
  * 17-Apr-2007 : Added null argument checks to findSubplot() (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- *
+ * 14-Nov-2007 : Updated setFixedRangeAxisSpaceForSubplots() method (DG);
  */
 
 package org.jfree.chart.plot;
@@ -72,10 +71,10 @@ import org.jfree.chart.axis.AxisState;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.event.PlotChangeEvent;
 import org.jfree.chart.event.PlotChangeListener;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A combined category plot where the domain axis is shared.
@@ -464,13 +463,11 @@ public class CombinedDomainCategoryPlot extends CategoryPlot
      * @param space  the space (<code>null</code> permitted).
      */
     protected void setFixedRangeAxisSpaceForSubplots(AxisSpace space) {
-
         Iterator iterator = this.subplots.iterator();
         while (iterator.hasNext()) {
             CategoryPlot plot = (CategoryPlot) iterator.next();
-            plot.setFixedRangeAxisSpace(space);
+            plot.setFixedRangeAxisSpace(space, false);
         }
-
     }
 
     /**

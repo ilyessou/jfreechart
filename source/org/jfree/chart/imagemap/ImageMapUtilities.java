@@ -40,7 +40,6 @@
  *               layering (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 06-Feb-2006 : API doc updates (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -52,7 +51,7 @@ import java.io.PrintWriter;
 import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.entity.ChartEntity;
 import org.jfree.chart.entity.EntityCollection;
-import org.jfree.chart.util.StringUtilities;
+import org.jfree.util.StringUtils;
 
 /**
  * Collection of utility methods related to producing image maps.  
@@ -173,7 +172,7 @@ public class ImageMapUtilities {
 
         StringBuffer sb = new StringBuffer();
         sb.append("<map id=\"" + name + "\" name=\"" + name + "\">");
-        sb.append(StringUtilities.getLineSeparator());
+        sb.append(StringUtils.getLineSeparator());
         EntityCollection entities = info.getEntityCollection();
         if (entities != null) {
             int count = entities.getEntityCount();
@@ -186,7 +185,7 @@ public class ImageMapUtilities {
                             urlTagFragmentGenerator);
                     if (area.length() > 0) {
                         sb.append(area);
-                        sb.append(StringUtilities.getLineSeparator());
+                        sb.append(StringUtils.getLineSeparator());
                     }
                 }
             }

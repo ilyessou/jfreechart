@@ -36,7 +36,6 @@
  * -------
  * 25-Feb-2005 : Version 1 (DG);
  * 16-Mar-2005 : Extended testEquals() (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -59,8 +58,8 @@ import junit.framework.TestSuite;
 
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.title.LegendTitle;
-import org.jfree.chart.util.RectangleAnchor;
-import org.jfree.chart.util.RectangleEdge;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.ui.RectangleEdge;
 
 /**
  * Some tests for the {@link LegendTitle} class.

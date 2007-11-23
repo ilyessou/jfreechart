@@ -32,8 +32,8 @@
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   Arnaud Lelievre;
  *
- * Changes (from 29-Oct-2002)
- * --------------------------
+ * Changes
+ * -------
  * 29-Oct-2002 : Added standard header (DG);
  * 07-Nov-2002 : Fixed errors reported by Checkstyle (DG);
  * 26-Mar-2003 : Implemented Serializable (DG);
@@ -54,7 +54,6 @@
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 10-Nov-2006 : Fixed bug 1593150, by not allowing null axes, and added
  *               setDomainAxis() and setRangeAxis() methods (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 24-Sep-2007 : Implemented new zooming methods (DG);
  *
  */
@@ -86,13 +85,13 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.axis.ValueTick;
 import org.jfree.chart.event.PlotChangeEvent;
-import org.jfree.chart.util.ArrayUtilities;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.Range;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.util.ArrayUtilities;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
 
 /**
  * A fast scatter plot.

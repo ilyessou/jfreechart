@@ -36,7 +36,6 @@
  * -------
  * 02-Jun-2004 : Version 1 (DG);
  * 23-Mar-2005 : Implemented PublicCloneable (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -46,9 +45,9 @@ import java.io.Serializable;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
 
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.statistics.BoxAndWhiskerCategoryDataset;
+import org.jfree.util.PublicCloneable;
 
 /**
  * An item label generator for plots that use data from a 
@@ -69,16 +68,16 @@ import org.jfree.data.statistics.BoxAndWhiskerCategoryDataset;
  * </table>
  */
 public class BoxAndWhiskerToolTipGenerator 
-    extends StandardCategoryToolTipGenerator
-    implements CategoryToolTipGenerator, Cloneable, PublicCloneable,
-               Serializable {
+        extends StandardCategoryToolTipGenerator
+        implements CategoryToolTipGenerator, Cloneable, PublicCloneable,
+                   Serializable {
 
     /** For serialization. */
     private static final long serialVersionUID = -6076837753823076334L;
     
     /** The default tooltip format string. */
     public static final String DEFAULT_TOOL_TIP_FORMAT 
-        = "X: {1} Mean: {2} Median: {3} Min: {4} Max: {5} Q1: {6} Q3: {7} ";
+            = "X: {1} Mean: {2} Median: {3} Min: {4} Max: {5} Q1: {6} Q3: {7} ";
     
     /**
      * Creates a default tool tip generator.

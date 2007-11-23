@@ -39,7 +39,6 @@
  *               cloning problem (DG);
  * 18-Aug-2005 : Added casts in clone() method to suppress 1.5 compiler 
  *               warnings - see patch 1260587 (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -55,8 +54,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A class that maps keys (instances of <code>Comparable</code>) to groups.

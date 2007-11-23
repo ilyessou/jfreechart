@@ -32,8 +32,8 @@
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   Laurence Vanhelsuwe;
  *
- * Changes (from 18-Sep-2001)
- * --------------------------
+ * Changes
+ * -------
  * 18-Sep-2001 : Added standard header and fixed DOS encoding problem (DG);
  * 22-Sep-2001 : Changed setMinimumAxisValue() and setMaximumAxisValue() so 
  *               that they clear the autoRange flag (DG);
@@ -90,9 +90,6 @@
  * 11-Dec-2006 : Fix bug in auto-tick unit selection with tick format override,
  *               see bug 1608371 (DG);
  * 22-Mar-2007 : Use new defaultAutoRange attribute (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 02-Jul-2007 : Added entity support for axis labels (DG);
- * 12-Jul-2007 : Updated for API changes in super class (DG);
  *
  */
 
@@ -114,12 +111,12 @@ import org.jfree.chart.event.AxisChangeEvent;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.ValueAxisPlot;
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
 import org.jfree.data.Range;
 import org.jfree.data.RangeType;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.TextAnchor;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * An axis for displaying numerical data.
@@ -665,8 +662,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
         }
 
         // draw the tick marks and labels...
-        state = drawTickMarksAndLabels(g2, cursor, plotArea, dataArea, edge,
-                plotState);
+        state = drawTickMarksAndLabels(g2, cursor, plotArea, dataArea, edge);
 
 //        // draw the marker band (if there is one)...
 //        if (getMarkerBand() != null) {
@@ -677,8 +673,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
 //        }
         
         // draw the axis label...
-        state = drawLabel(getLabel(), g2, plotArea, dataArea, edge, state,
-                plotState);
+        state = drawLabel(getLabel(), g2, plotArea, dataArea, edge, state);
 
         return state;
         
@@ -1219,8 +1214,10 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
                     }
                 }
 
-                Tick tick = new NumberTick(new Double(currentTickValue), 
-                        tickLabel, anchor, rotationAnchor, angle);
+                Tick tick = new NumberTick(
+                    new Double(currentTickValue), tickLabel, anchor, 
+                    rotationAnchor, angle
+                );
                 result.add(tick);
             }
         }

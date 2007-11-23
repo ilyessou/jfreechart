@@ -51,16 +51,13 @@
  * 19-Jan-2005 : Now accesses only primitives from dataset (DG);
  * 15-Mar-2005 : Fix silly bug in drawItem() method (DG);
  * 19-Sep-2005 : Extend XYLineAndShapeRenderer (fixes legend shapes), added 
- *               support for series visibility, and use getDefaultEntityRadius() 
+ *               support for series visibility, and use getDefaultEntityRadius()
  *               for entity hotspot size (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 15-Jun-2006 : Added basic support for item labels (DG);
  * 11-Oct-2006 : Fixed rendering with horizontal orientation (see bug 1569094),
  *               thanks to Gerald Struck (DG);
  * 06-Feb-2007 : Fixed bug 1086307, crosshairs with multiple axes (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 27-Jun-2007 : Updated drawItem() to use addEntity() (DG);
- * 02-Jul-2007 : Updated for removed methods in super-class (DG);
  *
  */
 
@@ -68,6 +65,7 @@ package org.jfree.chart.renderer.xy;
 
 import java.awt.Graphics2D;
 import java.awt.Paint;
+import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
@@ -75,15 +73,16 @@ import java.io.Serializable;
 
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
+import org.jfree.chart.entity.XYItemEntity;
 import org.jfree.chart.labels.XYToolTipGenerator;
 import org.jfree.chart.plot.CrosshairState;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.urls.XYURLGenerator;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PublicCloneable;
 
 /**
  * Line/Step item renderer for an {@link XYPlot}.  This class draws lines 
@@ -117,8 +116,8 @@ public class XYStepRenderer extends XYLineAndShapeRenderer
                           XYURLGenerator urlGenerator) {
         super();
         setBaseToolTipGenerator(toolTipGenerator);
-        setBaseURLGenerator(urlGenerator);
-        setBaseShapesVisible(false);
+        setURLGenerator(urlGenerator);
+        setShapesVisible(false);
     }
 
     /**
@@ -234,9 +233,33 @@ public class XYStepRenderer extends XYLineAndShapeRenderer
         updateCrosshairValues(crosshairState, x1, y1, domainAxisIndex, 
                 rangeAxisIndex, transX1, transY1, orientation);
         
-        EntityCollection entities = state.getEntityCollection();
-        if (entities != null) {
-            addEntity(entities, null, dataset, series, item, transX1, transY1);
+        // collect entity and tool tip information...
+        if (state.getInfo() != null) {
+            EntityCollection entities = state.getEntityCollection();
+            if (entities != null) {
+                int r = getDefaultEntityRadius();
+                Shape shape = orientation == PlotOrientation.VERTICAL
+                    ? new Rectangle2D.Double(transX1 - r, transY1 - r, 2 * r, 
+                            2 * r)
+                    : new Rectangle2D.Double(transY1 - r, transX1 - r, 2 * r, 
+                            2 * r);           
+                if (shape != null) {
+                    String tip = null;
+                    XYToolTipGenerator generator 
+                        = getToolTipGenerator(series, item);
+                    if (generator != null) {
+                        tip = generator.generateToolTip(dataset, series, item);
+                    }
+                    String url = null;
+                    if (getURLGenerator() != null) {
+                        url = getURLGenerator().generateURL(dataset, series, 
+                                item);
+                    }
+                    XYItemEntity entity = new XYItemEntity(shape, dataset, 
+                            series, item, tip, url);
+                    entities.add(entity);
+                }
+            }
         }
     }
 

@@ -37,7 +37,6 @@
  * 22-Oct-2004 : Version 1 (DG);
  * 11-Feb-2005 : Modified arrange() method to return Size2D (DG);
  * 22-Apr-2005 : Reordered arguments in arrange() method (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -45,7 +44,7 @@ package org.jfree.chart.block;
 
 import java.awt.Graphics2D;
 
-import org.jfree.chart.util.Size2D;
+import org.jfree.ui.Size2D;
 
 /**
  * An object that is responsible for arranging a collection of {@link Block}s

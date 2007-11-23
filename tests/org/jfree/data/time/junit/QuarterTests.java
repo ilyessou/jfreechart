@@ -136,15 +136,14 @@ public class QuarterTests extends TestCase {
     public void testDateConstructor1() {
 
         TimeZone zone = TimeZone.getTimeZone("GMT");
-        Calendar c = new GregorianCalendar(zone);
         Quarter q1 = new Quarter(new Date(1017619199999L), zone);
         Quarter q2 = new Quarter(new Date(1017619200000L), zone);
 
         assertEquals(1, q1.getQuarter());
-        assertEquals(1017619199999L, q1.getLastMillisecond(c));
+        assertEquals(1017619199999L, q1.getLastMillisecond(zone));
 
         assertEquals(2, q2.getQuarter());
-        assertEquals(1017619200000L, q2.getFirstMillisecond(c));
+        assertEquals(1017619200000L, q2.getFirstMillisecond(zone));
 
     }
 
@@ -155,15 +154,14 @@ public class QuarterTests extends TestCase {
     public void testDateConstructor2() {
 
         TimeZone zone = TimeZone.getTimeZone("Europe/Istanbul");
-        Calendar c = new GregorianCalendar(zone);
         Quarter q1 = new Quarter(new Date(1017608399999L), zone);
         Quarter q2 = new Quarter(new Date(1017608400000L), zone);
 
         assertEquals(1, q1.getQuarter());
-        assertEquals(1017608399999L, q1.getLastMillisecond(c));
+        assertEquals(1017608399999L, q1.getLastMillisecond(zone));
 
         assertEquals(2, q2.getQuarter());
-        assertEquals(1017608400000L, q2.getFirstMillisecond(c));
+        assertEquals(1017608400000L, q2.getFirstMillisecond(zone));
 
     }
 
@@ -334,13 +332,12 @@ public class QuarterTests extends TestCase {
     public void testGetFirstMillisecondWithTimeZone() {
         Quarter q = new Quarter(2, 1950);
         TimeZone zone = TimeZone.getTimeZone("America/Los_Angeles");
-        Calendar c = new GregorianCalendar(zone);
-        assertEquals(-623347200000L, q.getFirstMillisecond(c));
+        assertEquals(-623347200000L, q.getFirstMillisecond(zone));
         
         // try null calendar
         boolean pass = false;
         try {
-            q.getFirstMillisecond((Calendar) null);
+            q.getFirstMillisecond((TimeZone) null);
         }
         catch (NullPointerException e) {
             pass = true;
@@ -388,13 +385,12 @@ public class QuarterTests extends TestCase {
     public void testGetLastMillisecondWithTimeZone() {
         Quarter q = new Quarter(2, 1950);
         TimeZone zone = TimeZone.getTimeZone("America/Los_Angeles");
-        Calendar c = new GregorianCalendar(zone);
-        assertEquals(-615488400001L, q.getLastMillisecond(c));
+        assertEquals(-615488400001L, q.getLastMillisecond(zone));
         
         // try null calendar
         boolean pass = false;
         try {
-            q.getLastMillisecond((Calendar) null);
+            q.getLastMillisecond((TimeZone) null);
         }
         catch (NullPointerException e) {
             pass = true;

@@ -53,15 +53,15 @@ public final class ChartChangeEventType implements Serializable {
     
     /** GENERAL. */
     public static final ChartChangeEventType GENERAL 
-        = new ChartChangeEventType("ChartChangeEventType.GENERAL");
+            = new ChartChangeEventType("ChartChangeEventType.GENERAL");
 
     /** NEW_DATASET. */
     public static final ChartChangeEventType NEW_DATASET 
-        = new ChartChangeEventType("ChartChangeEventType.NEW_DATASET");
+            = new ChartChangeEventType("ChartChangeEventType.NEW_DATASET");
 
     /** DATASET_UPDATED. */
     public static final ChartChangeEventType DATASET_UPDATED
-        = new ChartChangeEventType("ChartChangeEventType.DATASET_UPDATED");
+            = new ChartChangeEventType("ChartChangeEventType.DATASET_UPDATED");
 
     /** The name. */
     private String name;

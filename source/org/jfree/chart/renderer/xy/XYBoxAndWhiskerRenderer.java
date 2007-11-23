@@ -68,7 +68,6 @@
  * 05-Feb-2007 : Added event notifications and fixed drawing for horizontal 
  *               plot orientation (DG);
  * 13-Jun-2007 : Replaced deprecated method call (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -103,12 +102,12 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.Outlier;
 import org.jfree.chart.renderer.OutlierList;
 import org.jfree.chart.renderer.OutlierListCollection;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.statistics.BoxAndWhiskerXYDataset;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A renderer that draws box-and-whisker items on an {@link XYPlot}.  This 
@@ -188,7 +187,7 @@ public class XYBoxAndWhiskerRenderer extends AbstractXYItemRenderer
     public void setBoxWidth(double width) {
         if (width != this.boxWidth) {
             this.boxWidth = width;
-            notifyListeners(new RendererChangeEvent(this));
+            fireChangeEvent();
         }
     }
 
@@ -213,7 +212,7 @@ public class XYBoxAndWhiskerRenderer extends AbstractXYItemRenderer
      */
     public void setBoxPaint(Paint paint) {
         this.boxPaint = paint;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**
@@ -237,7 +236,7 @@ public class XYBoxAndWhiskerRenderer extends AbstractXYItemRenderer
      */
     public void setFillBox(boolean flag) {
         this.fillBox = flag;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -254,7 +253,8 @@ public class XYBoxAndWhiskerRenderer extends AbstractXYItemRenderer
 
     /**
      * Sets the paint used to paint the various artifacts such as outliers, 
-     * farout symbol, median line and the averages ellipse.
+     * farout symbol, median line and the averages ellipse, and sends a 
+     * {@link RendererChangeEvent} to all registered listeners.
      * 
      * @param paint  the paint (<code>null</code> not permitted).
      * 
@@ -265,7 +265,7 @@ public class XYBoxAndWhiskerRenderer extends AbstractXYItemRenderer
             throw new IllegalArgumentException("Null 'paint' argument.");
         }
         this.artifactPaint = paint;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**

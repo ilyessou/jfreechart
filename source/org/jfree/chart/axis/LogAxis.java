@@ -36,11 +36,8 @@
  * -------
  * 24-Aug-2006 : Version 1 (DG);
  * 22-Mar-2007 : Use defaultAutoArrange attribute (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 02-Jul-2007 : Added entity support for axis labels (DG);
- * 12-Jul-2007 : Fixed zooming bug, and updated for API changes in super 
- *               class (DG);
- *
+ * 02-Aug-2007 : Fixed zooming bug, added support for margins (DG);
+ * 
  */
 
 package org.jfree.chart.axis;
@@ -61,10 +58,10 @@ import org.jfree.chart.event.AxisChangeEvent;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.ValueAxisPlot;
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
 import org.jfree.data.Range;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.TextAnchor;
 
 /**
  * A numerical axis that uses a logarithmic scale.  The class is an 
@@ -469,10 +466,8 @@ public class LogAxis extends ValueAxis {
             state.setTicks(ticks);
             return state;
         }
-        state = drawTickMarksAndLabels(g2, cursor, plotArea, dataArea, edge,
-                plotState);
-        state = drawLabel(getLabel(), g2, plotArea, dataArea, edge, state, 
-                plotState);
+        state = drawTickMarksAndLabels(g2, cursor, plotArea, dataArea, edge);
+        state = drawLabel(getLabel(), g2, plotArea, dataArea, edge, state);
         return state;
     }
 
@@ -633,14 +628,16 @@ public class LogAxis extends ValueAxis {
         // start with the current tick unit...
         TickUnitSource tickUnits = getStandardTickUnits();
         TickUnit unit1 = tickUnits.getCeilingTickUnit(getTickUnit());
-        double unit1Width = exponentLengthToJava2D(unit1.getSize(), dataArea, edge);
+        double unit1Width = exponentLengthToJava2D(unit1.getSize(), dataArea, 
+                edge);
 
         // then extrapolate...
         double guess = (tickLabelWidth / unit1Width) * unit1.getSize();
 
         NumberTickUnit unit2 = (NumberTickUnit) 
                 tickUnits.getCeilingTickUnit(guess);
-        double unit2Width = exponentLengthToJava2D(unit2.getSize(), dataArea, edge);
+        double unit2Width = exponentLengthToJava2D(unit2.getSize(), dataArea, 
+                edge);
 
         tickLabelWidth = estimateMaximumTickLabelWidth(g2, unit2);
         if (tickLabelWidth > unit2Width) {

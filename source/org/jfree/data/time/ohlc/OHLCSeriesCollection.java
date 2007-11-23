@@ -35,7 +35,6 @@
  * Changes
  * -------
  * 04-Dec-2006 : Version 1 (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -44,12 +43,12 @@ package org.jfree.data.time.ohlc;
 import java.io.Serializable;
 import java.util.List;
 
-import org.jfree.chart.util.ObjectUtilities;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.TimePeriodAnchor;
 import org.jfree.data.xy.AbstractXYDataset;
 import org.jfree.data.xy.OHLCDataset;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A collection of {@link OHLCSeries} objects.

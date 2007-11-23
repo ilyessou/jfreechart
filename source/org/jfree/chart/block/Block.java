@@ -38,7 +38,6 @@
  * 08-Feb-2005 : Added ID (DG);
  * 20-Apr-2005 : Added a new draw() method that can accept params
  *               and return results (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -47,8 +46,8 @@ package org.jfree.chart.block;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
-import org.jfree.chart.Drawable;
-import org.jfree.chart.util.Size2D;
+import org.jfree.ui.Drawable;
+import org.jfree.ui.Size2D;
 
 /**
  * A block is an arbitrary item that can be drawn (in Java2D space) within a 

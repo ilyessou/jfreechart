@@ -35,8 +35,7 @@
  * Changes
  * -------
  * 11-May-2004 : Version 1, split from IntervalCategoryItemLabelGenerator (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 
+ *
  */
 
 package org.jfree.chart.labels;
@@ -45,9 +44,9 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.IntervalCategoryDataset;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A label generator for plots that use data from an 
