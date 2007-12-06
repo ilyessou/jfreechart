@@ -36,7 +36,6 @@
  * -------
  * 07-Nov-2003 : Version 1 (DG);
  * 13-May-2004 : Added equals() method (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -44,8 +43,8 @@ package org.jfree.chart.axis;
 
 import java.util.Date;
 
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.util.ObjectUtilities;
+import org.jfree.ui.TextAnchor;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A tick used by the {@link DateAxis} class.

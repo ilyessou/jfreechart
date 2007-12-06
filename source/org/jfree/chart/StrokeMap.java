@@ -35,8 +35,7 @@
  * Changes:
  * --------
  * 27-Sep-2006 : Version 1 (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 
+ *
  */
 
 package org.jfree.chart;
@@ -51,8 +50,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.SerialUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A storage structure that maps <code>Comparable</code> instances with
@@ -65,6 +64,9 @@ import org.jfree.chart.util.SerialUtilities;
  * @since 1.0.3
  */
 public class StrokeMap implements Cloneable, Serializable {
+
+    /** For serialization. */
+    static final long serialVersionUID = -8148916785963525169L;
 
     /** Storage for the keys and values. */
     private transient Map store;

@@ -46,7 +46,6 @@
  * 15-Jul-2004 : Switched getX() with getXValue() and getY() with 
  *               getYValue() (DG);
  * 20-Apr-2005 : Renamed XYLabelGenerator --> XYItemLabelGenerator (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -57,9 +56,9 @@ import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.Date;
 
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.xy.OHLCDataset;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A standard item label generator for plots that use data from a 
@@ -100,13 +99,11 @@ public class HighLowItemLabelGenerator implements XYItemLabelGenerator,
                                      NumberFormat numberFormatter) {
         if (dateFormatter == null) {
             throw new IllegalArgumentException(
-                "Null 'dateFormatter' argument."
-            );   
+                    "Null 'dateFormatter' argument.");   
         }
         if (numberFormatter == null) {
             throw new IllegalArgumentException(
-                "Null 'numberFormatter' argument."
-            );
+                    "Null 'numberFormatter' argument.");
         }
         this.dateFormatter = dateFormatter;
         this.numberFormatter = numberFormatter;

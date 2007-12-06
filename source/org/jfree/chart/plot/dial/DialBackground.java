@@ -35,7 +35,6 @@
  * Changes
  * -------
  * 03-Nov-2006 : Version 1 (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 16-Oct-2007 : The equals() method needs to call super.equals() (DG);
  * 
  */
@@ -52,12 +51,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import org.jfree.chart.util.GradientPaintTransformer;
-import org.jfree.chart.util.HashUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.StandardGradientPaintTransformer;
+import org.jfree.chart.HashUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.GradientPaintTransformer;
+import org.jfree.ui.StandardGradientPaintTransformer;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A regular dial layer that can be used to draw the background for a dial.
@@ -67,6 +66,9 @@ import org.jfree.chart.util.StandardGradientPaintTransformer;
 public class DialBackground extends AbstractDialLayer implements DialLayer, 
         Cloneable, PublicCloneable, Serializable {
     
+    /** For serialization. */
+    static final long serialVersionUID = -9019069533317612375L;
+
     /** 
      * The background paint.  This field is transient because serialization
      * requires special handling.
@@ -100,7 +102,7 @@ public class DialBackground extends AbstractDialLayer implements DialLayer,
             throw new IllegalArgumentException("Null 'paint' argument.");
         }
         this.paint = paint;
-        this.gradientPaintTransformer = new StandardGradientPaintTransformer();        
+        this.gradientPaintTransformer = new StandardGradientPaintTransformer();
     }
     
     /**
@@ -184,7 +186,8 @@ public class DialBackground extends AbstractDialLayer implements DialLayer,
 
         Paint p = this.paint;
         if (p instanceof GradientPaint) {
-            p = this.gradientPaintTransformer.transform((GradientPaint) p, view);
+            p = this.gradientPaintTransformer.transform((GradientPaint) p, 
+                    view);
         }
         g2.setPaint(p);
         g2.fill(view);

@@ -38,7 +38,6 @@
  * 10-Dec-2005 : Addded new test to cover bug report 1374328 (DG);
  * 13-Dec-2006 : Extended testEquals() for new fillPaintTransformer 
  *               attribute (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -63,8 +62,8 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.jfree.chart.LegendItem;
-import org.jfree.chart.util.GradientPaintTransformType;
-import org.jfree.chart.util.StandardGradientPaintTransformer;
+import org.jfree.ui.GradientPaintTransformType;
+import org.jfree.ui.StandardGradientPaintTransformer;
 
 /**
  * Tests for the {@link LegendItem} class.

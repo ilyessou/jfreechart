@@ -35,15 +35,14 @@
  * Changes
  * -------
  * 10-Jan-2005 : Version 1 (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 
+ *
  */
 
 package org.jfree.data.statistics;
 
 import java.io.Serializable;
 
-import org.jfree.chart.util.PublicCloneable;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A bin for the {@link SimpleHistogramDataset}.

@@ -36,7 +36,6 @@
  * -------
  * 19-Aug-2003 : Version 1 (DG);
  * 07-Jan-2005 : Added testHashCode() method (DG);
- * 20-Jun-2007 : Removed JCommon tests (DG);
  *
  */
 
@@ -52,7 +51,7 @@ import junit.framework.TestSuite;
 
 import org.jfree.chart.annotations.CategoryTextAnnotation;
 import org.jfree.chart.annotations.TextAnnotation;
-import org.jfree.chart.text.TextAnchor;
+import org.jfree.ui.TextAnchor;
 
 /**
  * Tests for the {@link TextAnnotation} class.

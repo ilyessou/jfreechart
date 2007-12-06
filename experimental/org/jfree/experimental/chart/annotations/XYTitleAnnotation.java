@@ -32,13 +32,10 @@
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   -;
  *
- * $Id: XYTitleAnnotation.java,v 1.1.2.2 2007/04/30 20:54:34 mungady Exp $
- *
  * Changes:
  * --------
  * 02-Feb-2007 : Version 1 (DG);
  * 30-Apr-2007 : Fixed equals() method (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -60,13 +57,13 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.title.Title;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleAnchor;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.Size2D;
 import org.jfree.data.Range;
 import org.jfree.experimental.chart.util.XYCoordinateType;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.Size2D;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * An annotation that allows any {@link Title} to be placed at a location on 

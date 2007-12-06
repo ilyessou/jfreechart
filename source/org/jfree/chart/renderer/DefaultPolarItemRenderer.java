@@ -46,7 +46,6 @@
  * 14-Mar-2007 : Fixed clone() method (DG);
  * 04-May-2007 : Fixed lookup for series paint and stroke (DG);
  * 18-May-2007 : Set dataset for LegendItem (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -71,10 +70,11 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.DrawingSupplier;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.PolarPlot;
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.text.TextUtilities;
-import org.jfree.chart.util.BooleanList;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.text.TextUtilities;
+import org.jfree.ui.TextAnchor;
+import org.jfree.util.BooleanList;
+import org.jfree.util.BooleanUtilities;
 
 /**
  * A renderer that can be used with the {@link PolarPlot} class.
@@ -155,7 +155,7 @@ public class DefaultPolarItemRenderer extends AbstractRenderer
      * @param filled  the flag.
      */
     public void setSeriesFilled(int series, boolean filled) {
-        this.seriesFilled.setBoolean(series, Boolean.valueOf(filled));
+        this.seriesFilled.setBoolean(series, BooleanUtilities.valueOf(filled));
     }
     
     /**

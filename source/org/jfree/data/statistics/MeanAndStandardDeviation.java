@@ -36,7 +36,6 @@
  * --------
  * 05-Feb-2002 : Version 1 (DG);
  * 05-Feb-2005 : Added equals() method and implemented Serializable (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 02-Oct-2007 : Added getMeanValue() and getStandardDeviationValue() methods
  *               for convenience, and toString() method for debugging (DG);
  *
@@ -46,7 +45,7 @@ package org.jfree.data.statistics;
 
 import java.io.Serializable;
 
-import org.jfree.chart.util.ObjectUtilities;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A simple data structure that holds a mean value and a standard deviation 

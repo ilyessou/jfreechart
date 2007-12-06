@@ -37,7 +37,6 @@
  * 19-Aug-2003 : Version 1 (DG);
  * 07-Jan-2005 : Added hashCode() test (DG);
  * 26-Jan-2006 : Extended equals() test (DG);
- * 20-Jun-2007 : Removed JCommon tests (DG); 
  *
  */
 
@@ -58,7 +57,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.jfree.chart.annotations.XYTextAnnotation;
-import org.jfree.chart.text.TextAnchor;
+import org.jfree.ui.TextAnchor;
 
 /**
  * Tests for the {@link XYTextAnnotation} class.

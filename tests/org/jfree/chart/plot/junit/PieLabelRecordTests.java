@@ -53,7 +53,7 @@ import junit.framework.TestSuite;
 
 import org.jfree.chart.plot.CategoryMarker;
 import org.jfree.chart.plot.PieLabelRecord;
-import org.jfree.chart.text.TextBox;
+import org.jfree.text.TextBox;
 
 /**
  * Some tests for the {@link CategoryMarker} class.

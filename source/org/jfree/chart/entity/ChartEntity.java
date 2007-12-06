@@ -61,12 +61,7 @@
  * 20-Apr-2005 : Added toString() implementation (DG);
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 06-Feb-2007 : API doc update (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 13-Nov-2007 : Reorganised equals(), implemented hashCode (DG);
- * 04-Dec-2007 : Added 'nohref' attribute in getImageMapAreaTag() method, to 
- *               fix bug 1460195 (DG);
- * 04-Dec-2007 : Escape the toolTipText and urlText in getImageMapAreaTag() to
- *               prevent special characters corrupting the HTML (DG);
  *
  */
 
@@ -80,13 +75,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import org.jfree.chart.imagemap.ImageMapUtilities;
+import org.jfree.chart.HashUtilities;
 import org.jfree.chart.imagemap.ToolTipTagFragmentGenerator;
 import org.jfree.chart.imagemap.URLTagFragmentGenerator;
-import org.jfree.chart.util.HashUtilities;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.SerialUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A class that captures information about some component of a chart (a bar, 
@@ -322,14 +316,11 @@ public class ChartEntity implements Cloneable, PublicCloneable, Serializable {
                     + getShapeCoords() + "\"");
             if (hasToolTip) {
                 tag.append(toolTipTagFragmentGenerator.generateToolTipFragment(
-                        ImageMapUtilities.htmlEscape(this.toolTipText)));
+                        this.toolTipText));
             }
             if (hasURL) {
                 tag.append(urlTagFragmentGenerator.generateURLFragment(
-                        ImageMapUtilities.htmlEscape(this.urlText)));
-            }
-            else {
-                tag.append(" nohref=\"nohref\"");
+                        this.urlText));
             }
             // if there is a tool tip, we expect it to generate the title and
             // alt values, so we only add an empty alt if there is no tooltip

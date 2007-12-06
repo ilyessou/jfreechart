@@ -44,7 +44,6 @@ import org.jfree.chart.JFreeChart;
 
 /**
  * An event that contains information about the drawing progress of a chart.
- *
  */
 public class ChartProgressEvent extends java.util.EventObject {
 

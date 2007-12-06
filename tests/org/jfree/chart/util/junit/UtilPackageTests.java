@@ -35,8 +35,6 @@
  * Changes:
  * --------
  * 23-Nov-2006 : Version 1 (DG);
- * 04-Dec-2007 : Added BooleanListTests, HashUtilitiesTests, PaintListTests and
- *               StrokeListTests (DG);
  *
  */
 
@@ -60,11 +58,7 @@ public class UtilPackageTests extends TestCase {
      */
     public static Test suite() {
         TestSuite suite = new TestSuite("org.jfree.chart.util");
-        suite.addTestSuite(BooleanListTests.class);
-        suite.addTestSuite(HashUtilitiesTests.class);
-        suite.addTestSuite(PaintListTests.class);
         suite.addTestSuite(RelativeDateFormatTests.class);
-        suite.addTestSuite(StrokeListTests.class);
         return suite;
     }
 

@@ -36,7 +36,6 @@
  * -------
  * 11-May-2003 : Version 1, split from StandardXYZItemLabelGenerator (DG);
  * 15-Jul-2004 : Switched getZ() and getZValue() methods (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -47,9 +46,9 @@ import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
 
-import org.jfree.chart.util.ObjectUtilities;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYZDataset;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A standard item label generator for use with {@link XYZDataset} data.  Each 

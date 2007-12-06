@@ -66,8 +66,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.SortOrder;
+import org.jfree.util.PublicCloneable;
+import org.jfree.util.SortOrder;
 
 /**
  * An ordered list of (key, value) items.  This class provides a default 

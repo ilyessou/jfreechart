@@ -37,7 +37,6 @@
  * 27-Sep-2006 : Version 1 (DG);
  * 17-Jan-2007 : Changed TreeMap to HashMap, so that different classes that
  *               implement Comparable can be used as keys (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -53,8 +52,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.SerialUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.PaintUtilities;
 
 /**
  * A storage structure that maps <code>Comparable</code> instances with
@@ -67,6 +66,9 @@ import org.jfree.chart.util.SerialUtilities;
  * @since 1.0.3
  */
 public class PaintMap implements Cloneable, Serializable {
+
+    /** For serialization. */
+    static final long serialVersionUID = -4639833772123069274L;
 
     /** Storage for the keys and values. */
     private transient Map store;

@@ -36,13 +36,11 @@
  * -------
  * 15-Apr-2004 : Separated tool tip method from CategoryItemLabelGenerator 
  *               interface (DG);
- * 21-Jun-2007 : Removed JCommon dependency (DG);
  *
  */
 
 package org.jfree.chart.labels;
 
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.category.CategoryDataset;
 
 /**
@@ -52,7 +50,8 @@ import org.jfree.data.category.CategoryDataset;
  * items in a {@link org.jfree.chart.plot.CategoryPlot}. 
  * <p>
  * To assist with cloning charts, classes that implement this interface should 
- * also implement the {@link PublicCloneable} interface.
+ * also implement the <code>org.jfree.util.PublicCloneable</code> interface (in
+ * JCommon).
  */
 public interface CategoryToolTipGenerator {
 

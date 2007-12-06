@@ -159,7 +159,8 @@ public class SWTChartEditor implements ChartEditor {
      * 
      * @param chart  the chart.
      */
-    public void updateChart(JFreeChart chart) {
+    public void updateChart(JFreeChart chart)
+    {
         this.titleEditor.setTitleProperties(chart);
         this.plotEditor.updatePlotProperties(chart.getPlot());
         this.otherEditor.updateChartProperties(chart );

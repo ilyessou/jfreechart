@@ -44,7 +44,6 @@
  * 12-Jan-2005 : Fixed bug 1099331 (DG);
  * 18-Jan-2006 : Added new methods getSeries(int) and 
  *               getSeries(Comparable) (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -54,11 +53,11 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
 import org.jfree.data.general.AbstractSeriesDataset;
 import org.jfree.data.general.SeriesChangeEvent;
 import org.jfree.data.time.TimePeriod;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A collection of {@link TaskSeries} objects.  This class provides one 
@@ -197,11 +196,14 @@ public class TaskSeriesCollection extends AbstractSeriesDataset
     /**
      * Returns the column index for a column key.
      *
-     * @param columnKey  the columnKey.
+     * @param columnKey  the column key (<code>null</code> not permitted).
      *
      * @return The column index.
      */
     public int getColumnIndex(Comparable columnKey) {
+        if (columnKey == null) {
+            throw new IllegalArgumentException("Null 'columnKey' argument.");
+        }
         return this.keys.indexOf(columnKey);
     }
 

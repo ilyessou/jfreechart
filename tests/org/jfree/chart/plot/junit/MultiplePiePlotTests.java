@@ -36,8 +36,7 @@
  * -------
  * 16-Jun-2005 : Version 1 (DG);
  * 06-Apr-2006 : Added tests for new fields (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 
+ *
  */
 
 package org.jfree.chart.plot.junit;
@@ -57,7 +56,7 @@ import junit.framework.TestSuite;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.MultiplePiePlot;
-import org.jfree.chart.util.TableOrder;
+import org.jfree.util.TableOrder;
 
 /**
  * Some tests for the {@link MultiplePiePlot} class.

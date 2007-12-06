@@ -36,7 +36,6 @@
  * -------
  * 03-Nov-2006 : Version 1 (DG);
  * 08-Mar-2007 : Fix in hashCode() (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 17-Oct-2007 : Updated equals() (DG);
  * 24-Oct-2007 : Added getAnchor() and setAnchor() methods (DG);
  *
@@ -56,12 +55,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.text.TextUtilities;
-import org.jfree.chart.util.HashUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.SerialUtilities;
+import org.jfree.chart.HashUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.text.TextUtilities;
+import org.jfree.ui.TextAnchor;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A text annotation for a {@link DialPlot}.
@@ -70,7 +69,10 @@ import org.jfree.chart.util.SerialUtilities;
  */
 public class DialTextAnnotation extends AbstractDialLayer implements DialLayer, 
         Cloneable, PublicCloneable, Serializable {
-    
+
+    /** For serialization. */
+    static final long serialVersionUID = 3065267524054428071L;
+
     /** The label text. */
     private String label;
     

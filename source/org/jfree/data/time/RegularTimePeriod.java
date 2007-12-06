@@ -47,7 +47,6 @@
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 06-Oct-2006 : Deprecated the WORKING_CALENDAR field and several methods,
  *               added new peg() method (DG);
- * 20-Jun-2007 : Removed deprecated code (DG);
  *
  */
 
@@ -58,6 +57,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import org.jfree.date.MonthConstants;
 
 /**
  * An abstract class representing a unit of time.  Convenient methods are 
@@ -161,6 +161,14 @@ public abstract class RegularTimePeriod implements TimePeriod, Comparable,
     public static final TimeZone DEFAULT_TIME_ZONE = TimeZone.getDefault();
 
     /** 
+     * A working calendar (recycle to avoid unnecessary object creation). 
+     * 
+     * @deprecated This was a bad idea, don't use it!
+     */
+    public static final Calendar WORKING_CALENDAR 
+        = Calendar.getInstance(DEFAULT_TIME_ZONE);
+
+    /** 
      * Recalculates the start date/time and end date/time for this time period 
      * relative to the supplied calendar (which incorporates a time zone).
      * 
@@ -207,6 +215,25 @@ public abstract class RegularTimePeriod implements TimePeriod, Comparable,
     public abstract long getFirstMillisecond();
 
     /**
+     * Returns the first millisecond of the time period, evaluated within a 
+     * specific time zone.
+     *
+     * @param zone  the time zone (<code>null</code> not permitted).
+     *
+     * @return The first millisecond of the time period.
+     * 
+     * @deprecated As of 1.0.3, you should avoid using this method (it creates
+     *     a new Calendar instance every time it is called).  You are advised
+     *     to call {@link #getFirstMillisecond(Calendar)} instead.
+     *     
+     * @see #getLastMillisecond(TimeZone)
+     */
+    public long getFirstMillisecond(TimeZone zone) {
+        Calendar calendar = Calendar.getInstance(zone);
+        return getFirstMillisecond(calendar);
+    }
+
+    /**
      * Returns the first millisecond of the time period, evaluated using the 
      * supplied calendar (which incorporates a timezone).
      *
@@ -234,6 +261,25 @@ public abstract class RegularTimePeriod implements TimePeriod, Comparable,
     public abstract long getLastMillisecond();
 
     /**
+     * Returns the last millisecond of the time period, evaluated within a 
+     * specific time zone.
+     *
+     * @param zone  the time zone (<code>null</code> not permitted).
+     *
+     * @return The last millisecond of the time period.
+     * 
+     * @deprecated As of 1.0.3, you should avoid using this method (it creates
+     *     a new Calendar instance every time it is called).  You are advised
+     *     to call {@link #getLastMillisecond(Calendar)} instead.
+     *     
+     * @see #getFirstMillisecond(TimeZone)
+     */
+    public long getLastMillisecond(TimeZone zone) {
+        Calendar calendar = Calendar.getInstance(zone);
+        return getLastMillisecond(calendar);
+    }
+
+    /**
      * Returns the last millisecond of the time period, evaluated using the 
      * supplied calendar (which incorporates a timezone).
      *
@@ -253,6 +299,25 @@ public abstract class RegularTimePeriod implements TimePeriod, Comparable,
     public long getMiddleMillisecond() {
         long m1 = getFirstMillisecond();
         long m2 = getLastMillisecond();
+        return m1 + (m2 - m1) / 2;
+    }
+
+    /**
+     * Returns the millisecond closest to the middle of the time period,
+     * evaluated within a specific time zone.
+     *
+     * @param zone  the time zone (<code>null</code> not permitted).
+     *
+     * @return The middle millisecond.
+     * 
+     * @deprecated As of 1.0.3, you should avoid using this method (it creates
+     *     a new Calendar instance every time it is called).  You are advised
+     *     to call {@link #getMiddleMillisecond(Calendar)} instead.
+     */
+    public long getMiddleMillisecond(TimeZone zone) {
+        Calendar calendar = Calendar.getInstance(zone);
+        long m1 = getFirstMillisecond(calendar);
+        long m2 = getLastMillisecond(calendar);
         return m1 + (m2 - m1) / 2;
     }
 

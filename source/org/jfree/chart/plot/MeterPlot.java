@@ -78,8 +78,6 @@
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 05-Mar-2007 : Restore clip region correctly (see bug 1667750) (DG);
  * 18-May-2007 : Set dataset for LegendItem (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 29-Nov-2007 : Fixed serialization bug with dialOutlinePaint (DG);
  * 
  */
 
@@ -114,15 +112,15 @@ import java.util.ResourceBundle;
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.LegendItemCollection;
 import org.jfree.chart.event.PlotChangeEvent;
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.text.TextUtilities;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.RectangleInsets;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.Range;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.ValueDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.text.TextUtilities;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.TextAnchor;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
 
 /**
  * A plot that displays a single value in the form of a needle on a dial.  
@@ -1281,7 +1279,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
         SerialUtilities.writePaint(this.dialBackgroundPaint, stream);
-        SerialUtilities.writePaint(this.dialOutlinePaint, stream);
         SerialUtilities.writePaint(this.needlePaint, stream);
         SerialUtilities.writePaint(this.valuePaint, stream);
         SerialUtilities.writePaint(this.tickPaint, stream);
@@ -1300,7 +1297,6 @@ public class MeterPlot extends Plot implements Serializable, Cloneable {
         throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.dialBackgroundPaint = SerialUtilities.readPaint(stream);
-        this.dialOutlinePaint = SerialUtilities.readPaint(stream);
         this.needlePaint = SerialUtilities.readPaint(stream);
         this.valuePaint = SerialUtilities.readPaint(stream);
         this.tickPaint = SerialUtilities.readPaint(stream);

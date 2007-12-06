@@ -63,8 +63,6 @@
  * 22-Mar-2007 : Fire change events in setShapePaint() and setShapeStroke() 
  *               methods (DG);
  * 20-Apr-2007 : Updated getLegendItem() for renderer change (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
- * 27-Jun-2007 : Updated drawItem() to use addEntity() (DG);
  *
  */
 
@@ -86,6 +84,7 @@ import java.util.Stack;
 
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.EntityCollection;
+import org.jfree.chart.entity.XYItemEntity;
 import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.labels.XYToolTipGenerator;
 import org.jfree.chart.plot.CrosshairState;
@@ -93,15 +92,15 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.urls.XYURLGenerator;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.ShapeUtilities;
 import org.jfree.data.Range;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.data.xy.TableXYDataset;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
+import org.jfree.util.ShapeUtilities;
 
 /**
  * A stacked area renderer for the {@link XYPlot} class.
@@ -578,10 +577,28 @@ public class StackedXYAreaRenderer extends XYAreaRenderer
                             6.0, 6.0);
                 }
             }
-            EntityCollection entities = state.getEntityCollection();
-            if (entities != null) {
-                addEntity(entities, shape, dataset, series, item, 0.0, 0.0);
+
+            // collect entity and tool tip information...
+            if (state.getInfo() != null) {
+                EntityCollection entities = state.getEntityCollection();
+                if (entities != null && shape != null && !nullPoint) {
+                    String tip = null;
+                    XYToolTipGenerator generator 
+                        = getToolTipGenerator(series, item);
+                    if (generator != null) {
+                        tip = generator.generateToolTip(dataset, series, item);
+                    }
+                    String url = null;
+                    if (getURLGenerator() != null) {
+                        url = getURLGenerator().generateURL(dataset, series, 
+                                item);
+                    }
+                    XYItemEntity entity = new XYItemEntity(shape, dataset, 
+                            series, item, tip, url);
+                    entities.add(entity);
+                }
             }
+
         }
     }
 

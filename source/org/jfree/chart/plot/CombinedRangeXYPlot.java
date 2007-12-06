@@ -84,10 +84,7 @@
  * 06-Feb-2007 : Fixed bug 1606205, draw shared axis after subplots (DG);
  * 23-Mar-2007 : Reverted previous patch (DG);
  * 17-Apr-2007 : Added null argument checks to findSubplot() (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 18-Jul-2007 : Fixed bug in removeSubplot (DG);
- * 27-Nov-2007 : Modified setFixedDomainAxisSpaceForSubplots() so as not to
- *               trigger change events in subplots (DG);
  * 
  */
 
@@ -109,11 +106,11 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.event.PlotChangeEvent;
 import org.jfree.chart.event.PlotChangeListener;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
 import org.jfree.data.Range;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * An extension of {@link XYPlot} that contains multiple subplots that share a 
@@ -583,11 +580,13 @@ public class CombinedRangeXYPlot extends XYPlot
      * @param space  the space.
      */
     protected void setFixedDomainAxisSpaceForSubplots(AxisSpace space) {
+
         Iterator iterator = this.subplots.iterator();
         while (iterator.hasNext()) {
             XYPlot plot = (XYPlot) iterator.next();
-            plot.setFixedDomainAxisSpace(space, false);
+            plot.setFixedDomainAxisSpace(space);
         }
+
     }
 
     /**

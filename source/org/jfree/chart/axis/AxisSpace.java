@@ -41,7 +41,6 @@
  * 07-Jan-2005 : Updated equals() method (DG);
  * 11-Jan-2005 : Removed deprecated methods in preparation for 1.0.0 
  *               release (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
  
@@ -50,8 +49,8 @@ package org.jfree.chart.axis;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A record that contains the space required at each edge of a plot.

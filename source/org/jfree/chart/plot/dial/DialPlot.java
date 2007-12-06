@@ -36,7 +36,6 @@
  * -------
  * 03-Nov-2006 : Version 1 (DG);
  * 08-Mar-2007 : Fix in hashCode() (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 17-Oct-2007 : Fixed listener registration/deregistration bugs (DG);
  * 24-Oct-2007 : Maintain pointers in their own list, so they can be
  *               drawn after other layers (DG);
@@ -60,10 +59,10 @@ import org.jfree.chart.event.PlotChangeEvent;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.PlotState;
-import org.jfree.chart.util.ObjectList;
-import org.jfree.chart.util.ObjectUtilities;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.ValueDataset;
+import org.jfree.util.ObjectList;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A dial plot.
@@ -603,6 +602,8 @@ public class DialPlot extends Plot implements DialLayerChangeListener {
      * Returns the frame surrounding the specified view rectangle.
      * 
      * @param view  the view rectangle (<code>null</code> not permitted).
+     * 
+     * @return The frame rectangle.
      */
     private Rectangle2D viewToFrame(Rectangle2D view) {
         double width = view.getWidth() / this.viewW;

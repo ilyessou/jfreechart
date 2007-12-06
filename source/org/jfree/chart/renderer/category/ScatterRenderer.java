@@ -59,12 +59,13 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.util.BooleanList;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.ShapeUtilities;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.statistics.MultiValueCategoryDataset;
+import org.jfree.util.BooleanList;
+import org.jfree.util.BooleanUtilities;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
+import org.jfree.util.ShapeUtilities;
 
 /**
  * A renderer that handles the multiple values from a 
@@ -152,7 +153,7 @@ public class ScatterRenderer extends AbstractCategoryItemRenderer
      */
     public void setUseSeriesOffset(boolean offset) {
         this.useSeriesOffset = offset;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**
@@ -185,7 +186,7 @@ public class ScatterRenderer extends AbstractCategoryItemRenderer
             throw new IllegalArgumentException("Requires 0.0 <= margin < 1.0.");
         }
         this.itemMargin = margin;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -214,7 +215,7 @@ public class ScatterRenderer extends AbstractCategoryItemRenderer
      */
     public void setDrawOutlines(boolean flag) {
         this.drawOutlines = flag;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -231,7 +232,8 @@ public class ScatterRenderer extends AbstractCategoryItemRenderer
 
     /**
      * Sets the flag that controls whether the outline paint is used for shape
-     * outlines.
+     * outlines, and sends a {@link RendererChangeEvent} to all registered 
+     * listeners.
      *
      * @param use the flag.
      * 
@@ -239,7 +241,7 @@ public class ScatterRenderer extends AbstractCategoryItemRenderer
      */
     public void setUseOutlinePaint(boolean use) {
         this.useOutlinePaint = use;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     // SHAPES FILLED
@@ -277,25 +279,28 @@ public class ScatterRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the 'shapes filled' flag for a series.
+     * Sets the 'shapes filled' flag for a series and sends a 
+     * {@link RendererChangeEvent} to all registered listeners.
      *
      * @param series the series index (zero-based).
      * @param filled the flag.
      */
     public void setSeriesShapesFilled(int series, Boolean filled) {
         this.seriesShapesFilled.setBoolean(series, filled);
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
-     * Sets the 'shapes filled' flag for a series.
+     * Sets the 'shapes filled' flag for a series and sends a 
+     * {@link RendererChangeEvent} to all registered listeners.
      *
      * @param series the series index (zero-based).
      * @param filled the flag.
      */
     public void setSeriesShapesFilled(int series, boolean filled) {
-        this.seriesShapesFilled.setBoolean(series, Boolean.valueOf(filled));
-        notifyListeners(new RendererChangeEvent(this));
+        this.seriesShapesFilled.setBoolean(series, 
+                BooleanUtilities.valueOf(filled));
+        fireChangeEvent();
     }
 
     /**
@@ -308,13 +313,14 @@ public class ScatterRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the base 'shapes filled' flag.
+     * Sets the base 'shapes filled' flag and sends a 
+     * {@link RendererChangeEvent} to all registered listeners.
      *
      * @param flag the flag.
      */
     public void setBaseShapesFilled(boolean flag) {
         this.baseShapesFilled = flag;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -337,7 +343,7 @@ public class ScatterRenderer extends AbstractCategoryItemRenderer
      */
     public void setUseFillPaint(boolean flag) {
         this.useFillPaint = flag;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**
@@ -378,7 +384,7 @@ public class ScatterRenderer extends AbstractCategoryItemRenderer
             if (this.useSeriesOffset) {
                 x1 = domainAxis.getCategorySeriesMiddle(dataset.getColumnKey(
                         column), dataset.getRowKey(row), dataset, 
-                        this.itemMargin, dataArea, plot.getDomainAxisEdge());            
+                        this.itemMargin, dataArea, plot.getDomainAxisEdge());
             }
             else {
                 x1 = domainAxis.getCategoryMiddle(column, getColumnCount(), 

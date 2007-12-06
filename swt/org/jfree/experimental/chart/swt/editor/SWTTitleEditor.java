@@ -174,8 +174,8 @@ class SWTTitleEditor extends Composite {
                             }
                             // Create the new font and set it into the title 
                             // label
-                            SWTTitleEditor.this.font = new Font(getShell()
-                                    .getDisplay(), dlg.getFontList());
+                            SWTTitleEditor.this.font = new Font(
+                                    getShell().getDisplay(), dlg.getFontList());
                             //titleField.setFont(font);
                             SWTTitleEditor.this.fontField.setText(
                                     SWTTitleEditor.this.font.getFontData()[0]

@@ -71,7 +71,6 @@
  * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 27-Sep-2006 : Updated draw() method for new lookup methods (DG);
  * 22-Mar-2007 : Added equals() override (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 18-Jun-2007 : Added handling for simple label option (DG);
  * 04-Oct-2007 : Added option to darken sides of plot - thanks to Alex Moots 
  *               (see patch 1805262) (DG);
@@ -106,9 +105,9 @@ import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.entity.PieSectionEntity;
 import org.jfree.chart.event.PlotChangeEvent;
 import org.jfree.chart.labels.PieToolTipGenerator;
-import org.jfree.chart.util.RectangleInsets;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.data.general.PieDataset;
+import org.jfree.ui.RectangleInsets;
 
 /**
  * A plot that displays data in the form of a 3D pie chart, using data from

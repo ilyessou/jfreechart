@@ -42,7 +42,7 @@
  * 01-Sep-2003 : Implemented Serialization (NB);
  * 16-Mar-2004 : Changed transform from private to protected (BRS);
  * 08-Jun-2005 : Fixed equals() method to handle GradientPaint (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
+ * 22-Nov-2007 : Implemented hashCode() (DG);
  * 
  */
 
@@ -62,9 +62,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.SerialUtilities;
+import org.jfree.chart.HashUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PaintUtilities;
 
 /**
  * The base class used to represent the needle on a 
@@ -381,6 +382,22 @@ public abstract class MeterNeedle implements Serializable {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Returns a hash code for this instance.
+     * 
+     * @return A hash code.
+     */
+    public int hashCode() {
+        int result = HashUtilities.hashCode(193, this.fillPaint);
+        result = HashUtilities.hashCode(result, this.highlightPaint);
+        result = HashUtilities.hashCode(result, this.outlinePaint);
+        result = HashUtilities.hashCode(result, this.outlineStroke);
+        result = HashUtilities.hashCode(result, this.rotateX);
+        result = HashUtilities.hashCode(result, this.rotateY);
+        result = HashUtilities.hashCode(result, this.size);
+        return result; 
     }
 
     /**

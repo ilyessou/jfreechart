@@ -36,7 +36,6 @@
  * -------
  * 27-Mar-2003 : Version 1 (DG);
  * 18-Aug-2003 : Implemented Cloneable (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -44,9 +43,9 @@ package org.jfree.data.general;
 
 import java.io.Serializable;
 
-import org.jfree.chart.util.ObjectUtilities;
 import org.jfree.data.DefaultKeyedValue;
 import org.jfree.data.KeyedValue;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A default implementation of the {@link KeyedValueDataset} interface.

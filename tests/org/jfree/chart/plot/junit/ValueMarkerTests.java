@@ -38,7 +38,6 @@
  * 14-Jun-2004 : Renamed MarkerTests --> ValueMarkerTests (DG);
  * 01-Jun-2005 : Strengthened equals() test (DG);
  * 05-Sep-2006 : Added checks for MarkerChangeEvent generation (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  * 26-Sep-2007 : Added test1802195() method (DG);
  * 08-Oct-2007 : Added test1808376() method (DG);
  *
@@ -66,10 +65,10 @@ import org.jfree.chart.event.MarkerChangeEvent;
 import org.jfree.chart.event.MarkerChangeListener;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.ValueMarker;
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.util.LengthAdjustmentType;
-import org.jfree.chart.util.RectangleAnchor;
-import org.jfree.chart.util.RectangleInsets;
+import org.jfree.ui.LengthAdjustmentType;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.TextAnchor;
 
 /**
  * Tests for the {@link ValueMarker} class.

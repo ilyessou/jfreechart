@@ -36,7 +36,7 @@
  * Changes
  * -------
  * 24-Nov-2005 : New class, based on ChartPropertyEditPanel.java (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
+ *
  */
 
 package org.jfree.chart.editor;
@@ -60,8 +60,8 @@ import javax.swing.JTextField;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.title.Title;
-import org.jfree.chart.ui.LCBLayout;
-import org.jfree.chart.ui.PaintSample;
+import org.jfree.layout.LCBLayout;
+import org.jfree.ui.PaintSample;
 
 /**
  * A panel for editing chart properties (includes subpanels for the title,

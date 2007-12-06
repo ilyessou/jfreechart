@@ -39,10 +39,9 @@
  * 04-Feb-2005 : Added equals(), clone() and implemented Serializable (DG);
  * 08-Feb-2005 : Updated for changes in RectangleConstraint (DG);
  * 20-Apr-2005 : Added new draw() method (DG);
- * ------------- JFREECHART 1.0.0 ---------------------------------------------
+ * ------------- JFREECHART 1.0.x ---------------------------------------------
  * 20-Jul-2006 : Perform translation directly on drawing area, not via 
  *               Graphics2D (DG);
- * 20-Jul-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -58,8 +57,8 @@ import java.util.List;
 
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.entity.StandardEntityCollection;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.Size2D;
+import org.jfree.ui.Size2D;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A container for a collection of {@link Block} objects.  The container uses 

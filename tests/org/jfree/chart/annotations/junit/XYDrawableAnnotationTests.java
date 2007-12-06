@@ -37,7 +37,6 @@
  * 19-Aug-2003 : Version 1 (DG);
  * 01-Oct-2004 : Fixed bugs in tests (DG);
  * 07-Jan-2005 : Added hashCode() test (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -57,8 +56,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.jfree.chart.Drawable;
 import org.jfree.chart.annotations.XYDrawableAnnotation;
+import org.jfree.ui.Drawable;
 
 /**
  * Tests for the {@link XYDrawableAnnotation} class.
@@ -127,10 +126,12 @@ public class XYDrawableAnnotationTests extends TestCase {
      * Confirm that the equals method can distinguish all the required fields.
      */
     public void testEquals() {    
-        XYDrawableAnnotation a1 = new XYDrawableAnnotation(10.0, 20.0, 100.0, 
-                200.0, new TestDrawable());
-        XYDrawableAnnotation a2 = new XYDrawableAnnotation(10.0, 20.0, 100.0, 
-                200.0, new TestDrawable());
+        XYDrawableAnnotation a1 = new XYDrawableAnnotation(
+            10.0, 20.0, 100.0, 200.0, new TestDrawable()
+        );
+        XYDrawableAnnotation a2 = new XYDrawableAnnotation(
+            10.0, 20.0, 100.0, 200.0, new TestDrawable()
+        );
         assertTrue(a1.equals(a2));
     }
     
@@ -138,10 +139,12 @@ public class XYDrawableAnnotationTests extends TestCase {
      * Two objects that are equal are required to return the same hashCode. 
      */
     public void testHashCode() {
-        XYDrawableAnnotation a1 = new XYDrawableAnnotation(10.0, 20.0, 100.0, 
-                200.0, new TestDrawable());
-        XYDrawableAnnotation a2 = new XYDrawableAnnotation(10.0, 20.0, 100.0, 
-                200.0, new TestDrawable());
+        XYDrawableAnnotation a1 = new XYDrawableAnnotation(
+            10.0, 20.0, 100.0, 200.0, new TestDrawable()
+        );
+        XYDrawableAnnotation a2 = new XYDrawableAnnotation(
+            10.0, 20.0, 100.0, 200.0, new TestDrawable()
+        );
         assertTrue(a1.equals(a2));
         int h1 = a1.hashCode();
         int h2 = a2.hashCode();
@@ -152,8 +155,9 @@ public class XYDrawableAnnotationTests extends TestCase {
      * Confirm that cloning works.
      */
     public void testCloning() {
-        XYDrawableAnnotation a1 = new XYDrawableAnnotation(10.0, 20.0, 100.0, 
-                200.0, new TestDrawable());
+        XYDrawableAnnotation a1 = new XYDrawableAnnotation(
+            10.0, 20.0, 100.0, 200.0, new TestDrawable()
+        );
         XYDrawableAnnotation a2 = null;
         try {
             a2 = (XYDrawableAnnotation) a1.clone();
@@ -171,8 +175,9 @@ public class XYDrawableAnnotationTests extends TestCase {
      */
     public void testSerialization() {
 
-        XYDrawableAnnotation a1 = new XYDrawableAnnotation(10.0, 20.0, 100.0, 
-                200.0, new TestDrawable());
+        XYDrawableAnnotation a1 = new XYDrawableAnnotation(
+            10.0, 20.0, 100.0, 200.0, new TestDrawable()
+        );
         XYDrawableAnnotation a2 = null;
 
         try {
@@ -181,13 +186,14 @@ public class XYDrawableAnnotationTests extends TestCase {
             out.writeObject(a1);
             out.close();
 
-            ObjectInput in = new ObjectInputStream(new ByteArrayInputStream(
-                    buffer.toByteArray()));
+            ObjectInput in = new ObjectInputStream(
+                new ByteArrayInputStream(buffer.toByteArray())
+            );
             a2 = (XYDrawableAnnotation) in.readObject();
             in.close();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.toString());
         }
         assertEquals(a1, a2);
 

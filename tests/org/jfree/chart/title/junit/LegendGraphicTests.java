@@ -35,7 +35,6 @@
  * Changes
  * -------
  * 01-Sep-2005 : Version 1 (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -59,9 +58,9 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.jfree.chart.title.LegendGraphic;
-import org.jfree.chart.util.GradientPaintTransformType;
-import org.jfree.chart.util.RectangleAnchor;
-import org.jfree.chart.util.StandardGradientPaintTransformer;
+import org.jfree.ui.GradientPaintTransformType;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.ui.StandardGradientPaintTransformer;
 
 /**
  * Tests for the {@link LegendGraphic} class.

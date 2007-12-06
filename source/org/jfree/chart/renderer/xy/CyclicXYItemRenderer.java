@@ -39,7 +39,7 @@
  * 25-Feb-2004 : Replaced CrosshairInfo with CrosshairState (DG);
  * 15-Jul-2004 : Switched getX() with getXValue() and getY() with 
  *               getYValue() (DG);
- * ------------- JFREECHART 1.0.x ---------------------------------------------
+ * ------------- JFREECHART 1.0.0 ---------------------------------------------
  * 06-Jul-2006 : Modified to call only dataset methods that return double
  *               primitives (DG);
  * 

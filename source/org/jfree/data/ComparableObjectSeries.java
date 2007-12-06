@@ -35,9 +35,7 @@
  * Changes
  * -------
  * 19-Oct-2006 : New class (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 31-Oct-2007 : Implemented faster hashCode() (DG);
- * 27-Nov-2007 : Changed clear() from protected to public (DG);
  *
  */
 
@@ -47,10 +45,10 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-import org.jfree.chart.util.ObjectUtilities;
 import org.jfree.data.general.Series;
 import org.jfree.data.general.SeriesChangeEvent;
 import org.jfree.data.general.SeriesException;
+import org.jfree.util.ObjectUtilities;
 
 /**
  * A (possibly ordered) list of (Comparable, Object) data items.
@@ -348,11 +346,9 @@ public class ComparableObjectSeries extends Series
     }
     
     /**
-     * Removes all data items from the series and, unless the series is 
-     * already empty, sends a {@link SeriesChangeEvent} to all registered 
-     * listeners.
+     * Removes all data items from the series.
      */
-    public void clear() {
+    protected void clear() {
         if (this.data.size() > 0) {
             this.data.clear();
             fireSeriesChanged();

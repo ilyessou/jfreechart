@@ -36,7 +36,6 @@
  * -------
  * 09-Mar-2005 : Version 1, copied from the demo collection that ships with
  *               the JFreeChart Developer Guide (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -50,10 +49,10 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
-import org.jfree.chart.util.ApplicationFrame;
-import org.jfree.chart.util.RefineryUtilities;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
 
 /**
  * A simple demonstration application showing how to create a pie chart using 

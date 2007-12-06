@@ -47,6 +47,8 @@ import java.text.ParsePosition;
 /**
  * A custom number formatter that formats numbers as hexadecimal strings.
  * There are some limitations, so be careful using this class.
+ * 
+ * @since 1.0.6
  */
 public class HexNumberFormat extends NumberFormat {
 
@@ -68,7 +70,7 @@ public class HexNumberFormat extends NumberFormat {
     /**
      * Creates a new instance with 8 digits.
      */
-    public HexNumberFormat(){
+    public HexNumberFormat() {
         this(DWORD);
     }
 

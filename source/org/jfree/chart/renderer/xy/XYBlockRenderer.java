@@ -37,7 +37,6 @@
  * 05-Jul-2006 : Version 1 (DG);
  * 02-Feb-2007 : Added getPaintScale() method (DG);
  * 09-Mar-2007 : Fixed cloning (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 03-Aug-2007 : Fix for bug 1766646 (DG);
  * 
  */
@@ -58,12 +57,12 @@ import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.LookupPaintScale;
 import org.jfree.chart.renderer.PaintScale;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleAnchor;
 import org.jfree.data.Range;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYZDataset;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A renderer that represents data from an {@link XYZDataset} by drawing a
@@ -121,7 +120,8 @@ public class XYBlockRenderer extends AbstractXYItemRenderer
     }
     
     /**
-     * Sets the width of the blocks used to represent each data item.
+     * Sets the width of the blocks used to represent each data item and
+     * sends a {@link RendererChangeEvent} to all registered listeners.
      * 
      * @param width  the new width, in data/axis units (must be > 0.0).
      * 
@@ -134,7 +134,7 @@ public class XYBlockRenderer extends AbstractXYItemRenderer
         }
         this.blockWidth = width;
         updateOffsets();
-        this.notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**
@@ -149,7 +149,8 @@ public class XYBlockRenderer extends AbstractXYItemRenderer
     }
     
     /**
-     * Sets the height of the blocks used to represent each data item.
+     * Sets the height of the blocks used to represent each data item and
+     * sends a {@link RendererChangeEvent} to all registered listeners.
      * 
      * @param height  the new height, in data/axis units (must be > 0.0).
      * 
@@ -162,7 +163,7 @@ public class XYBlockRenderer extends AbstractXYItemRenderer
         }
         this.blockHeight = height;
         updateOffsets();
-        this.notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**
@@ -194,7 +195,7 @@ public class XYBlockRenderer extends AbstractXYItemRenderer
         }
         this.blockAnchor = anchor;
         updateOffsets();
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**
@@ -210,7 +211,8 @@ public class XYBlockRenderer extends AbstractXYItemRenderer
     }
     
     /**
-     * Sets the paint scale used by the renderer.
+     * Sets the paint scale used by the renderer and sends a 
+     * {@link RendererChangeEvent} to all registered listeners.
      * 
      * @param scale  the scale (<code>null</code> not permitted).
      * 
@@ -222,7 +224,7 @@ public class XYBlockRenderer extends AbstractXYItemRenderer
             throw new IllegalArgumentException("Null 'scale' argument.");
         }
         this.paintScale = scale;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**

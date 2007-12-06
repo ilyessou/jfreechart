@@ -46,7 +46,6 @@
  * 17-Jan-2007 : Fixed bug in drawDomainGridline() method and added
  *               argument check to setWallPaint() (DG);
  * 03-Apr-2007 : Fixed bugs in drawBackground() method (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 16-Oct-2007 : Fixed bug in range marker drawing (DG);
  * 
  */
@@ -78,11 +77,11 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.ValueMarker;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.SerialUtilities;
-import org.jfree.chart.util.ShapeUtilities;
 import org.jfree.data.Range;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.ShapeUtilities;
 
 /**
  * A line renderer with a 3D effect.
@@ -155,7 +154,7 @@ public class LineRenderer3D extends LineAndShapeRenderer
      */
     public void setXOffset(double xOffset) {
         this.xOffset = xOffset;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -168,7 +167,7 @@ public class LineRenderer3D extends LineAndShapeRenderer
      */
     public void setYOffset(double yOffset) {
         this.yOffset = yOffset;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -197,7 +196,7 @@ public class LineRenderer3D extends LineAndShapeRenderer
             throw new IllegalArgumentException("Null 'paint' argument.");
         }
         this.wallPaint = paint;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
    
     /**

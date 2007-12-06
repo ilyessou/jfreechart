@@ -39,11 +39,10 @@
  * 29-Jan-2004 : Replaced 'extract' int with TableOrder (DG);
  * 11-Jan-2005 : Removed deprecated code in preparation for the 1.0.0 
  *               release (DG);
- * ------------- JFREECHART 1.0.x RELEASED ------------------------------------
+ * ------------- JFREECHART 1.0.0 RELEASED ------------------------------------
  * 26-Jul-2006 : Added serialVersionUID, changed constructor to allow null
  *               for source, and added getSource(), getExtractType() and
  *               getExtractIndex() methods - see feature request 1477915 (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 
  */
 
@@ -52,11 +51,11 @@ package org.jfree.data.category;
 import java.util.Collections;
 import java.util.List;
 
-import org.jfree.chart.util.TableOrder;
 import org.jfree.data.general.AbstractDataset;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.PieDataset;
+import org.jfree.util.TableOrder;
 
 /**
  * A {@link PieDataset} implementation that obtains its data from one row or 
@@ -65,6 +64,7 @@ import org.jfree.data.general.PieDataset;
 public class CategoryToPieDataset extends AbstractDataset 
                                   implements PieDataset, DatasetChangeListener {
 
+    /** For serialization. */
     static final long serialVersionUID = 5516396319762189617L;
 
     /** The source. */

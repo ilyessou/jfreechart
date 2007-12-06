@@ -24,9 +24,9 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc. 
  * in the United States and other countries.]
  *
- * -------------------------
+ * ---------------------------
  * StandardDialFrameTests.java
- * -------------------------
+ * ---------------------------
  * (C) Copyright 2006-2007, by Object Refinery Limited and Contributors.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
@@ -35,6 +35,7 @@
  * Changes
  * -------
  * 03-Nov-2006 : Version 1 (DG);
+ * 29-Oct-2007 : Renamed StandardDialFrameTests (DG);
  *
  */
 

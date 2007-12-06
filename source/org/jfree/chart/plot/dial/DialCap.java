@@ -27,7 +27,7 @@
  * ------------
  * DialCap.java
  * ------------
- * (C) Copyright 2006, by Object Refinery Limited.
+ * (C) Copyright 2006, 2007, by Object Refinery Limited.
  *
  * Original Author:  David Gilbert (for Object Refinery Limited);
  * Contributor(s):   -;
@@ -35,7 +35,6 @@
  * Changes
  * -------
  * 03-Nov-2006 : Version 1 (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  * 17-Oct-2007 : Updated equals() method (DG);
  * 
  */
@@ -54,10 +53,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import org.jfree.chart.util.HashUtilities;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.SerialUtilities;
+import org.jfree.chart.HashUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.PaintUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A regular dial layer that can be used to draw a cap over the center of 
@@ -68,6 +67,9 @@ import org.jfree.chart.util.SerialUtilities;
 public class DialCap extends AbstractDialLayer implements DialLayer, Cloneable, 
         PublicCloneable, Serializable {
     
+    /** For serialization. */
+    static final long serialVersionUID = -2929484264982524463L;
+
     /**
      * The radius of the cap, as a percentage of the framing rectangle.
      */

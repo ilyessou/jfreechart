@@ -49,8 +49,7 @@
  * 21-Feb-2005 : The getLegendItems() method now returns the fixed legend
  *               items if set (DG);
  * 05-May-2005 : Updated draw() method parameters (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 
+ * 14-Nov-2007 : Updated setFixedDomainAxisSpaceForSubplots() method (DG);
  */
  
 package org.jfree.chart.plot;
@@ -72,11 +71,11 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.event.PlotChangeEvent;
 import org.jfree.chart.event.PlotChangeListener;
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.RectangleInsets;
 import org.jfree.data.Range;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A combined category plot where the range axis is shared.
@@ -443,13 +442,11 @@ public class CombinedRangeCategoryPlot extends CategoryPlot
      * @param space  the space.
      */
     protected void setFixedDomainAxisSpaceForSubplots(AxisSpace space) {
-
         Iterator iterator = this.subplots.iterator();
         while (iterator.hasNext()) {
             CategoryPlot plot = (CategoryPlot) iterator.next();
-            plot.setFixedDomainAxisSpace(space);
+            plot.setFixedDomainAxisSpace(space, false);
         }
-
     }
 
     /**

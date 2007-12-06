@@ -89,7 +89,6 @@
  * 02-Feb-2007 : Removed author tags all over JFreeChart sources (DG);
  * 02-Mar-2007 : Applied patch 1671069 to fix zooming (DG);
  * 22-Mar-2007 : Use new defaultAutoRange attribute (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -103,9 +102,9 @@ import java.util.List;
 
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.ValueAxisPlot;
-import org.jfree.chart.text.TextAnchor;
-import org.jfree.chart.util.RectangleEdge;
 import org.jfree.data.Range;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.TextAnchor;
 
 /**
  * A numerical axis that uses a logarithmic scale.
@@ -700,8 +699,7 @@ public class LogarithmicAxis extends NumberAxis {
      */
     public void zoomRange(double lowerPercent, double upperPercent) {
         double startLog = switchedLog10(getRange().getLowerBound());
-        double lengthLog = switchedLog10(getRange().getUpperBound()) -
-                           startLog;
+        double lengthLog = switchedLog10(getRange().getUpperBound()) - startLog;
         Range adjusted;
 
         if (isInverted()) {

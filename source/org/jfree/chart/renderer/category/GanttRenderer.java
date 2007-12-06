@@ -46,8 +46,6 @@
  * ------------- JFREECHART 1.0.x --------------------------------------------
  * 17-Jan-2006 : Set includeBaseInRange flag to false (DG);
  * 20-Mar-2007 : Implemented equals() and fixed serialization (DG);
- * 20-Jun-2007 : Removed JCommon dependencies (DG);
- * 29-Jun-2007 : Simplified entity generation by calling addEntity() (DG);
  * 
  */
 
@@ -65,16 +63,18 @@ import java.io.Serializable;
 
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.entity.CategoryItemEntity;
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.event.RendererChangeEvent;
 import org.jfree.chart.labels.CategoryItemLabelGenerator;
+import org.jfree.chart.labels.CategoryToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.RectangleEdge;
-import org.jfree.chart.util.SerialUtilities;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.gantt.GanttCategoryDataset;
+import org.jfree.io.SerialUtilities;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.util.PaintUtilities;
 
 /**
  * A renderer for simple Gantt charts.
@@ -139,7 +139,7 @@ public class GanttRenderer extends IntervalBarRenderer
             throw new IllegalArgumentException("Null 'paint' argument.");
         }
         this.completePaint = paint;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**
@@ -166,7 +166,7 @@ public class GanttRenderer extends IntervalBarRenderer
             throw new IllegalArgumentException("Null 'paint' argument.");
         }
         this.incompletePaint = paint;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**
@@ -183,7 +183,8 @@ public class GanttRenderer extends IntervalBarRenderer
     
     /**
      * Sets the position of the start of the progress indicator, as a 
-     * percentage of the bar width.
+     * percentage of the bar width, and sends a {@link RendererChangeEvent} to
+     * all registered listeners.
      * 
      * @param percent  the percent.
      * 
@@ -191,7 +192,7 @@ public class GanttRenderer extends IntervalBarRenderer
      */
     public void setStartPercent(double percent) {
         this.startPercent = percent;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**
@@ -208,7 +209,8 @@ public class GanttRenderer extends IntervalBarRenderer
     
     /**
      * Sets the position of the end of the progress indicator, as a percentage 
-     * of the bar width.
+     * of the bar width, and sends a {@link RendererChangeEvent} to all 
+     * registered listeners.
      * 
      * @param percent  the percent.
      * 
@@ -216,7 +218,7 @@ public class GanttRenderer extends IntervalBarRenderer
      */
     public void setEndPercent(double percent) {
         this.endPercent = percent;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
     
     /**
@@ -378,7 +380,20 @@ public class GanttRenderer extends IntervalBarRenderer
             if (state.getInfo() != null) {
                 EntityCollection entities = state.getEntityCollection();
                 if (entities != null) {
-                    addItemEntity(entities, dataset, row, column, bar);
+                    String tip = null;
+                    if (getToolTipGenerator(row, column) != null) {
+                        tip = getToolTipGenerator(row, column).generateToolTip(
+                                dataset, row, column);
+                    }
+                    String url = null;
+                    if (getItemURLGenerator(row, column) != null) {
+                        url = getItemURLGenerator(row, column).generateURL(
+                                dataset, row, column);
+                    }
+                    CategoryItemEntity entity = new CategoryItemEntity(
+                            bar, tip, url, dataset, dataset.getRowKey(row), 
+                            dataset.getColumnKey(column));
+                    entities.add(entity);
                 }
             }
         }
@@ -510,10 +525,27 @@ public class GanttRenderer extends IntervalBarRenderer
         }        
 
         // collect entity and tool tip information...
-        EntityCollection entities = state.getEntityCollection();
-        if (entities != null) {
-            addItemEntity(entities, dataset, row, column, bar);
+        if (state.getInfo() != null) {
+            EntityCollection entities = state.getEntityCollection();
+            if (entities != null) {
+                String tip = null;
+                CategoryToolTipGenerator tipster = getToolTipGenerator(row, 
+                        column);
+                if (tipster != null) {
+                    tip = tipster.generateToolTip(dataset, row, column);
+                }
+                String url = null;
+                if (getItemURLGenerator(row, column) != null) {
+                    url = getItemURLGenerator(row, column).generateURL(
+                            dataset, row, column);
+                }
+                CategoryItemEntity entity = new CategoryItemEntity(bar, tip, 
+                        url, dataset, dataset.getRowKey(row), 
+                        dataset.getColumnKey(column));
+                entities.add(entity);
+            }
         }
+
     }
     
     /**

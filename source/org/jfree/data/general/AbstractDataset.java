@@ -99,9 +99,7 @@ public abstract class AbstractDataset implements Dataset,
     /**
      * Returns the dataset group for the dataset.
      *
-     * @return The group (never <code>null</code>).
-     * 
-     * @see #setGroup(DatasetGroup)
+     * @return The group.
      */
     public DatasetGroup getGroup() {
         return this.group;
@@ -111,8 +109,6 @@ public abstract class AbstractDataset implements Dataset,
      * Sets the dataset group for the dataset.
      *
      * @param group  the group (<code>null</code> not permitted).
-     * 
-     * @see #getGroup()
      */
     public void setGroup(DatasetGroup group) {
         if (group == null) {
@@ -125,8 +121,6 @@ public abstract class AbstractDataset implements Dataset,
      * Registers an object to receive notification of changes to the dataset.
      *
      * @param listener  the object to register.
-     * 
-     * @see #removeChangeListener(DatasetChangeListener)
      */
     public void addChangeListener(DatasetChangeListener listener) {
         this.listenerList.add(DatasetChangeListener.class, listener);
@@ -137,8 +131,6 @@ public abstract class AbstractDataset implements Dataset,
      * changes to the dataset.
      *
      * @param listener  the object to deregister.
-     * 
-     * @see #addChangeListener(DatasetChangeListener)
      */
     public void removeChangeListener(DatasetChangeListener listener) {
         this.listenerList.remove(DatasetChangeListener.class, listener);
@@ -152,9 +144,6 @@ public abstract class AbstractDataset implements Dataset,
      * @param listener  the listener.
      * 
      * @return A boolean.
-     * 
-     * @see #addChangeListener(DatasetChangeListener)
-     * @see #removeChangeListener(DatasetChangeListener)
      */
     public boolean hasListener(EventListener listener) {
         List list = Arrays.asList(this.listenerList.getListenerList());
@@ -163,8 +152,6 @@ public abstract class AbstractDataset implements Dataset,
     
     /**
      * Notifies all registered listeners that the dataset has changed.
-     * 
-     * @see #addChangeListener(DatasetChangeListener)
      */
     protected void fireDatasetChanged() {
         notifyListeners(new DatasetChangeEvent(this, this));
@@ -175,9 +162,6 @@ public abstract class AbstractDataset implements Dataset,
      *
      * @param event  contains information about the event that triggered the 
      *               notification.
-     *               
-     * @see #addChangeListener(DatasetChangeListener)
-     * @see #removeChangeListener(DatasetChangeListener)
      */
     protected void notifyListeners(DatasetChangeEvent event) {
 
@@ -185,7 +169,8 @@ public abstract class AbstractDataset implements Dataset,
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == DatasetChangeListener.class) {
                 ((DatasetChangeListener) listeners[i + 1]).datasetChanged(
-                        event);
+                    event
+                );
             }
         }
 
@@ -252,7 +237,7 @@ public abstract class AbstractDataset implements Dataset,
      * @exception InvalidObjectException If the object cannot validate itself.
      */
     public void validateObject() throws InvalidObjectException {
-        fireDatasetChanged();
+       fireDatasetChanged();
     }
    
 }

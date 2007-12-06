@@ -53,17 +53,20 @@
  *               than maximum draw width/height (HP);
  * 23-May-2007 : Added some dispose call to free SWT resources, patch sent by 
  *               Cédric Chabanois (CC);
- * 06-Jun-2007 : Fixed minor issues with tooltips. bug reported and fix proposed 
- *               by Christoph Beck, bug 1726404 (HP);
- * 04-Jul-2007 : Added addChartMouseListener and removeChartMouseListener 
+ * 06-Jun-2007 : Fixed minor issues with tooltips. bug reported and fix 
+ *               proposed by Christoph Beck, bug 1726404 (HP);
+ * 22-Oct-2007 : Added addChartMouseListener and removeChartMouseListener 
  *               methods as suggested by Christoph Beck, bug 1742002 (HP);
- * 06-Jul-2007 : Fixed bug in zooming with multiple plots (HP);
- * 06-Jul-2007 : Check for null zoom point when restoring auto range and domain
+ * 22-Oct-2007 : Fixed bug in zooming with multiple plots (HP);
+ * 22-Oct-2007 : Check for null zoom point when restoring auto range and domain
  *               bounds (HP);
- * 25-Jul-2007 : Pass mouse moved events to listening ChartMouseListeners (HP);
- * 27-Aug-2007 : Refactored class, now implements PaintListener, MouseListener, 
- *               MouseMoveListener. Made the chart field be private again and
- *               added new method addSWTListener to allow custom behavior. 
+ * 22-Oct-2007 : Pass mouse moved events to listening ChartMouseListeners (HP);
+ * 22-Oct-2007 : Refactored class, now implements PaintListener, MouseListener, 
+ *               MouseMoveListener. Made the chart field be private again and 
+ *               added new method addSWTListener to allow custom behavior.
+ * 14-Nov-2007 : Create canvas with SWT.DOUBLE_BUFFER, added 
+ *               getChartRenderingInfo(), is/setDomainZoomable() and 
+ *               is/setRangeZoomable() as per feature request (DG);
  */
 
 package org.jfree.experimental.chart.swt;
@@ -86,16 +89,13 @@ import javax.swing.event.EventListenerList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.events.DragDetectListener;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.HelpListener;
 import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.events.MenuDetectListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
-import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionEvent;
@@ -145,7 +145,8 @@ public class ChartComposite extends Composite implements ChartChangeListener,
                                                          SelectionListener,
                                                          MouseListener,
                                                          MouseMoveListener,
-                                                         Printable {
+                                                         Printable
+{
     /** Default setting for buffer usage. */
     public static final boolean DEFAULT_BUFFER_USED = false;
 
@@ -528,7 +529,7 @@ public class ChartComposite extends Composite implements ChartChangeListener,
         this.zoomTriggerDistance = DEFAULT_ZOOM_TRIGGER_DISTANCE;
         this.setDisplayToolTips(tooltips);
         // create the canvas and add the required listeners
-        this.canvas = new Canvas(this, SWT.NO_BACKGROUND);
+        this.canvas = new Canvas(this, SWT.DOUBLE_BUFFERED | SWT.NO_BACKGROUND);
         this.canvas.addPaintListener(this);
         this.canvas.addMouseListener(this);
         this.canvas.addMouseMoveListener(this);
@@ -639,6 +640,73 @@ public class ChartComposite extends Composite implements ChartChangeListener,
     }
 
     /**
+     * Returns the chart rendering info from the most recent chart redraw.
+     *
+     * @return The chart rendering info (possibly <code>null</code>).
+     */
+    public ChartRenderingInfo getChartRenderingInfo() {
+        return this.info;
+    }
+    
+    /**
+     * Returns the flag that determines whether or not zooming is enabled for 
+     * the domain axis.
+     * 
+     * @return A boolean.
+     */
+    public boolean isDomainZoomable() {
+        return this.domainZoomable;
+    }
+    
+    /**
+     * Sets the flag that controls whether or not zooming is enable for the 
+     * domain axis.  A check is made to ensure that the current plot supports
+     * zooming for the domain values.
+     *
+     * @param flag  <code>true</code> enables zooming if possible.
+     */
+    public void setDomainZoomable(boolean flag) {
+        if (flag) {
+            Plot plot = this.chart.getPlot();
+            if (plot instanceof Zoomable) {
+                Zoomable z = (Zoomable) plot;
+                this.domainZoomable = flag && (z.isDomainZoomable());  
+            }
+        }
+        else {
+            this.domainZoomable = false;
+        }
+    }
+
+    /**
+     * Returns the flag that determines whether or not zooming is enabled for 
+     * the range axis.
+     * 
+     * @return A boolean.
+     */
+    public boolean isRangeZoomable() {
+        return this.rangeZoomable;
+    }
+    
+    /**
+     * A flag that controls mouse-based zooming on the vertical axis.
+     *
+     * @param flag  <code>true</code> enables zooming.
+     */
+    public void setRangeZoomable(boolean flag) {
+        if (flag) {
+            Plot plot = this.chart.getPlot();
+            if (plot instanceof Zoomable) {
+                Zoomable z = (Zoomable) plot;
+                this.rangeZoomable = flag && (z.isRangeZoomable());  
+            }
+        }
+        else {
+            this.rangeZoomable = false;
+        }
+    }
+
+    /**
      * Returns the zoom in factor.
      * 
      * @return The zoom in factor.
@@ -689,7 +757,7 @@ public class ChartComposite extends Composite implements ChartChangeListener,
     private void attemptEditChartProperties() {
         SWTChartEditor editor = new SWTChartEditor(this.canvas.getDisplay(), 
                 this.chart);
-        // ChartEditorManager.getChartEditor(canvas.getDisplay(), this.chart);
+        //ChartEditorManager.getChartEditor(canvas.getDisplay(), this.chart);
         editor.open();
     }
 
@@ -858,7 +926,7 @@ public class ChartComposite extends Composite implements ChartChangeListener,
         PlotRenderingInfo plotInfo = this.info.getPlotInfo();
         Rectangle scaledDataArea = getScreenDataArea(
                 (selection.x + selection.width / 2), 
-                (selection.y + selection.height / 2));
+                (selection.y + selection.height/2));
         if ((selection.height > 0) && (selection.width > 0)) {
 
             double hLower = (selection.x - scaledDataArea.x) 
@@ -1470,41 +1538,29 @@ public class ChartComposite extends Composite implements ChartChangeListener,
     public void addSWTListener(SWTEventListener listener) {
         if (listener instanceof ControlListener) {
             this.canvas.addControlListener((ControlListener) listener);
-        } 
-        else if (listener instanceof DisposeListener) {
+        } else if (listener instanceof DisposeListener) {
             this.canvas.addDisposeListener((DisposeListener) listener);
-        } 
-        else if (listener instanceof DragDetectListener) {
-            this.canvas.addDragDetectListener((DragDetectListener) listener);
-        } 
-        else if (listener instanceof FocusListener) {
+//      } else if (listener instanceof DragDetectListener) {
+//          this.canvas.addDragDetectListener((DragDetectListener) listener);
+        } else if (listener instanceof FocusListener) {
             this.canvas.addFocusListener((FocusListener) listener);
-        } 
-        else if (listener instanceof HelpListener) {
+        } else if (listener instanceof HelpListener) {
             this.canvas.addHelpListener((HelpListener) listener);
-        } 
-        else if (listener instanceof KeyListener) {
+        } else if (listener instanceof KeyListener) {
             this.canvas.addKeyListener((KeyListener) listener);
-        } 
-        else if (listener instanceof MenuDetectListener) {
-            this.canvas.addMenuDetectListener((MenuDetectListener) listener);
-        } 
-        else if (listener instanceof MouseListener) {
+//      } else if (listener instanceof MenuDetectListener) {
+//          this.canvas.addMenuDetectListener((MenuDetectListener) listener);
+        } else if (listener instanceof MouseListener) {
             this.canvas.addMouseListener((MouseListener) listener);
-        } 
-        else if (listener instanceof MouseMoveListener) {
+        } else if (listener instanceof MouseMoveListener) {
             this.canvas.addMouseMoveListener((MouseMoveListener) listener);
-        } 
-        else if (listener instanceof MouseTrackListener) {
+        } else if (listener instanceof MouseTrackListener) {
             this.canvas.addMouseTrackListener((MouseTrackListener) listener);
-        } 
-        else if (listener instanceof MouseWheelListener) {
-            this.canvas.addMouseWheelListener((MouseWheelListener) listener);
-        } 
-        else if (listener instanceof PaintListener) {
+//      } else if (listener instanceof MouseWheelListener) {
+//          this.canvas.addMouseWheelListener((MouseWheelListener) listener);
+        } else if (listener instanceof PaintListener) {
             this.canvas.addPaintListener((PaintListener) listener);
-        } 
-        else if (listener instanceof TraverseListener) {
+        } else if (listener instanceof TraverseListener) {
             this.canvas.addTraverseListener((TraverseListener) listener);
         } 
     }

@@ -68,6 +68,7 @@ public class ChartPackageTests extends TestCase {
         suite.addTestSuite(ChartPanelTests.class);
         suite.addTestSuite(ChartRenderingInfoTests.class);
         suite.addTestSuite(GanttChartTests.class);
+        suite.addTestSuite(HashUtilitiesTests.class);
         suite.addTestSuite(JFreeChartTests.class);
         suite.addTestSuite(LegendItemTests.class);
         suite.addTestSuite(LegendItemCollectionTests.class);

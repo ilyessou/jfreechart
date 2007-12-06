@@ -37,7 +37,6 @@
  * 05-Feb-2003 : Version 1 (DG);
  * 27-Jan-2003 : Implemented Cloneable and Serializable, and added an equals()
  *               method (DG);
- * 21-Jun-2007 : Removed JCommon dependencies (DG);
  *
  */
 
@@ -45,9 +44,8 @@ package org.jfree.data;
 
 import java.io.Serializable;
 
-import org.jfree.chart.util.ObjectUtilities;
-import org.jfree.chart.util.PublicCloneable;
-
+import org.jfree.util.ObjectUtilities;
+import org.jfree.util.PublicCloneable;
 
 /**
  * A (key, object) pair.

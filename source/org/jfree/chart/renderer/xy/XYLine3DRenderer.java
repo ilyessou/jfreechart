@@ -52,8 +52,8 @@ import java.io.Serializable;
 
 import org.jfree.chart.Effect3D;
 import org.jfree.chart.event.RendererChangeEvent;
-import org.jfree.chart.util.PaintUtilities;
-import org.jfree.chart.util.SerialUtilities;
+import org.jfree.io.SerialUtilities;
+import org.jfree.util.PaintUtilities;
 
 /**
  * A XYLineAndShapeRenderer that adds a shadow line to the graph
@@ -118,7 +118,7 @@ public class XYLine3DRenderer extends XYLineAndShapeRenderer
      */
     public void setXOffset(double xOffset) {
         this.xOffset = xOffset;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -129,7 +129,7 @@ public class XYLine3DRenderer extends XYLineAndShapeRenderer
      */
     public void setYOffset(double yOffset) {
         this.yOffset = yOffset;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
@@ -144,13 +144,14 @@ public class XYLine3DRenderer extends XYLineAndShapeRenderer
 
     /**
      * Sets the paint used to hightlight the left and bottom walls in the plot 
-     * background.
+     * background and sends a {@link RendererChangeEvent} to all registered
+     * listeners.
      *
      * @param paint  the paint.
      */
     public void setWallPaint(Paint paint) {
         this.wallPaint = paint;
-        notifyListeners(new RendererChangeEvent(this));
+        fireChangeEvent();
     }
 
     /**
